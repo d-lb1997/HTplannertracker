@@ -1,7 +1,332 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HT Discovery: Change and Adoption</title>
-<style>body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#18202f;background:#fff;display:grid;place-items:center;min-height:100vh;padding:24px;text-align:center}
-@media (prefers-color-scheme:dark){body{background:#0f1626;color:#e8ecf6}}
-p{max-width:46ch;color:#525d78}@media (prefers-color-scheme:dark){p{color:#9aa6c4}}</style></head>
-<body><div><h1>Change and Adoption</h1><p>Placeholder. Replace this file with the Change and Adoption plan and tracker page.</p></div></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HT Discovery: Change and Adoption plan and tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#ffffff; --surface:#ffffff; --surface2:#eef1f7; --ink:#18202f; --muted:#525d78; --line:#d8deeb;
+  --accent:#2e4e95; --accent-ink:#ffffff; --accent-soft:#e3e9f6; --red:#b22420; --red-soft:#f9e3e2;
+  --done:#1b7a4f; --warn:#b22420; --warn-soft:#fbe9e8; --focus:#2e4e95;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root{color-scheme:light}
+}
+:root[data-theme="dark"]{
+  --bg:#0f1626; --surface:#172036; --surface2:#1f2a46; --ink:#e8ecf6; --muted:#9aa6c4; --line:#2a3552;
+  --accent:#8ea8e8; --accent-ink:#0f1626; --accent-soft:#1f2d58; --red:#ff8782; --red-soft:#3b2023;
+  --done:#4cc58c; --warn:#ff8782; --warn-soft:#3a2022; --focus:#b3c5f2; color-scheme:dark;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:30}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+header.top{padding:26px 0 8px;border-top:6px solid transparent;border-image:linear-gradient(90deg,var(--accent) 0 64%,var(--red) 64% 100%) 1}
+header.top h1{font-size:clamp(1.55rem,3.4vw,2.15rem);line-height:1.15;margin:0 0 6px;font-weight:800;letter-spacing:-.015em}
+header.top p{margin:0;color:var(--muted);max-width:68ch}
+.overall{display:flex;gap:14px;align-items:center;margin:16px 0 4px;flex-wrap:wrap}
+.bar{height:10px;background:var(--surface2);border-radius:99px;overflow:hidden;flex:1;min-width:160px}
+.bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.overall b{font-variant-numeric:tabular-nums}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 0;margin:0 -18px;padding-left:18px;padding-right:18px}
+nav.tabs a{padding:8px 14px;border-radius:99px;text-decoration:none;color:var(--muted);font-weight:600;white-space:nowrap}
+nav.tabs a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+section.pane{display:none;padding-top:22px}
+section.pane.on{display:block}
+h2{font-size:1.35rem;margin:0 0 4px;letter-spacing:-.01em}
+h3{font-size:1.05rem;margin:22px 0 8px}
+.lede{color:var(--muted);margin:0 0 16px;max-width:70ch}
+/* calendar strip */
+.strip{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;overflow-x:auto}
+.srow{display:grid;grid-template-columns:96px repeat(5,minmax(74px,1fr));gap:6px;align-items:stretch;min-width:520px}
+.srow+.srow{margin-top:6px}
+.srow .wl{font-weight:700;font-size:.82rem;display:flex;flex-direction:column;justify-content:center;line-height:1.25}
+.srow .wl span{font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.shead{font-size:.74rem;color:var(--muted);text-align:center;font-weight:600}
+.day{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 7px 7px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:3px;min-height:76px}
+.day:hover{border-color:var(--accent)}
+.day[aria-pressed="true"]{outline:3px solid var(--accent);outline-offset:0}
+.day.xd{background:var(--accent-soft)}
+.day.today{box-shadow:inset 0 0 0 2px var(--ink)}
+.day .dn{font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;align-items:baseline}
+.day .dn small{font-weight:600;color:var(--muted);font-size:.68rem}
+.day .ss{font-size:.68rem;line-height:1.2;color:var(--muted);flex:1}
+.day.xd .ss{color:var(--ink)}
+.day .mb{height:5px;border-radius:9px;background:var(--surface2);overflow:hidden}
+.day .mb i{display:block;height:100%;background:var(--done);width:0}
+.legend{font-size:.8rem;color:var(--muted);margin:8px 2px 0;display:flex;gap:14px;flex-wrap:wrap}
+.sw{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--accent-soft);border:1px solid var(--accent);vertical-align:-1px;margin-right:4px}
+/* filters */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 10px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:5px 12px;font:inherit;font-size:.86rem;font-weight:600;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.linkbtn{background:none;border:0;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;padding:4px 6px;text-decoration:underline}
+.next{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:12px;padding:14px 16px;margin:14px 0 6px}
+.next h3{margin:0 0 6px}
+/* tasks */
+.wk{margin:26px 0 0}
+.wk>h3{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 4px;font-size:1.1rem}
+.wk>h3 span{font-size:.82rem;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums}
+.dayh{font-size:.86rem;font-weight:700;color:var(--muted);margin:14px 0 4px;display:flex;gap:8px;flex-wrap:wrap}
+.dayh em{font-style:normal;font-weight:600;color:var(--ink);background:var(--accent-soft);border-radius:6px;padding:0 7px}
+.task{display:flex;gap:11px;align-items:flex-start;padding:9px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin:0 0 6px}
+.task input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--accent);cursor:pointer}
+.task label{flex:1;cursor:pointer}
+.task .tag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:6px;vertical-align:1px;background:var(--surface2);color:var(--muted)}
+.task .tag.cust{background:var(--red-soft);color:var(--red)}
+.task .tag.ws{background:var(--accent-soft);color:var(--ink)}
+.task .tag.signoff{background:var(--accent);color:var(--accent-ink)}
+.task.done{background:var(--surface2)}
+.task.done label span.tx{color:var(--muted)}
+.task.done label span.tx{text-decoration:line-through}
+.empty{color:var(--muted);padding:14px 4px}
+/* generic blocks */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 14px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.tbl{overflow-x:auto;margin:8px 0 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--surface2);font-size:.82rem;font-weight:700}
+tr:last-child td{border-bottom:0}
+td.t{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:700}
+details.pb{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin:0 0 12px}
+details.pb>summary{cursor:pointer;padding:14px 18px;font-weight:700;font-size:1.02rem;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.pb>summary::-webkit-details-marker{display:none}
+details.pb>summary::after{content:"+";font-weight:800;color:var(--accent)}
+details.pb[open]>summary::after{content:"\2212"}
+details.pb .in{padding:0 18px 16px}
+details.pb .meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.88rem;color:var(--muted);margin:0 0 8px}
+ul.plain{margin:6px 0 10px;padding-left:20px}
+ul.plain li{margin:3px 0}
+.note{background:var(--warn-soft);border-left:5px solid var(--warn);border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.94rem}
+.note b{color:var(--warn)}
+.pill{display:inline-block;font-size:.76rem;font-weight:700;border-radius:99px;padding:1px 9px;background:var(--surface2)}
+/* customization */
+.dim{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.dim h4{margin:0 0 8px;font-size:.98rem}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:8px 10px;display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-size:.88rem}
+.opt input{margin-top:3px;accent-color:var(--accent)}
+.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.opt b{display:block;font-size:.8rem}
+.result{background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:16px 18px;margin:14px 0;border-bottom:5px solid var(--red)}
+.result h3{margin:0 0 6px;color:var(--accent-ink)}
+.meter{display:grid;grid-template-columns:150px 1fr 70px;gap:8px;align-items:center;font-size:.84rem;margin:5px 0}
+.meter .mt{height:8px;border-radius:9px;background:color-mix(in srgb,var(--accent-ink) 28%,transparent);overflow:hidden}
+.meter .mt i{display:block;height:100%;background:var(--accent-ink)}
+.cardrow{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.cardrow:last-child{border-bottom:0}
+select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.tiers{display:inline-block;font-size:.72rem;font-weight:700;border-radius:6px;padding:0 6px;margin-left:6px;background:var(--surface2);color:var(--muted)}
+.tiers.plus{background:var(--accent-soft);color:var(--accent)}
+.tiers.pitch{background:var(--red-soft);color:var(--red)}
+.mgroup{margin:0 0 18px}
+.mgroup h3{margin:0 0 6px}
+.resetrow{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}
+@media (max-width:620px){
+  .meter{grid-template-columns:110px 1fr 56px}
+  .cardrow{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+.tbl td.wrap, .tbl th.wrap{white-space:normal}
+.logtbl input,.logtbl select{width:100%;min-width:90px;font:inherit;font-size:.86rem;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.logtbl td{padding:6px 8px}
+.logtbl .del{white-space:nowrap}
+.addrow{margin:0 0 18px}
+.subtle{color:var(--muted);font-size:.9rem}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:8px 0 16px}
+.kv .card{margin:0}
+.kv .card h4{margin:0 0 6px;font-size:1rem}
+.kv .card p,.kv .card ul{margin:0;font-size:.92rem;color:var(--muted)}
+.kv .card ul{padding-left:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1 id="h1"></h1>
+  <p id="intro"></p>
+  <div class="overall"><div class="bar" role="progressbar" aria-label="Overall progress" aria-valuemin="0" aria-valuemax="100" id="ovbar"><i id="ovfill"></i></div><span><b id="ovtxt">0 of 0</b> items done</span></div>
+</header>
+<nav class="tabs" id="tabs" aria-label="Sections"></nav>
+<div id="panes"></div>
+<div class="resetrow">Progress and entries live in this browser only. <button class="linkbtn" id="resetbtn">Reset everything</button></div>
+</div>
+<script>
+(function(){
+"use strict";
+var CFG={"key": "ht-change-adoption-v1", "title": "HT Discovery: Change and Adoption plan and tracker", "intro": "Your workstream as Change Manager, Mon 9 Nov to Fri 4 Dec 2026. Built from the Workshop and Meeting Schedule, the Pre-Discovery Kickoff and Plan, the business case, the Connected Workforce pitch and Slalom Connect! 2026. Tick tasks as you go; progress is saved in this browser.", "stripNote": "Pick a day to focus on it, or scroll the full list. Blue days are sessions where the schedule lists you (CM) as a Slalom attendee. Today is outlined.", "ownerLabel": "You are in the session (CM)", "weeks": [{"k": "w0", "label": "Week −1", "sub": "Prepare", "days": ["2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06"]}, {"k": "w1", "label": "Week 1", "sub": "Mobilise and learn", "days": ["2026-11-09", "2026-11-10", "2026-11-11", "2026-11-12", "2026-11-13"]}, {"k": "w2", "label": "Week 2", "sub": "Design and sign off", "days": ["2026-11-16", "2026-11-17", "2026-11-18", "2026-11-19", "2026-11-20"]}, {"k": "w3", "label": "Week 3", "sub": "Architecture and sign off", "days": ["2026-11-23", "2026-11-24", "2026-11-25", "2026-11-26", "2026-11-27"]}, {"k": "w4", "label": "Week 4", "sub": "Playback and consolidate", "days": ["2026-11-30", "2026-12-01", "2026-12-02", "2026-12-03", "2026-12-04"]}], "sess": {"2026-11-02": ["Read and set up", 0], "2026-11-03": ["Workplan, interview questions", 0], "2026-11-04": ["Stakeholders, impact view", 0], "2026-11-05": ["Champions, baselines", 0], "2026-11-06": ["Narrative prep", 0], "2026-11-09": ["Kickoff #1", 1], "2026-11-10": ["Vision #3, interviews #4", 1], "2026-11-11": ["Stakeholder map #5", 1], "2026-11-12": ["Personas #8, works council #10", 1], "2026-11-13": ["Risk Gate 1 input", 0], "2026-11-16": ["Design day 1 #12", 1], "2026-11-17": ["Design day 2 #13", 1], "2026-11-18": ["Narrative #14, champions #15", 1], "2026-11-19": ["Usability #17", 1], "2026-11-20": ["Prototype sign-off #18", 1], "2026-11-23": ["Draft approach", 0], "2026-11-24": ["Design sign-off #21", 1], "2026-11-25": ["Change review #23", 1], "2026-11-26": ["Pre-wire sign-off", 0], "2026-11-27": ["Change sign-off #26", 1], "2026-11-30": ["Roadmap measures", 0], "2026-12-01": ["Delivery planning #27", 1], "2026-12-02": ["Playback #28", 1], "2026-12-03": ["Hand-off", 0], "2026-12-04": ["Final acceptance #29", 0]}, "tags": {"prep": ["Prep", ""], "stake": ["Stakeholders", ""], "comms": ["Comms", ""], "champ": ["Champions", "cust"], "measure": ["Measures", "cust"], "ws": ["Workshop", "ws"], "signoff": ["Sign-off", "signoff"], "res": ["Research", ""]}, "filters": [["ws", "Workshop"], ["res", "Research"], ["stake", "Stakeholders"], ["comms", "Comms"], ["champ", "Champions"], ["measure", "Measures"], ["signoff", "Sign-off"], ["prep", "Prep"]], "tasks": [["c01", "2026-11-02", "prep", "Read the Pre-Discovery Kickoff and Plan. Mark everything under Change and adoption (owner: Change Manager) and sessions #1, #3, #4, #5, #10, #14, #15, #23, #26."], ["c02", "2026-11-02", "prep", "Read the business case and the pitch for change content: 2,000+ frontline non-email users, five user groups consulted, “cultural transformation”, Option B first, and the pitch targets (80%+ adoption in six months, +20% engagement, 15% fewer communication delays)."], ["c03", "2026-11-02", "res", "Ask the HT Change Lead for change history: past rollouts, what worked and what did not, channels used, signs of change fatigue."], ["c04", "2026-11-02", "prep", "Set up your workspace: stakeholder register, comms plan, champion tracker, adoption measures sheet, change risks list."], ["c05", "2026-11-03", "prep", "Draft a one-page Change and Adoption workplan with outputs and dependencies. Align with the Engagement Lead and the Experience Designer (shared sessions #8, #12, #14, #17, #23)."], ["c06", "2026-11-03", "res", "Draft the sponsor and priority-lead interview questions for #4: vision, adoption context, change appetite, concerns, frontline, works council. Share with XD for their customization questions."], ["c07", "2026-11-03", "measure", "Draft a starter value framework for #3: vision, objectives, outcomes, measures. Treat the pitch targets as hypotheses to confirm."], ["c08", "2026-11-03", "measure", "Draft a long list of adoption measures: adoption by persona, active use, task success, engagement, communication delay, help-desk volume, champion activity."], ["c09", "2026-11-04", "stake", "Draft stakeholder map v0: Exec Sponsor, Programme Owner, Change Lead, Product Owner, IT Lead and security, works council and HR, site and team leaders, content owners, frontline groups, AI governance board and ARB."], ["c10", "2026-11-04", "stake", "Draft a change impact view by persona using the six persona hypotheses (frontline operator, team leader, desk employee, remote or hybrid, new starter, content owner)."], ["c11", "2026-11-04", "prep", "With the Engagement Lead, prepare the works council and HR questions: interviews, recording, surveys, photos, anonymity, lead time. Item #10 is only on Thu 12 Nov."], ["c12", "2026-11-04", "comms", "Agree how HT staff will hear about discovery activity (workshops, interviews, usability tests) so frontline invitations actually reach people."], ["c13", "2026-11-05", "champ", "Draft champion role profile v0 for #15: purpose, time ask, responsibilities, where champions sit (sites, shifts, languages), selection criteria, nomination route."], ["c14", "2026-11-05", "ws", "Prepare #5 stakeholder map and engagement planning (60 min): pre-read, map template, engagement owner column, questions on HT norms and decision routes."], ["c15", "2026-11-05", "prep", "Confirm Change Lead availability (about 6–8 hours over four weeks) and hold diaries for #5, #14, #15, #23 and #26."], ["c16", "2026-11-05", "measure", "Collect baselines: 2024 employee survey, current intranet usage and search data, help-desk volumes, communication delays. Ask the Programme Owner and IT Lead."], ["c17", "2026-11-06", "ws", "Prepare #14 transformation narrative workshop: narrative canvas (from, to), messages per persona, tone, proof points."], ["c18", "2026-11-06", "prep", "Send your Week 1 focus plan. Check the Before Day 1 list, especially the named Change Lead and frontline site and participants (HT Change Lead owns these)."], ["c19", "2026-11-06", "stake", "Agree the frontline site and test participants with the Change Lead, including shift cover and language needs."], ["c20", "2026-11-09", "ws", "Attend the internal and programme kickoff (#1). Ask for the named Change Lead, sponsor behaviours, comms norms, works council route and HT decision routes."], ["c21", "2026-11-09", "prep", "Contribute to the Ways of Working canvas: how change and comms messages are reviewed in HT’s voice, turnaround times, who approves."], ["c22", "2026-11-09", "stake", "Ask the Programme Owner for the sponsor’s availability and the list of priority leads for interviews (#4)."], ["c23", "2026-11-10", "ws", "Co-run the vision, objectives and value framework session (#3, 90 min) with the Engagement Lead. Test whether the pitch targets are HT’s own."], ["c24", "2026-11-10", "res", "Lead the sponsor and priority-lead interviews (#4, 4 × 45 min). Capture quotes, vision, priorities, adoption context and concerns, and add XD’s customization questions."], ["c25", "2026-11-10", "stake", "Agree what you need from the Exec Sponsor: visible sponsorship, time at sign-offs, and how they will talk about the change."], ["c26", "2026-11-10", "measure", "Update the value framework draft with interview input and share it with the Engagement Lead and Experience Designer."], ["c27", "2026-11-11", "ws", "Run the stakeholder map and engagement planning session (#5, 60 min) with the Programme Owner and Change Lead: groups, influence and impact, engagement owner, HT norms and decision routes."], ["c28", "2026-11-11", "comms", "Build an engagement calendar v0 for the four weeks: who hears what, when and through which channel."], ["c29", "2026-11-11", "res", "Pick out change-related findings from the HT discovery material (surveys, comms channels, past feedback) if the deep dive (#7) covers them."], ["c30", "2026-11-11", "stake", "Draft change risks for the RAIDD log: change fatigue, frontline reach, works council timing, languages, sponsor time."], ["c31", "2026-11-12", "ws", "Co-facilitate persona and journey validation (#8) with XD. Capture change impact and adoption barriers per persona."], ["c32", "2026-11-12", "stake", "Run works council and HR alignment (#10, 45 min) with the Engagement Lead: route, lead time, what is allowed for research, surveys, champions and rollout comms. Log the answers."], ["c33", "2026-11-12", "stake", "If invited, join the frontline access model and languages decision (#9). Note the effect on comms, training and champion coverage."], ["c34", "2026-11-12", "comms", "Confirm the languages for comms materials and champion briefings after #9."], ["c35", "2026-11-13", "signoff", "Give your change readiness view for Risk Gate 1 (#11): named Change Lead, sponsor engaged, research route, frontline participants, comms channel."], ["c36", "2026-11-13", "measure", "Share the first draft of success measures and the adoption measurement approach in the weekly status."], ["c37", "2026-11-13", "prep", "Update RAIDD with change risks and decisions. Update the stakeholder map."], ["c38", "2026-11-13", "prep", "Send your Week 2 focus plan."], ["c39", "2026-11-16", "ws", "Join design session Day 1 (#12) and co-facilitate. Capture adoption concerns, change impact and who must be involved. Note the languages in the room."], ["c40", "2026-11-16", "stake", "Record stakeholder positions on customization and frontline touchpoints for the change impact view."], ["c41", "2026-11-16", "comms", "Write a short message to HT staff about usability test participation: what, when, shift cover, anonymity."], ["c42", "2026-11-17", "ws", "Join design session Day 2 (#13). In the UX success measures block, bring your adoption measures. Capture backlog items with change implications."], ["c43", "2026-11-17", "measure", "Agree four to six UX and adoption measures with XD and the stakeholders. Log which baselines are needed."], ["c44", "2026-11-17", "signoff", "Log decisions the same day and update the change impact view."], ["c45", "2026-11-18", "ws", "Run Transformation narrative and engagement (#14, 90 min) with XD: from-to narrative, key messages per persona, proof points, tone."], ["c46", "2026-11-18", "champ", "Run Champion role and selection criteria (#15, 60 min) with the Change Lead: role profile, selection criteria, nomination process, time ask."], ["c47", "2026-11-18", "ws", "Contribute to content assessment and ownership (#16): content owner readiness, publishing skills, governance roles."], ["c48", "2026-11-18", "comms", "Draft the engagement approach: channels per persona, cadence, who sends, frontline channels such as supervisors, noticeboards and shift briefings."], ["c49", "2026-11-19", "res", "Join usability round 1 (#17) and capture adoption signals: would they use it, who would they ask, language, device."], ["c50", "2026-11-19", "res", "Note training and support needs that come up in the test sessions."], ["c51", "2026-11-20", "signoff", "Join prototype sign-off (#18). Capture change requests and comms implications."], ["c52", "2026-11-20", "champ", "Send the champion role profile to the Change Lead for approval and prepare the nomination ask."], ["c53", "2026-11-20", "prep", "Send your Week 3 focus plan."], ["c54", "2026-11-23", "measure", "Draft the Change and Adoption strategy v1: approach (Engage, Empower, Educate, Evolve), audiences, interventions, timeline, risks."], ["c55", "2026-11-23", "comms", "Draft the communications approach v1: principles, channels, cadence, key messages, frontline plan."], ["c56", "2026-11-24", "signoff", "Join design sign-off (#21). Confirm decisions that change comms or training."], ["c57", "2026-11-24", "measure", "Draft the training and enablement approach for content owners, champions, frontline and managers."], ["c58", "2026-11-24", "stake", "Draft change impact assessment by persona v1."], ["c59", "2026-11-25", "ws", "Run the Change and Adoption plus comms approach review (#23, 90 min) with XD, the Change Lead and Programme Owner. Resolve comments and confirm measures."], ["c60", "2026-11-25", "measure", "Update the drafts and issue the sign-off pack in advance."], ["c61", "2026-11-26", "prep", "Pre-wire the Programme Owner and Change Lead for the sign-off. Resolve open comments."], ["c62", "2026-11-26", "stake", "Check the Architecture sign-off (#25) for decisions that change adoption or training."], ["c63", "2026-11-27", "signoff", "Run the Change and comms sign-off (#26, 60 min) with the Engagement Lead. Get Programme Owner and Change Lead sign-off. Log decisions."], ["c64", "2026-11-27", "measure", "Prepare adoption measures for the roadmap: baseline, target, owner, cadence."], ["c65", "2026-11-30", "measure", "Build adoption measures and the change plan into the roadmap and waves."], ["c66", "2026-11-30", "comms", "Draft the 90-day change and comms plan for the start of Delivery."], ["c67", "2026-12-01", "ws", "Join Delivery planning (#27): change effort per wave (training, comms, champions), costed."], ["c68", "2026-12-02", "signoff", "Present the change and adoption section at Playback (#28): approach, measures, champions, risks."], ["c69", "2026-12-03", "prep", "Hand off: stakeholder register, comms plan, champion list, risk log, open questions."], ["c70", "2026-12-04", "signoff", "Final acceptance (#29): confirm the change and adoption deliverables are accepted."], ["c71", "2026-12-04", "prep", "Hold a short retro. Record what to repeat in Delivery."]], "tabs": [{"id": "tasks", "label": "Tasks", "title": "Tasks by day", "blocks": [{"type": "tasks"}]}, {"id": "sessions", "label": "Sessions", "title": "Your sessions", "lede": "From the schedule. Dates recalculate if the Week 1 start moves.", "blocks": [{"type": "html", "html": "<div class='tbl '><table><thead><tr><th class='wrap'>#<\/th><th class='wrap'>Date<\/th><th class='wrap'>Session<\/th><th class='wrap'>Your role<\/th><th class='wrap'>HT attendees<\/th><th class='wrap'>Outcome<\/th><\/tr><\/thead><tbody><tr><td class='wrap'>1<\/td><td class='wrap'>Mon 09 Nov<\/td><td class='wrap'>Programme kickoff<\/td><td class='wrap'>Attend<\/td><td class='wrap'>Exec Sponsor, Programme Owner, PM, Product Owner, IT Lead, Change Lead<\/td><td class='wrap'>Objectives, scope, plan, governance and ways of working agreed<\/td><\/tr><tr><td class='wrap'>3<\/td><td class='wrap'>Tue 10 Nov<\/td><td class='wrap'>Vision, objectives and value framework (90 min)<\/td><td class='wrap'>Co-lead with EL<\/td><td class='wrap'>Exec Sponsor, Programme Owner<\/td><td class='wrap'>Vision, objectives and success measures<\/td><\/tr><tr><td class='wrap'>4<\/td><td class='wrap'>Tue 10 Nov<\/td><td class='wrap'>Sponsor and priority-lead interviews (4 × 45 min)<\/td><td class='wrap'>Lead<\/td><td class='wrap'>Exec Sponsor, priority leads<\/td><td class='wrap'>Vision, priorities and adoption context<\/td><\/tr><tr><td class='wrap'>5<\/td><td class='wrap'>Wed 11 Nov<\/td><td class='wrap'>Stakeholder map and engagement planning (60 min)<\/td><td class='wrap'>Lead<\/td><td class='wrap'>Programme Owner, Change Lead<\/td><td class='wrap'>Stakeholder map, engagement owners, HT norms and decision routes<\/td><\/tr><tr><td class='wrap'>8<\/td><td class='wrap'>Thu 12 Nov<\/td><td class='wrap'>Persona and journey validation (90 min)<\/td><td class='wrap'>Co-facilitate with XD<\/td><td class='wrap'>Product Owner, SMEs<\/td><td class='wrap'>Up to six personas and journeys validated<\/td><\/tr><tr><td class='wrap'>10<\/td><td class='wrap'>Thu 12 Nov<\/td><td class='wrap'>Works council and HR alignment (45 min)<\/td><td class='wrap'>With EL<\/td><td class='wrap'>Programme Owner, HR<\/td><td class='wrap'>Route and lead time for employee research confirmed<\/td><\/tr><tr><td class='wrap'>12<\/td><td class='wrap'>Mon 16 Nov<\/td><td class='wrap'>Design session Day 1 (full day)<\/td><td class='wrap'>Co-facilitate<\/td><td class='wrap'>4–6 stakeholders, Product Owner<\/td><td class='wrap'>Concept, IA and prototype input<\/td><\/tr><tr><td class='wrap'>13<\/td><td class='wrap'>Tue 17 Nov<\/td><td class='wrap'>Design session Day 2: backlog sign-off (full day)<\/td><td class='wrap'>Co-facilitate<\/td><td class='wrap'>4–6 stakeholders, Programme Owner<\/td><td class='wrap'>Backlog prioritised and signed off<\/td><\/tr><tr><td class='wrap'>14<\/td><td class='wrap'>Wed 18 Nov<\/td><td class='wrap'>Transformation narrative and engagement (90 min)<\/td><td class='wrap'>Lead with XD<\/td><td class='wrap'>Change Lead, Programme Owner<\/td><td class='wrap'>Narrative and engagement approach<\/td><\/tr><tr><td class='wrap'>15<\/td><td class='wrap'>Wed 18 Nov<\/td><td class='wrap'>Champion role and selection criteria (60 min)<\/td><td class='wrap'>Lead<\/td><td class='wrap'>Change Lead<\/td><td class='wrap'>Role profile, selection criteria, nomination process<\/td><\/tr><tr><td class='wrap'>16<\/td><td class='wrap'>Wed 18 Nov<\/td><td class='wrap'>Content assessment and ownership (90 min)<\/td><td class='wrap'>With SA<\/td><td class='wrap'>Content owners, Change Lead<\/td><td class='wrap'>Migration recommendations, content ownership model<\/td><\/tr><tr><td class='wrap'>17<\/td><td class='wrap'>Thu 19 Nov<\/td><td class='wrap'>Usability testing round 1 (4 × 60 min)<\/td><td class='wrap'>With XD<\/td><td class='wrap'>Desk and frontline participants<\/td><td class='wrap'>Usability findings<\/td><\/tr><tr><td class='wrap'>18<\/td><td class='wrap'>Fri 20 Nov<\/td><td class='wrap'>Prototype sign-off (60–90 min)<\/td><td class='wrap'>Attend with XD, EL<\/td><td class='wrap'>Programme Owner, design-session stakeholders<\/td><td class='wrap'>Prototype signed off<\/td><\/tr><tr><td class='wrap'>21<\/td><td class='wrap'>Tue 24 Nov<\/td><td class='wrap'>Design sign-off (60 min)<\/td><td class='wrap'>Attend<\/td><td class='wrap'>Programme Owner, Product Owner<\/td><td class='wrap'>Directional design signed off<\/td><\/tr><tr><td class='wrap'>23<\/td><td class='wrap'>Wed 25 Nov<\/td><td class='wrap'>Change and Adoption plus comms approach review (90 min)<\/td><td class='wrap'>Lead with XD<\/td><td class='wrap'>Change Lead, Programme Owner<\/td><td class='wrap'>Approach ready for sign-off<\/td><\/tr><tr><td class='wrap'>26<\/td><td class='wrap'>Fri 27 Nov<\/td><td class='wrap'>Change and comms sign-off (60 min)<\/td><td class='wrap'>Lead with EL<\/td><td class='wrap'>Programme Owner, Change Lead<\/td><td class='wrap'>Change and Adoption plus comms signed off<\/td><\/tr><tr><td class='wrap'>27<\/td><td class='wrap'>Tue 01 Dec<\/td><td class='wrap'>Delivery planning and wave options (2 hrs)<\/td><td class='wrap'>Attend<\/td><td class='wrap'>Programme Owner, Exec Sponsor<\/td><td class='wrap'>Roadmap, waves and costed estimate<\/td><\/tr><tr><td class='wrap'>28<\/td><td class='wrap'>Wed 02 Dec<\/td><td class='wrap'>Playback of everything agreed (90 min)<\/td><td class='wrap'>Present your section<\/td><td class='wrap'>Exec Sponsor, Programme Owner<\/td><td class='wrap'>Consolidated outcome walked through<\/td><\/tr><\/tbody><\/table><\/div><p class='lede'>Not on your invite list but relevant: #9 frontline access model and Phase 1 languages (Thu 12 Nov), #11 Risk Gate 1 (Fri 13 Nov), #24 AI governance board and ARB review (Wed 25 Nov). Ask to be invited or get a readout.<\/p>"}]}, {"id": "stakeholders", "label": "Stakeholders", "title": "Stakeholders and change impact", "blocks": [{"type": "html", "title": "Stakeholder map v0", "html": "<div class='tbl '><table><thead><tr><th class='wrap'>Group<\/th><th class='wrap'>Who<\/th><th class='wrap'>Role in the change<\/th><th class='wrap'>What we need<\/th><th class='wrap'>Engagement owner<\/th><\/tr><\/thead><tbody><tr><td class='wrap'>Executive sponsor<\/td><td class='wrap'>Exec Sponsor<\/td><td class='wrap'>Visible sponsorship, key decisions<\/td><td class='wrap'>About 2–3 hours: kickoff, Week 3 sign-offs, Week 4 playback<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Programme owner<\/td><td class='wrap'>Programme Owner<\/td><td class='wrap'>Decisions, priorities, gate acceptance<\/td><td class='wrap'>About 3–4 hours a week plus decisions<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Change lead<\/td><td class='wrap'>Change Lead<\/td><td class='wrap'>Change history, narrative, champions and comms<\/td><td class='wrap'>About 6–8 hours over four weeks<\/td><td class='wrap'>Change Manager<\/td><\/tr><tr><td class='wrap'>Product owner and PM<\/td><td class='wrap'>Product Owner, Project Manager<\/td><td class='wrap'>Requirements, priorities, coordination<\/td><td class='wrap'>Design session, scheduling, weekly status<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>IT and security<\/td><td class='wrap'>IT Lead, security owner, AI governance board, ARB<\/td><td class='wrap'>Access, security, AI governance<\/td><td class='wrap'>Reviews ahead of sign-offs (#24)<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Works council and HR<\/td><td class='wrap'>Works council, HR<\/td><td class='wrap'>Route and approval for employee research and rollout<\/td><td class='wrap'>Route and lead time (#10, Thu 12 Nov)<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Site and team leaders<\/td><td class='wrap'>Plant managers, team leaders<\/td><td class='wrap'>Gatekeepers of frontline communication<\/td><td class='wrap'>Interviews, test sites, comms support<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Content owners<\/td><td class='wrap'>Up to about 15 people<\/td><td class='wrap'>Publish and own content after launch<\/td><td class='wrap'>2–3 hours each in Week 2<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Frontline employees<\/td><td class='wrap'>2,000+ without PC or email<\/td><td class='wrap'>Primary audience and test participants<\/td><td class='wrap'>Shift cover, local language sessions<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Desk, remote and new starters<\/td><td class='wrap'>Office, hybrid, recent hires<\/td><td class='wrap'>Audience and early adopters<\/td><td class='wrap'>Interviews and testing volunteers<\/td><td class='wrap'>[to agree in #5]<\/td><\/tr><tr><td class='wrap'>Change champions<\/td><td class='wrap'>To be nominated (#15)<\/td><td class='wrap'>Peer support and feedback<\/td><td class='wrap'>Role profile, nominations, time release<\/td><td class='wrap'>Change Manager<\/td><\/tr><\/tbody><\/table><\/div><p class='lede'>This is a starting map from the plan and the business case. Validate it in session #5 and add names.<\/p>"}, {"type": "html", "title": "Change impact by persona", "html": "<div class='tbl '><table><thead><tr><th class='wrap'>Persona (hypothesis)<\/th><th class='wrap'>What changes<\/th><th class='wrap'>Likely concern<\/th><th class='wrap'>Support needed<\/th><\/tr><\/thead><tbody><tr><td class='wrap'>Frontline operator<\/td><td class='wrap'>First digital touchpoint (shared device, kiosk or phone, decided in #9)<\/td><td class='wrap'>Privacy, time on shift, language<\/td><td class='wrap'>Supervisor briefings, local-language guides, champions on shift<\/td><\/tr><tr><td class='wrap'>Team leader<\/td><td class='wrap'>Becomes the channel for site news and team updates<\/td><td class='wrap'>Extra workload, losing control of messages<\/td><td class='wrap'>Simple publishing, clear ownership, training<\/td><\/tr><tr><td class='wrap'>Desk-based employee<\/td><td class='wrap'>New home page, search and tools replace the old intranet<\/td><td class='wrap'>Relearning, lost bookmarks<\/td><td class='wrap'>Quick start, redirects, what is new<\/td><\/tr><tr><td class='wrap'>Remote or hybrid<\/td><td class='wrap'>One place to feel part of HT<\/td><td class='wrap'>Missing site-level news<\/td><td class='wrap'>Regional channels, events<\/td><\/tr><tr><td class='wrap'>New starter<\/td><td class='wrap'>First impression of HT<\/td><td class='wrap'>Information overload<\/td><td class='wrap'>Onboarding journey, buddy<\/td><\/tr><tr><td class='wrap'>Content owner<\/td><td class='wrap'>New publishing model, templates and governance<\/td><td class='wrap'>Extra work, approval delays<\/td><td class='wrap'>Templates, training, clear roles<\/td><\/tr><\/tbody><\/table><\/div><p class='lede'>These are hypotheses from the business case user groups and our own additions. Validate them with the Experience Designer in session #8.<\/p>"}]}, {"id": "readiness", "label": "Readiness", "title": "Adoption readiness", "blocks": [{"type": "scorecard", "id": "ready", "title": "Adoption readiness check", "lede": "Rate each factor after the sponsor interviews, the stakeholder session and the works council session. The result tells you where to focus first. It is a conversation tool, not a score to report.", "resultTitle": "Where to focus first", "levels": ["Ready", "Partly ready", "At risk"], "factors": [["Sponsorship", "Sponsor visible and time committed", "Supportive but time is limited", "Sponsor distant or unclear"], ["Change history", "Past rollouts were adopted well", "Mixed record", "Change fatigue or failed rollouts"], ["Frontline reach", "Clear way to reach every shift", "Some routes, gaps remain", "No reliable way to reach most frontline"], ["Languages", "Decided and content covered", "Decided, content not yet covered", "Not decided"], ["Works council and HR route", "Route and timing confirmed", "Route known, timing unclear", "Route unknown"], ["Champion network", "Named across sites and shifts", "Some names, gaps remain", "None yet"], ["Communication channels", "Trusted channels per audience", "Channels exist, mixed trust", "Fragmented or ignored"], ["Training and support capacity", "Trainers and time available", "Limited capacity", "No capacity identified"]]}]}, {"id": "approach", "label": "Approach", "title": "Change and adoption approach", "lede": "Slalom’s human-centred change runs throughout: Engage, Empower, Educate, Evolve.", "blocks": [{"type": "html", "html": "<div class='kv'><div class='card'><h4>Engage<\/h4><ul><li>Bring sponsors, leaders and employees into the discovery<\/li><li>Interviews, stakeholder map, narrative workshop<\/li><\/ul><\/div><div class='card'><h4>Empower<\/h4><ul><li>Give people roles and tools to lead the change<\/li><li>Champion network, content owner enablement, manager toolkits<\/li><\/ul><\/div><div class='card'><h4>Educate<\/h4><ul><li>Prepare people for new ways of working<\/li><li>Training approach, quick starts, language-appropriate guides<\/li><\/ul><\/div><div class='card'><h4>Evolve<\/h4><ul><li>Keep improving after launch<\/li><li>Feedback loops, quarterly measures, governance of change<\/li><\/ul><\/div><\/div><h3>What you sign off in Week 3<\/h3><div class='kv'><div class='card'><h4>Change and Adoption strategy<\/h4><ul><li>Approach, audiences, interventions, timeline, risks<\/li><\/ul><\/div><div class='card'><h4>Communications approach<\/h4><ul><li>Principles, channels, cadence, key messages, frontline plan<\/li><\/ul><\/div><div class='card'><h4>Success measures<\/h4><ul><li>What, how, who, when, why for each measure<\/li><\/ul><\/div><div class='card'><h4>Adoption in the roadmap<\/h4><ul><li>Measures, owners and change effort built into waves<\/li><\/ul><\/div><\/div><h3>Measuring success: five questions<\/h3><div class='tbl '><table><thead><tr><th class='wrap'><\/th><th class='wrap'>Starting answers (from Slalom Connect!)<\/th><\/tr><\/thead><tbody><tr><td class='wrap'>What<\/td><td class='wrap'>Behaviours that show the outcome, meaningful metrics, productivity gains, rate of adoption<\/td><\/tr><tr><td class='wrap'>How<\/td><td class='wrap'>Surveys and feedback loops, dashboards and reporting, focus groups<\/td><\/tr><tr><td class='wrap'>Who<\/td><td class='wrap'>End users, key stakeholders, help desk, change champions, senior leaders<\/td><\/tr><tr><td class='wrap'>When<\/td><td class='wrap'>Baseline before go-live, after go-live, quarterly feedback<\/td><\/tr><tr><td class='wrap'>Why<\/td><td class='wrap'>Understand the response and adjust; keep users and organisation aligned<\/td><\/tr><\/tbody><\/table><\/div><p class='lede'>The pitch quoted 80%+ adoption within six months, +20% engagement and 15% fewer communication delays. Confirm with the sponsor which of these HT owns before they go into the roadmap.<\/p><h3>Champion role profile (draft to test in #15)<\/h3><div class='kv'><div class='card'><h4>Purpose<\/h4><ul><li>Peer voice and first line of support for the change<\/li><\/ul><\/div><div class='card'><h4>Responsibilities<\/h4><ul><li>Share news, collect feedback, help colleagues start, report issues<\/li><\/ul><\/div><div class='card'><h4>Selection<\/h4><ul><li>Across sites, shifts and languages; respected by peers; time released by line manager<\/li><\/ul><\/div><div class='card'><h4>To decide with HT<\/h4><ul><li>Time ask, nomination route, recognition, works council view<\/li><\/ul><\/div><\/div><h3>Narrative canvas (draft to test in #14)<\/h3><div class='tbl '><table><thead><tr><th class='wrap'>From<\/th><th class='wrap'>To<\/th><th class='wrap'>Proof points<\/th><\/tr><\/thead><tbody><tr><td class='wrap'>Information scattered, hard to find, and missing 2,000+ frontline colleagues<\/td><td class='wrap'>One place that connects people, tools and knowledge, reachable by every employee<\/td><td class='wrap'>[evidence from interviews, tests and discovery]<\/td><\/tr><\/tbody><\/table><\/div>"}]}, {"id": "materials", "label": "Materials", "title": "Materials and artefacts", "lede": "What to prepare and what to produce. Tick items as they are ready.", "blocks": [{"type": "checklist", "groups": [["Interviews and vision", [["m01", "Sponsor and priority-lead interview guide (use the XD guide’s sponsor module)"], ["m02", "Value framework canvas: vision, objectives, outcomes, measures"], ["m03", "Pre-read for the vision session"]]], ["Stakeholders", [["m04", "Stakeholder map template with engagement owner column"], ["m05", "Engagement plan: audience, message, channel, cadence, owner"], ["m06", "Change impact assessment template by persona"]]], ["Narrative and comms", [["m07", "Narrative canvas and message house per persona"], ["m08", "Channel inventory: what each audience uses and trusts"], ["m09", "Comms calendar for the four weeks and the first 90 days"], ["m10", "Frontline messaging notes in local languages"]]], ["Champions", [["m11", "Champion role profile and selection criteria"], ["m12", "Nomination form and process"], ["m13", "Champion network tracker (site, shift, language)"]]], ["Measures", [["m14", "Adoption measures sheet: what, how, who, when, why"], ["m15", "Baseline request list for HT"], ["m16", "KPI definitions and owners"]]], ["Sign-off and playback", [["m17", "Change and Adoption strategy document"], ["m18", "Communications approach document"], ["m19", "Change impact assessment v1"], ["m20", "90-day change and comms plan"], ["m21", "Playback section: up to six slides"]]]]}]}]};
+var KEY=CFG.key, mem={};
+function load(){try{var r=localStorage.getItem(KEY);return r?JSON.parse(r):{}}catch(e){return mem}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){mem=S}}
+var S=load(); S.done=S.done||{}; S.sc=S.sc||{}; S.logs=S.logs||{};
+
+var DOW=["Mon","Tue","Wed","Thu","Fri"], MON=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var WEEKS=CFG.weeks, SESS=CFG.sess, T=CFG.tasks, TAGS=CFG.tags;
+function $(id){return document.getElementById(id)}
+function esc(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function dayLabel(d){var p=d.split("-");return {n:p[2],m:MON[+p[1]]}}
+function dayIdx(d){for(var i=0;i<WEEKS.length;i++){var j=WEEKS[i].days.indexOf(d);if(j>-1)return [i,j]}return [0,0]}
+function weekOf(d){return WEEKS[dayIdx(d)[0]]}
+var selDay=null, filt="all";
+function countDay(d){var t=0,n=0;T.forEach(function(x){if(x[1]===d){t++;if(S.done[x[0]])n++}});return [n,t]}
+
+/* ids that count toward progress */
+var IDS=T.map(function(x){return x[0]});
+CFG.tabs.forEach(function(tab){tab.blocks.forEach(function(b){if(b.type==="checklist")b.groups.forEach(function(g){g[1].forEach(function(x){IDS.push(x[0])})})})});
+function updateOverall(){
+  var n=0;IDS.forEach(function(id){if(S.done[id])n++});
+  $("ovtxt").textContent=n+" of "+IDS.length;
+  var pct=IDS.length?Math.round(100*n/IDS.length):0;$("ovfill").style.width=pct+"%";$("ovbar").setAttribute("aria-valuenow",pct);
+}
+
+/* ---------- tasks block ---------- */
+function renderStrip(){
+  var today=new Date().toISOString().slice(0,10), h='<div class="srow"><div></div>'+DOW.map(function(d){return '<div class="shead">'+d+'</div>'}).join("")+'</div>';
+  WEEKS.forEach(function(w){
+    var wt=0,wd=0;w.days.forEach(function(d){var c=countDay(d);wd+=c[0];wt+=c[1]});
+    h+='<div class="srow"><div class="wl">'+esc(w.label)+'<span>'+wd+'/'+wt+' · '+esc(w.sub)+'</span></div>';
+    w.days.forEach(function(d){
+      var c=countDay(d),s=SESS[d]||["",0],l=dayLabel(d),pct=c[1]?Math.round(100*c[0]/c[1]):0;
+      h+='<button type="button" class="day'+(s[1]?' xd':'')+(d===today?' today':'')+'" data-day="'+d+'" aria-pressed="'+(selDay===d)+'" aria-label="'+l.n+' '+l.m+', '+c[0]+' of '+c[1]+' tasks done"><span class="dn">'+l.n+'<small>'+l.m+'</small></span><span class="ss">'+esc(s[0])+'</span><span class="mb"><i style="width:'+pct+'%"></i></span></button>';
+    });
+    h+='</div>';
+  });
+  var el=$("strip");if(el)el.innerHTML=h;
+}
+function renderFilters(){
+  var el=$("filters");if(!el)return;
+  var f=[["all","All"],["open","Open"],["done","Done"]].concat(CFG.filters);
+  var h=f.map(function(x){return '<button type="button" class="chip" data-f="'+x[0]+'" aria-pressed="'+(filt===x[0])+'">'+esc(x[1])+'</button>'}).join("");
+  if(selDay){var l=dayLabel(selDay);h+='<button type="button" class="linkbtn" id="clrday">Showing '+l.n+' '+l.m+'. Show all days</button>'}
+  el.innerHTML=h;
+}
+function taskHTML(x){
+  var d=!!S.done[x[0]],tg=TAGS[x[2]]||[x[2],""];
+  return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+esc(x[3])+'</span><span class="tag '+tg[1]+'">'+esc(tg[0])+'</span></label></div>';
+}
+function renderTasks(){
+  var el=$("tasklist");if(!el)return;
+  var list=T.filter(function(x){
+    if(selDay&&x[1]!==selDay)return false;
+    if(filt==="open")return !S.done[x[0]];
+    if(filt==="done")return !!S.done[x[0]];
+    if(filt!=="all"&&x[2]!==filt)return false;
+    return true;
+  });
+  if(!list.length){el.innerHTML='<div class="empty">No tasks match this filter.</div>';return}
+  var h="",lastW="",lastD="";
+  list.forEach(function(x){
+    var w=weekOf(x[1]);
+    if(w.k!==lastW){var wt=0,wd=0;T.forEach(function(y){if(weekOf(y[1]).k===w.k){wt++;if(S.done[y[0]])wd++}});h+='<div class="wk"><h3>'+esc(w.label)+': '+esc(w.sub)+'<span>'+wd+' of '+wt+' done</span></h3></div>';lastW=w.k;lastD=""}
+    if(x[1]!==lastD){var di=dayIdx(x[1]),l=dayLabel(x[1]),s=SESS[x[1]];h+='<div class="dayh">'+DOW[di[1]]+' '+l.n+' '+l.m+(s&&s[0]?' <em>'+esc(s[0])+'</em>':'')+'</div>';lastD=x[1]}
+    h+=taskHTML(x);
+  });
+  el.innerHTML=h;
+}
+function refreshTasks(){renderStrip();renderTasks();updateOverall()}
+
+/* ---------- block renderers ---------- */
+function blockHTML(b){
+  if(b.type==="html")return (b.title?'<h3>'+esc(b.title)+'</h3>':'')+(b.lede?'<p class="lede">'+esc(b.lede)+'</p>':'')+b.html;
+  if(b.type==="tasks")return '<p class="lede">'+esc(CFG.stripNote)+'</p><div class="strip" id="strip"></div><div class="legend"><span><i class="sw"></i>'+esc(CFG.ownerLabel)+'</span><span>Bar under each day shows tasks done</span></div><div class="filters" id="filters"></div><div id="tasklist"></div>';
+  if(b.type==="checklist")return (b.title?'<h3>'+esc(b.title)+'</h3>':'')+(b.lede?'<p class="lede">'+esc(b.lede)+'</p>':'')+b.groups.map(function(g){return '<div class="mgroup"><h3>'+esc(g[0])+'</h3>'+g[1].map(function(x){var d=!!S.done[x[0]];return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+esc(x[1])+'</span></label></div>'}).join("")+'</div>'}).join("");
+  if(b.type==="scorecard"){
+    var h=(b.title?'<h3>'+esc(b.title)+'</h3>':'')+(b.lede?'<p class="lede">'+esc(b.lede)+'</p>':'');
+    b.factors.forEach(function(f,i){
+      h+='<div class="dim"><h4>'+esc(f[0])+'</h4><div class="opts" role="radiogroup" aria-label="'+esc(f[0])+'">'+[1,2,3].map(function(k){return '<label class="opt"><input type="radio" name="'+b.id+'-'+i+'" value="'+k+'" data-sc="'+b.id+'|'+i+'"'+(S.sc[b.id+"|"+i]==k?' checked':'')+'><span><b>'+esc(b.levels[k-1])+'</b>'+esc(f[k])+'</span></label>'}).join("")+'</div></div>';
+    });
+    return h+'<div class="result" id="res-'+b.id+'"></div>';
+  }
+  if(b.type==="log")return logHTML(b);
+  return "";
+}
+function scResult(b){
+  var el=$("res-"+b.id);if(!el)return;
+  var vals=b.factors.map(function(f,i){return +S.sc[b.id+"|"+i]||0}),n=vals.filter(Boolean).length;
+  var h='<h3>'+esc(b.resultTitle||"Result")+'</h3>';
+  if(!n){h+='<p style="margin:0">Choose the description that fits best for each factor.</p>'}
+  else{
+    var risk=[],part=[];vals.forEach(function(v,i){if(v===3)risk.push(b.factors[i][0]);else if(v===2)part.push(b.factors[i][0])});
+    h+='<p style="margin:0 0 10px"><b>'+(vals.filter(function(v){return v===1}).length)+' ready, '+part.length+' partly ready, '+risk.length+' at risk</b> ('+n+' of '+b.factors.length+' rated).'+(risk.length?' Focus first: '+esc(risk.join(", "))+'.':(n===b.factors.length?' No factor is at risk.':''))+'</p>';
+    b.factors.forEach(function(f,i){var v=vals[i];h+='<div class="meter"><span>'+esc(f[0])+'</span><span class="mt"><i style="width:'+(v?Math.round((4-v)/3*100):0)+'%"></i></span><span>'+(v?esc(b.levels[v-1]):"not rated")+'</span></div>'});
+  }
+  el.innerHTML=h;
+}
+function logRows(b){if(!S.logs[b.id])S.logs[b.id]=JSON.parse(JSON.stringify(b.seed||[]));return S.logs[b.id]}
+function logHTML(b){
+  var rows=logRows(b);
+  var h=(b.title?'<h3>'+esc(b.title)+'</h3>':'')+(b.lede?'<p class="lede">'+esc(b.lede)+'</p>':'');
+  h+='<div class="tbl logtbl"><table><thead><tr>'+b.columns.map(function(c){return '<th style="min-width:'+(c.w||110)+'px">'+esc(c.label)+'</th>'}).join("")+'<th></th></tr></thead><tbody id="log-'+b.id+'">'+rows.map(function(r,ri){return logRowHTML(b,r,ri)}).join("")+'</tbody></table></div>';
+  h+='<div class="addrow"><button type="button" class="chip" data-addlog="'+b.id+'">Add a row</button></div>';
+  return h;
+}
+function logRowHTML(b,r,ri){
+  return '<tr>'+b.columns.map(function(c){
+    var v=r[c.k]==null?"":r[c.k];
+    if(c.type==="select")return '<td><select data-log="'+b.id+'|'+ri+'|'+c.k+'" aria-label="'+esc(c.label)+'">'+c.options.map(function(o){return '<option'+(o===v?' selected':'')+'>'+esc(o)+'</option>'}).join("")+'</select></td>';
+    return '<td><input type="text" value="'+esc(v)+'" data-log="'+b.id+'|'+ri+'|'+c.k+'" aria-label="'+esc(c.label)+'"></td>';
+  }).join("")+'<td class="del"><button type="button" class="linkbtn" data-dellog="'+b.id+'|'+ri+'">Delete</button></td></tr>';
+}
+function findBlock(id){var f=null;CFG.tabs.forEach(function(t){t.blocks.forEach(function(b){if(b.id===id)f=b})});return f}
+
+/* ---------- build tabs ---------- */
+function build(){
+  $("h1").textContent=CFG.title;$("intro").textContent=CFG.intro;
+  $("tabs").innerHTML=CFG.tabs.map(function(t){return '<a href="#'+t.id+'">'+esc(t.label)+'</a>'}).join("");
+  $("panes").innerHTML=CFG.tabs.map(function(t){return '<section class="pane" id="p-'+t.id+'"><h2>'+esc(t.title)+'</h2>'+(t.lede?'<p class="lede">'+esc(t.lede)+'</p>':'')+t.blocks.map(blockHTML).join("")+'</section>'}).join("");
+  CFG.tabs.forEach(function(t){t.blocks.forEach(function(b){if(b.type==="scorecard")scResult(b)})});
+  renderFilters();refreshTasks();updateOverall();route();
+}
+
+/* ---------- events ---------- */
+document.addEventListener("change",function(e){
+  var t=e.target;if(!t.matches)return;
+  if(t.matches("input[data-id]")){
+    S.done[t.dataset.id]=t.checked;persist();
+    var row=t.closest(".task");if(row)row.classList.toggle("done",t.checked);
+    if($("strip")&&t.dataset.id.charAt(0)==="t"){renderStrip();renderTasks()}
+    updateOverall();
+  }else if(t.matches("input[data-sc]")){
+    S.sc[t.dataset.sc]=t.value;persist();scResult(findBlock(t.dataset.sc.split("|")[0]));
+  }else if(t.matches("select[data-log]")){
+    var p=t.dataset.log.split("|");logRows(findBlock(p[0]))[+p[1]][p[2]]=t.value;persist();
+  }
+});
+document.addEventListener("input",function(e){
+  var t=e.target;if(t.matches&&t.matches("input[data-log]")){var p=t.dataset.log.split("|");logRows(findBlock(p[0]))[+p[1]][p[2]]=t.value;persist()}
+});
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest("button");if(!b)return;
+  if(b.dataset.day){selDay=(selDay===b.dataset.day)?null:b.dataset.day;renderFilters();refreshTasks()}
+  else if(b.dataset.f){filt=b.dataset.f;renderFilters();renderTasks()}
+  else if(b.id==="clrday"){selDay=null;renderFilters();refreshTasks()}
+  else if(b.dataset.addlog){var blk=findBlock(b.dataset.addlog),rows=logRows(blk),r={};blk.columns.forEach(function(c){r[c.k]=c.type==="select"?c.options[0]:""});rows.push(r);persist();$("log-"+blk.id).innerHTML=rows.map(function(x,i){return logRowHTML(blk,x,i)}).join("")}
+  else if(b.dataset.dellog){var q=b.dataset.dellog.split("|"),bl=findBlock(q[0]),rs=logRows(bl);rs.splice(+q[1],1);persist();$("log-"+bl.id).innerHTML=rs.map(function(x,i){return logRowHTML(bl,x,i)}).join("")}
+  else if(b.id==="resetbtn"){if(window.confirm("Clear all ticks, answers and log entries on this page?")){S={done:{},sc:{},logs:{}};persist();selDay=null;filt="all";build()}}
+});
+
+function route(){
+  var names=CFG.tabs.map(function(t){return t.id}),h=(location.hash||"").replace("#","");
+  if(names.indexOf(h)<0)h=names[0];
+  names.forEach(function(n){$("p-"+n).classList.toggle("on",n===h)});
+  var links=$("tabs").querySelectorAll("a");
+  for(var i=0;i<links.length;i++){if(links[i].getAttribute("href")==="#"+h)links[i].setAttribute("aria-current","page");else links[i].removeAttribute("aria-current")}
+}
+window.addEventListener("hashchange",route);
+build();
+})();
+</script>
+</body>
+</html>
