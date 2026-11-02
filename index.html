@@ -54,6 +54,21 @@ iframe[hidden]{display:none}
       show(n,true); document.getElementById("t-"+n).focus();
     };
   });
+  var loaded={xd:false,ca:false},pending={};
+  window.addEventListener("message",function(e){
+    var m=e.data;if(!m)return;
+    if(m.type==="ht-goto"){
+      show(m.ws,true);
+      if(loaded[m.ws])document.getElementById("f-"+m.ws).contentWindow.postMessage({type:"ht-focus",id:m.id},"*");
+      else pending[m.ws]=m.id;
+    }else if(m.type==="ht-ready"){
+      tabs.forEach(function(t){
+        var f=document.getElementById("f-"+t[0]);
+        if(f.contentWindow===e.source){loaded[t[0]]=true;
+          if(pending[t[0]]){f.contentWindow.postMessage({type:"ht-focus",id:pending[t[0]]},"*");delete pending[t[0]]}}
+      });
+    }
+  });
   var h=location.hash.slice(1);
   show(h==="ca"?"ca":"xd",false);
 })();

@@ -163,6 +163,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
 <div id="panes"></div>
 <div class="resetrow">Progress and entries live in this browser only. <button class="linkbtn" id="resetbtn">Reset everything</button></div>
 </div>
+<script src="deps.js"></script>
 <script>
 (function(){
 "use strict";
@@ -214,7 +215,7 @@ function renderFilters(){
 }
 function taskHTML(x){
   var d=!!S.done[x[0]],tg=TAGS[x[2]]||[x[2],""];
-  return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+esc(x[3])+'</span><span class="tag '+tg[1]+'">'+esc(tg[0])+'</span></label></div>';
+  return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+esc(x[3])+'</span><span class="tag '+tg[1]+'">'+esc(tg[0])+'</span></label>'+(window.HTDeps?HTDeps.html("ca",x[0]):"")+'</div>';
 }
 function renderTasks(){
   var el=$("tasklist");if(!el)return;
@@ -317,6 +318,14 @@ document.addEventListener("click",function(e){
   else if(b.id==="resetbtn"){if(window.confirm("Clear all ticks, answers and log entries on this page?")){S={done:{},sc:{},logs:{}};persist();selDay=null;filt="all";build()}}
 });
 
+window.HTRefresh=function(){if($("tasklist"))refreshTasks()};
+window.HTFocus=function(id){
+  selDay=null;filt="all";
+  try{history.replaceState(null,"","#"+CFG.tabs[0].id)}catch(e){}
+  route();renderFilters();refreshTasks();
+  var i=document.querySelector('#tasklist input[data-id="'+id+'"]'),r=i&&i.closest(".task");
+  if(r){r.scrollIntoView({block:"center"});r.classList.remove("flash");void r.offsetWidth;r.classList.add("flash")}
+};
 function route(){
   var names=CFG.tabs.map(function(t){return t.id}),h=(location.hash||"").replace("#","");
   if(names.indexOf(h)<0)h=names[0];

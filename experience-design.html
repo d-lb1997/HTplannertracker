@@ -282,6 +282,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
 <div class="resetrow">Progress and answers live in this browser only. <button class="linkbtn" id="resetbtn">Reset everything</button></div>
 </div>
 
+<script src="deps.js"></script>
 <script>
 (function(){
 "use strict";
@@ -493,7 +494,7 @@ function renderFilters(){
 }
 function taskHTML(x){
   var d=!!S.done[x[0]];
-  return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+x[3]+'</span><span class="tag '+x[2]+'">'+TAGS[x[2]]+'</span></label></div>';
+  return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+x[3]+'</span><span class="tag '+x[2]+'">'+TAGS[x[2]]+'</span></label>'+(window.HTDeps?HTDeps.html("xd",x[0]):"")+'</div>';
 }
 function renderNext(){
   if(!$("next"))return;
@@ -623,6 +624,14 @@ function route(){
 }
 window.addEventListener("hashchange",route);
 
+window.HTRefresh=function(){refreshTasks()};
+window.HTFocus=function(id){
+  selDay=null;filt="all";
+  try{history.replaceState(null,"","#tasks")}catch(e){}
+  route();renderFilters();refreshTasks();
+  var i=document.querySelector('#tasklist input[data-id="'+id+'"]'),r=i&&i.closest(".task");
+  if(r){r.scrollIntoView({block:"center"});r.classList.remove("flash");void r.offsetWidth;r.classList.add("flash")}
+};
 function init(){
   renderFilters();refreshTasks();renderWS();renderDims();renderCards();renderMats();updateOverall();route();
 }
