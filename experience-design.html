@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HT Discovery: Experience Design Plan and Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --surface:#ffffff; --surface2:#eef1f7; --ink:#18202f; --muted:#525d78; --line:#d8deeb;
+  --accent:#2e4e95; --accent-ink:#ffffff; --accent-soft:#e3e9f6; --red:#b22420; --red-soft:#f9e3e2;
+  --done:#1b7a4f; --warn:#b22420; --warn-soft:#fbe9e8; --focus:#2e4e95;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root{color-scheme:light}
+}
+:root[data-theme="dark"]{
+  --bg:#0f1626; --surface:#172036; --surface2:#1f2a46; --ink:#e8ecf6; --muted:#9aa6c4; --line:#2a3552;
+  --accent:#8ea8e8; --accent-ink:#0f1626; --accent-soft:#1f2d58; --red:#ff8782; --red-soft:#3b2023;
+  --done:#4cc58c; --warn:#ff8782; --warn-soft:#3a2022; --focus:#b3c5f2; color-scheme:dark;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:30}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 80px}
+header.top{padding:26px 0 8px;border-top:6px solid transparent;border-image:linear-gradient(90deg,var(--accent) 0 64%,var(--red) 64% 100%) 1}
+header.top h1{font-size:clamp(1.55rem,3.4vw,2.15rem);line-height:1.15;margin:0 0 6px;font-weight:800;letter-spacing:-.015em}
+header.top p{margin:0;color:var(--muted);max-width:68ch}
+.overall{display:flex;gap:14px;align-items:center;margin:16px 0 4px;flex-wrap:wrap}
+.bar{height:10px;background:var(--surface2);border-radius:99px;overflow:hidden;flex:1;min-width:160px}
+.bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.overall b{font-variant-numeric:tabular-nums}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 0;margin:0 -18px;padding-left:18px;padding-right:18px}
+nav.tabs a{padding:8px 14px;border-radius:99px;text-decoration:none;color:var(--muted);font-weight:600;white-space:nowrap}
+nav.tabs a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+section.pane{display:none;padding-top:22px}
+section.pane.on{display:block}
+h2{font-size:1.35rem;margin:0 0 4px;letter-spacing:-.01em}
+h3{font-size:1.05rem;margin:22px 0 8px}
+.lede{color:var(--muted);margin:0 0 16px;max-width:70ch}
+/* calendar strip */
+.strip{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;overflow-x:auto}
+.srow{display:grid;grid-template-columns:96px repeat(5,minmax(74px,1fr));gap:6px;align-items:stretch;min-width:520px}
+.srow+.srow{margin-top:6px}
+.srow .wl{font-weight:700;font-size:.82rem;display:flex;flex-direction:column;justify-content:center;line-height:1.25}
+.srow .wl span{font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.shead{font-size:.74rem;color:var(--muted);text-align:center;font-weight:600}
+.day{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 7px 7px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:3px;min-height:76px}
+.day:hover{border-color:var(--accent)}
+.day[aria-pressed="true"]{outline:3px solid var(--accent);outline-offset:0}
+.day.xd{background:var(--accent-soft)}
+.day.today{box-shadow:inset 0 0 0 2px var(--ink)}
+.day .dn{font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;align-items:baseline}
+.day .dn small{font-weight:600;color:var(--muted);font-size:.68rem}
+.day .ss{font-size:.68rem;line-height:1.2;color:var(--muted);flex:1}
+.day.xd .ss{color:var(--ink)}
+.day .mb{height:5px;border-radius:9px;background:var(--surface2);overflow:hidden}
+.day .mb i{display:block;height:100%;background:var(--done);width:0}
+.legend{font-size:.8rem;color:var(--muted);margin:8px 2px 0;display:flex;gap:14px;flex-wrap:wrap}
+.sw{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--accent-soft);border:1px solid var(--accent);vertical-align:-1px;margin-right:4px}
+/* filters */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 10px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:5px 12px;font:inherit;font-size:.86rem;font-weight:600;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.linkbtn{background:none;border:0;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;padding:4px 6px;text-decoration:underline}
+.next{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:12px;padding:14px 16px;margin:14px 0 6px}
+.next h3{margin:0 0 6px}
+/* tasks */
+.wk{margin:26px 0 0}
+.wk>h3{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 4px;font-size:1.1rem}
+.wk>h3 span{font-size:.82rem;color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums}
+.dayh{font-size:.86rem;font-weight:700;color:var(--muted);margin:14px 0 4px;display:flex;gap:8px;flex-wrap:wrap}
+.dayh em{font-style:normal;font-weight:600;color:var(--ink);background:var(--accent-soft);border-radius:6px;padding:0 7px}
+.task{display:flex;gap:11px;align-items:flex-start;padding:9px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line);margin:0 0 6px}
+.task input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--accent);cursor:pointer}
+.task label{flex:1;cursor:pointer}
+.task .tag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:6px;vertical-align:1px;background:var(--surface2);color:var(--muted)}
+.task .tag.cust{background:var(--red-soft);color:var(--red)}
+.task .tag.ws{background:var(--accent-soft);color:var(--ink)}
+.task .tag.signoff{background:var(--accent);color:var(--accent-ink)}
+.task.done{background:var(--surface2)}
+.task.done label span.tx{color:var(--muted)}
+.task.done label span.tx{text-decoration:line-through}
+.empty{color:var(--muted);padding:14px 4px}
+/* generic blocks */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 14px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.tbl{overflow-x:auto;margin:8px 0 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--surface2);font-size:.82rem;font-weight:700}
+tr:last-child td{border-bottom:0}
+td.t{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:700}
+details.pb{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin:0 0 12px}
+details.pb>summary{cursor:pointer;padding:14px 18px;font-weight:700;font-size:1.02rem;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.pb>summary::-webkit-details-marker{display:none}
+details.pb>summary::after{content:"+";font-weight:800;color:var(--accent)}
+details.pb[open]>summary::after{content:"\2212"}
+details.pb .in{padding:0 18px 16px}
+details.pb .meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.88rem;color:var(--muted);margin:0 0 8px}
+ul.plain{margin:6px 0 10px;padding-left:20px}
+ul.plain li{margin:3px 0}
+.note{background:var(--warn-soft);border-left:5px solid var(--warn);border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.94rem}
+.note b{color:var(--warn)}
+.pill{display:inline-block;font-size:.76rem;font-weight:700;border-radius:99px;padding:1px 9px;background:var(--surface2)}
+/* customization */
+.dim{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.dim h4{margin:0 0 8px;font-size:.98rem}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:8px 10px;display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-size:.88rem}
+.opt input{margin-top:3px;accent-color:var(--accent)}
+.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.opt b{display:block;font-size:.8rem}
+.result{background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:16px 18px;margin:14px 0;border-bottom:5px solid var(--red)}
+.result h3{margin:0 0 6px;color:var(--accent-ink)}
+.meter{display:grid;grid-template-columns:150px 1fr 70px;gap:8px;align-items:center;font-size:.84rem;margin:5px 0}
+.meter .mt{height:8px;border-radius:9px;background:color-mix(in srgb,var(--accent-ink) 28%,transparent);overflow:hidden}
+.meter .mt i{display:block;height:100%;background:var(--accent-ink)}
+.cardrow{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.cardrow:last-child{border-bottom:0}
+select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.tiers{display:inline-block;font-size:.72rem;font-weight:700;border-radius:6px;padding:0 6px;margin-left:6px;background:var(--surface2);color:var(--muted)}
+.tiers.plus{background:var(--accent-soft);color:var(--accent)}
+.tiers.pitch{background:var(--red-soft);color:var(--red)}
+.mgroup{margin:0 0 18px}
+.mgroup h3{margin:0 0 6px}
+.resetrow{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}
+@media (max-width:620px){
+  .meter{grid-template-columns:110px 1fr 56px}
+  .cardrow{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>HellermannTyton Discovery: Experience Design plan and tracker</h1>
+  <p>Your workstream as Experience Designer, Mon 9 Nov to Fri 4 Dec 2026. Built from the Workshop and Meeting Schedule, the Pre-Discovery Kickoff and Plan, the business case, the Connected Workforce pitch and Slalom Connect! 2026. Tick tasks as you go; progress is saved in this browser.</p>
+  <div class="overall"><div class="bar" role="progressbar" aria-label="Overall progress" aria-valuemin="0" aria-valuemax="100" id="ovbar"><i id="ovfill"></i></div><span><b id="ovtxt">0 of 0</b> tasks and materials done</span></div>
+</header>
+<nav class="tabs" id="tabs" aria-label="Sections">
+  <a href="#tasks">Tasks</a><a href="#workshops">Workshops</a><a href="#customization">Customization</a><a href="#materials">Materials</a><a href="#research">Research plan</a>
+</nav>
+
+<section class="pane" id="p-tasks">
+  <h2>Tasks by day</h2>
+  <p class="lede">Pick a day to focus on it, or scroll the full list. Blue days are sessions where the schedule lists you (XD) as a Slalom attendee. Today is outlined.</p>
+  <div class="strip" id="strip"></div>
+  <div class="legend"><span><i class="sw"></i>You are in the session (XD)</span><span>Bar under each day shows tasks done</span></div>
+  <div class="filters" id="filters"></div>
+  <div id="tasklist"></div>
+</section>
+
+<section class="pane" id="p-workshops">
+  <h2>Workshop playbooks</h2>
+  <p class="lede">Agendas are proposals to adjust with the Change Manager (co-facilitator). All sessions sit inside 9:00 to 17:00 GMT unless agreed. Tick the preparation tasks on the Tasks tab; the kit for each session is on the Materials tab.</p>
+  <div id="wsbody"></div>
+</section>
+
+<section class="pane" id="p-customization">
+  <h2>How much customization does HT want?</h2>
+  <p class="lede">Slalom Connect! comes in three levels: Connect! (mostly configuration, about 6 to 8 weeks), Connect! Plus (some customization, about 3 months) and Connect! Plus+ (complex customization and integration, 4+ months). Your job is to get evidence for where HT sits on seven dimensions, and what they will trade for it.</p>
+  <div class="note"><b>Watch the gap.</b> HT’s business case recommends Option B (modern digital workplace) first, growing toward physical touchpoints (C) or hybrid (D). Slalom’s pitch already shows kiosks, a voice channel and AI shift briefings. Those are Slalom ideas, not confirmed HT asks, so test them as needs before treating them as requirements.</div>
+
+  <h3>1. Scorecard: where does the evidence point?</h3>
+  <p class="lede">Fill this in after each source (sponsor interviews, design session, usability tests). Choose the description that best matches what you heard. The result is indicative, to support the conversation with the Solution Architect and Engagement Lead.</p>
+  <div id="dims"></div>
+  <div class="result" id="result"></div>
+
+  <h3>2. Where HT may push beyond Connect! (hypotheses to test)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Signal in the HT material</th><th>Likely tier</th><th>Why, and the question to ask</th></tr></thead>
+    <tbody>
+      <tr><td>Frontline touchpoints: Communication Corners, kiosks, QR walls (pitch layer 2)</td><td>Plus or Plus+</td><td>Extra surfaces and integrations. Ask: what would a shift worker actually do at a screen, and who maintains it?</td></tr>
+      <tr><td>Copilot assistant trained on policies, in Teams and on kiosks</td><td>Plus</td><td>Beyond the standard agent (“enhanced AI chat”). Ask: which questions must it answer, and who owns the answers?</td></tr>
+      <tr><td>Auto-translation across languages; 36 sites in 145 countries (verify)</td><td>Plus</td><td>Multi-channel, distributed communications. Ask: which languages in Phase 1 (decision #9)?</td></tr>
+      <tr><td>Viva Insights, sentiment heatmap, leadership briefings</td><td>Plus or Plus+</td><td>Data and privacy questions. Ask: who sees what, and what does the works council allow?</td></tr>
+      <tr><td>Global governance and dedicated resources (business case)</td><td>Plus</td><td>Needs a governance committee and policies. Ask: who owns sites and content after launch?</td></tr>
+      <tr><td>Entra ID SSO, GDPR, EU AI Act, ISO 27001 (pitch)</td><td>Depends</td><td>Define security needs early. Ask: are the rules already set for AI features?</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3. Card deck for the design session</h3>
+  <p class="lede">Print each card. In the workshop, stakeholders place every card as Standard (out of the box), Tailor (configure or restyle), Custom (build something specific) or Not now. Record the consensus here afterwards.</p>
+  <div class="card" id="cards"></div>
+  <div class="result" id="cardsum"></div>
+
+  <h3>4. Exercise flow</h3>
+  <ul class="plain">
+    <li><b>Baseline (sponsor interviews, Tue 10 Nov):</b> ask the seven dimension questions from the interview guide and fill the scorecard.</li>
+    <li><b>Design session Day 1 (16:15):</b> card sort, 35 minutes. Note who disagrees and why.</li>
+    <li><b>Design session Day 2 (13:30):</b> trade-off tokens. Give each stakeholder the same number of tokens; every step up in customization costs tokens (time, cost, governance). Make them choose.</li>
+    <li><b>Usability round 1 (Thu 19 Nov):</b> show one standard and one tailored element and ask which fits their work.</li>
+    <li><b>Week 3:</b> draft the customization profile (scorecard plus evidence), align with the Solution Architect on OOTB-versus-custom before Architecture sign-off (#25), then use it in the costed plan (#27).</li>
+  </ul>
+  <p class="lede">Reminder: a review of existing licensing will show limits that cap what is possible; ask the IT Lead early.</p>
+</section>
+
+<section class="pane" id="p-materials">
+  <h2>Materials and artefacts</h2>
+  <p class="lede">What to bring into the workshops, and what to produce. Tick items as they are ready.</p>
+  <div id="mats"></div>
+</section>
+
+<section class="pane" id="p-research">
+  <h2>Research plan on a page</h2>
+  <p class="lede">Directional, as the SOW says: Discovery sets and validates direction; build, migration and launch follow in Delivery.</p>
+
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">Objectives (XD)</h3>
+      <ul class="plain">
+        <li>Validate and consolidate HT’s existing discovery into one prioritised backlog.</li>
+        <li>Define the experience: up to six personas, journeys, information architecture and a tested prototype.</li>
+        <li>Agree how much customization HT wants and what they will trade for it.</li>
+        <li>Agree UX success measures that feed the adoption approach and the costed plan.</li>
+      </ul></div>
+    <div class="card"><h3 style="margin-top:0">Research questions</h3>
+      <ul class="plain">
+        <li><b>RQ1</b> Who are the core groups, and which moments matter most for each, especially the roughly 2,000 frontline employees without a PC?</li>
+        <li><b>RQ2</b> How do people find, receive and act on information today, and where does it break?</li>
+        <li><b>RQ3</b> What must the experience do on each surface in release 1?</li>
+        <li><b>RQ4</b> What navigation, labels and search do people expect?</li>
+        <li><b>RQ5</b> How much customization does HT want, and what will it trade?</li>
+        <li><b>RQ6</b> What does success look like for users, and how can we measure it?</li>
+      </ul></div>
+  </div>
+
+  <h3>Methods</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Method</th><th>Answers</th><th>When</th><th>Sample</th></tr></thead>
+    <tbody>
+      <tr><td>Desk review of HT discovery (workshops, 2024 survey, MoSCoW, requirements)</td><td>RQ1, RQ2</td><td>Week −1 to Wed 11 Nov</td><td>All outputs</td></tr>
+      <tr><td>Sponsor and priority-lead interviews (#4)</td><td>RQ5, RQ6</td><td>Tue 10 Nov</td><td>4</td></tr>
+      <tr><td>Validation interviews (see interview guide)</td><td>RQ1 to RQ4</td><td>Wed 11 Nov to Wed 18 Nov</td><td>10 to 14 across six groups</td></tr>
+      <tr><td>Persona and journey validation workshop (#8)</td><td>RQ1, RQ2</td><td>Thu 12 Nov</td><td>Product Owner and SMEs</td></tr>
+      <tr><td>Two-day design session with IA card sort (#12, #13)</td><td>RQ3, RQ4, RQ5</td><td>Mon 16 and Tue 17 Nov</td><td>4 to 6 stakeholders plus Product Owner</td></tr>
+      <tr><td>Customization exercise</td><td>RQ5</td><td>Interviews, design session, usability tests</td><td>Sponsors and stakeholders</td></tr>
+      <tr><td>Content assessment input (#16)</td><td>RQ4</td><td>Wed 18 Nov</td><td>Content owners, up to about 15</td></tr>
+      <tr><td>Usability testing, rounds 1 and 2 (#17, #20)</td><td>RQ3, RQ4</td><td>Thu 19 Nov and Mon 23 Nov</td><td>4 then 2 (desk and frontline); directional only</td></tr>
+      <tr><td>Optional: remote tree test of the draft IA</td><td>RQ4</td><td>Week 3, only if HT can distribute</td><td>15 or more desk users; frontline excluded</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Success measures for the Discovery (UX side)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Measure</th><th>Target</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Personas validated</td><td>Up to 6 validated, primaries named by Thu 12 Nov</td><td>Workshop output, decision log</td></tr>
+      <tr><td>Backlog</td><td>Prioritised (MoSCoW) and signed off Tue 17 Nov</td><td>Sign-off record</td></tr>
+      <tr><td>Prototype</td><td>Signed off Fri 20 Nov, or after round 2</td><td>Sign-off record</td></tr>
+      <tr><td>Usability</td><td>Core tasks passed by most participants per group; no open severity 3 to 4 issues at design sign-off</td><td>Issue log (directional with 4 + 2 people)</td></tr>
+      <tr><td>Customization alignment</td><td>One agreed profile; disagreements recorded</td><td>Scorecard and sign-off</td></tr>
+      <tr><td>Stakeholder confidence</td><td>Average 4 or higher out of 5 on “I understand and support the direction”</td><td>Two-question pulse after the design session</td></tr>
+    </tbody>
+  </table></div>
+  <p class="lede"><b>Measures to propose for the intranet itself</b> (to baseline before go-live and review quarterly, as the Connect! measurement slide suggests): adoption rate by persona, time to find key content, task success on core tasks, engagement score, communication delay. The pitch quoted 80% adoption in six months, +20% engagement and 15% fewer delays; confirm whether HT has adopted these.</p>
+
+  <h3>Risks and flags for you</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Flag</th><th>Why it matters</th><th>Mitigation</th></tr></thead>
+    <tbody>
+      <tr><td>Prototype window</td><td>Design session ends Tue 17 Nov; usability round 1 is Thu 19 Nov. That leaves about two build days.</td><td>Build prototype v0 before and during the session from Connect! templates; test only 4 to 5 core tasks per group; use paper or phone screens for frontline.</td></tr>
+      <tr><td>No interview slots in the schedule</td><td>User research is limited to sponsor interviews and usability tests.</td><td>Add short interview slots in Weeks 1 and 2 or fold interviews into the tests; agree with Engagement Lead.</td></tr>
+      <tr><td>Frontline access and works council</td><td>Route confirmed Thu 12 Nov; test participants needed Thu 19 Nov; sessions limited to 9:00 to 17:00 GMT.</td><td>Raise this week; arrange shift cover, local language and sites with the Change Lead.</td></tr>
+      <tr><td>Pitch versus plan</td><td>The pitch promised a 3-day sprint with a working prototype; the plan is a 4-week directional Discovery. The business case still mentions 12 to 16 weeks.</td><td>Re-set expectations at kickoff; show what the prototype is and is not.</td></tr>
+      <tr><td>Slalom ideas treated as requirements</td><td>Kiosks, voice channel and AI shift briefings are not in the business case’s recommended Option B.</td><td>Test as needs; keep them in a separate lane in the backlog.</td></tr>
+      <tr><td>Facts to verify</td><td>The pitch says both “2,000+ frontline” and “12,000+ employees”, and 36 sites in 145 countries. The 12,000 figure also appears as Slalom’s headcount.</td><td>Confirm real HT headcount, sites and countries before using them in workshops.</td></tr>
+      <tr><td>Client references and pricing</td><td>The Connect deck has “REMOVE” notes, a pricing example ($200K) and a client marked available only if Slalom advances.</td><td>Ask Engagement Lead what may be shown; leave pricing out of workshops.</td></tr>
+      <tr><td>Schedule attendance</td><td>The schedule does not list you for #16 content assessment, #22 integration and AI, #24 review or #27 delivery planning.</td><td>Ask to be invited, or send input to the Solution Architect and Change Manager.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="resetrow">Progress and answers live in this browser only. <button class="linkbtn" id="resetbtn">Reset everything</button></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- storage ---------- */
+var KEY="ht-xd-plan-v1", mem={};
+function load(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):{}; }catch(e){ return mem; } }
+function persist(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){ mem=S; } }
+var S=load(); S.done=S.done||{}; S.dim=S.dim||{}; S.card=S.card||{};
+
+/* ---------- calendar ---------- */
+var WEEKS=[
+ {k:"w0",label:"Week −1",sub:"Prepare",days:["2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"]},
+ {k:"w1",label:"Week 1",sub:"Mobilise and learn",days:["2026-11-09","2026-11-10","2026-11-11","2026-11-12","2026-11-13"]},
+ {k:"w2",label:"Week 2",sub:"Design and sign off",days:["2026-11-16","2026-11-17","2026-11-18","2026-11-19","2026-11-20"]},
+ {k:"w3",label:"Week 3",sub:"Architecture and sign off",days:["2026-11-23","2026-11-24","2026-11-25","2026-11-26","2026-11-27"]},
+ {k:"w4",label:"Week 4",sub:"Playback and consolidate",days:["2026-11-30","2026-12-01","2026-12-02","2026-12-03","2026-12-04"]}
+];
+var DOW=["Mon","Tue","Wed","Thu","Fri"], MON=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var SESS={
+ "2026-11-02":["Get ready: read, plan",0],"2026-11-03":["Workplan, research plan",0],"2026-11-04":["Personas, recruiting",0],"2026-11-05":["Rooms, stakeholders",0],"2026-11-06":["Workshop packs",0],
+ "2026-11-09":["Kickoff #1",1],"2026-11-10":["Vision #3, sponsor interviews #4",0],"2026-11-11":["Discovery deep dive #7",1],"2026-11-12":["Persona workshop #8, access #9, works council #10",1],"2026-11-13":["Risk Gate 1 #11",0],
+ "2026-11-16":["Design session day 1 #12",1],"2026-11-17":["Design session day 2 #13",1],"2026-11-18":["Narrative #14, content #16",1],"2026-11-19":["Usability round 1 #17",1],"2026-11-20":["Prototype sign-off #18",1],
+ "2026-11-23":["Usability round 2 #20",1],"2026-11-24":["Design sign-off #21",1],"2026-11-25":["Change review #23",1],"2026-11-26":["Architecture sign-off #25",0],"2026-11-27":["Change sign-off #26",0],
+ "2026-11-30":["Consolidate outputs",0],"2026-12-01":["Delivery planning #27",0],"2026-12-02":["Playback #28",1],"2026-12-03":["Hand-off prep",0],"2026-12-04":["Final acceptance #29",0]
+};
+var TAGS={prep:"Prep",ws:"Workshop",res:"Research",cust:"Customization",design:"Design",signoff:"Sign-off"};
+
+/* ---------- tasks: [id, day, tag, text] ---------- */
+var T=[
+["t01","2026-11-02","prep","Read the Pre-Discovery Kickoff and Plan end to end. Mark every place you are owner or input: the design workstream and sessions #7, #8, #12, #13, #17, #18, #20, #21."],
+["t02","2026-11-02","prep","Open a project workspace: shared folder, Figma and Miro board, file naming, participant code scheme (for example P-A01), privacy notes."],
+["t03","2026-11-02","res","Ask the HT Programme Owner for all discovery outputs in full (workshops, 2024 survey, questionnaires, MoSCoW, requirements) and what has not been shared yet. The plan needs them by Day 1."],
+["t04","2026-11-02","res","Read the business case (27 Nov 2025): the five user groups consulted, Options A to D, the access-management pain and the roughly 2,000 frontline non-email users."],
+["t05","2026-11-02","cust","Read the Connected Workforce pitch and list every promise. Mark each as HT-asked or Slalom-proposed: kiosks and Communication Corners, AI shift briefings, voice channel, sentiment heatmap, recognition walls, language-first."],
+["t06","2026-11-02","cust","Read Slalom Connect! 2026 and list features by tier: 9 Connect! tiles, 3 Connect! Plus tiles and the 7 dimensions on the “meets you where you are” slide."],
+["t07","2026-11-03","prep","Draft a one-page XD workplan: outputs, session ownership, dependencies. Review with the Engagement Lead and Change Manager."],
+["t08","2026-11-03","prep","Agree co-facilitation and note-taking roles for #8, #12, #13 and #17 (Change Manager co-facilitates; Solution Architect joins the design session)."],
+["t09","2026-11-03","res","Finalise the research plan one-pager (objectives, questions, methods, participants, risks) from the Research plan tab and share it for comment."],
+["t10","2026-11-03","res","Build the discovery-input inventory: source, date, audience, method, key findings, gaps, confidence. It is the working file for the deep dive on Wed 11 Nov."],
+["t11","2026-11-03","prep","Check design-tool access for the external team: Figma or Miro allowed? VDI limits? Screenshots allowed? Test before Day 1 (risk 1 is High)."],
+["t12","2026-11-04","res","Draft six persona hypotheses with evidence: frontline operator, team leader or plant manager, desk employee, remote or hybrid, new starter, content owner or department rep."],
+["t13","2026-11-04","res","Draft the “moments that matter” for journeys: start of shift or day, find a policy, get HR help, hear company news, raise a concern, feel recognised, onboard."],
+["t14","2026-11-04","res","Build the recruitment screener and plan for groups A to G in the interview guide (counts, slots, languages). Send to the HT Change Lead."],
+["t15","2026-11-04","prep","Ask the Change Manager to raise works council and HR needs now: interviews, recording, photos on the shop floor, anonymity, lead time. Item #10 is only on Thu 12 Nov."],
+["t16","2026-11-04","res","Prepare the consent form and privacy note; decide languages and interpreter support for frontline sessions."],
+["t17","2026-11-05","ws","Confirm design-session logistics with the HT Project Manager: in-person room for 10 to 12 people, wall space, printing, wifi, lunch, location (Slalom office or HT site TBC)."],
+["t18","2026-11-05","ws","Confirm the 4 to 6 named stakeholders with decision authority for Mon 16 and Tue 17 Nov. Hold diaries now (risk 3 is High)."],
+["t19","2026-11-05","prep","Collect current-state evidence: intranet screenshots, navigation structure, top search queries, usage analytics, brand guidelines, logo and fonts."],
+["t20","2026-11-05","cust","Design the customization exercise (scorecard, card sort, trade-off tokens) and draft the card deck. See the Customization tab."],
+["t21","2026-11-06","ws","Draft the design session agenda for Day 1 and Day 2 and a one-page invite with the decisions needed. Send to the Engagement Lead."],
+["t22","2026-11-06","ws","Draft the pack for the persona and journey validation workshop (#8): persona cards, journey canvas, voting dots, gaps log template."],
+["t23","2026-11-06","prep","Check which Connect! assets can seed prototype v0: home and department site patterns, templates, wireframe kit."],
+["t24","2026-11-06","prep","Send the Week 1 focus plan. Check the Before Day 1 checklist: access, discovery outputs, participants, rooms."],
+["t25","2026-11-06","cust","Ask the Engagement Lead which client references from the Connect deck you may show. Remove slides marked REMOVE and anything with pricing before any client use."],
+["t26","2026-11-09","ws","Attend the Slalom internal kickoff and the programme kickoff (#1, 90 min). Ask: who are the 4 to 6 design stakeholders, who owns brand, what are the frontline access limits, what are the tool limits?"],
+["t27","2026-11-09","prep","Contribute to the Ways of Working canvas: propose UX agreements (drafts 48 hours ahead, feedback within 24 hours, decide in the room)."],
+["t28","2026-11-09","res","Re-validate assumptions with the Programme Owner: are discovery outputs complete? Log missing inputs in the gaps log."],
+["t29","2026-11-09","ws","Lock names and diaries for design session attendees. Send the invite and the pre-read request."],
+["t30","2026-11-09","res","Send recruitment requests with the screener. Confirm the first interview slots with the Change Lead."],
+["t31","2026-11-10","res","Give the Change Manager your questions for the sponsor and priority-lead interviews (#4): vision for the experience, frontline priorities, customization appetite, brand. Use the interview guide."],
+["t32","2026-11-10","res","Join the vision, objectives and value framework session (#3). Add UX success measures: findability, task success, adoption by persona."],
+["t33","2026-11-10","cust","After the interviews, fill the first customization scorecard from what the sponsor said."],
+["t34","2026-11-10","res","Start reading discovery outputs and fill the inventory sheet."],
+["t35","2026-11-11","res","Run the HT Discovery deep dive, session 1 of 2 (#7, 90 min): walk each output, mark what is validated, stale or missing."],
+["t36","2026-11-11","res","Run deep dive session 2 of 2 (#7, 90 min): turn findings into the draft consolidated backlog (ID, source, persona, MoSCoW, confidence) and the gaps log."],
+["t37","2026-11-11","res","Run first interviews with group B (team leader or site manager) and group F (content owner) if participants are confirmed."],
+["t38","2026-11-11","res","Update persona hypotheses with deep-dive findings. Mark which personas have strong and which have thin evidence."],
+["t39","2026-11-12","ws","Facilitate the Persona and journey validation workshop (#8, 90 min) with the Change Manager. See the Workshops tab."],
+["t40","2026-11-12","ws","Run the Frontline access model and Phase-1 languages decision (#9, 60 min). Bring options and the design impact of each; log decisions the same day."],
+["t41","2026-11-12","res","Get the outcome of the works council and HR alignment (#10): route, lead time, what is allowed for interviews and usability tests."],
+["t42","2026-11-12","res","Update personas and journeys after the workshop. Record which personas are primary for Phase 1."],
+["t43","2026-11-12","res","Hold more interviews this week: groups C, D and E (desk, remote, new starter). Complete the capture sheet within 30 minutes of each."],
+["t44","2026-11-13","signoff","Give the Engagement Lead your readiness view for Risk Gate 1 (#11): access, participants, inputs, attendees, risks."],
+["t45","2026-11-13","ws","Finalise the design session agenda, roles and room plan. Dry-run Day 1 and Day 2 for 60 minutes with the Change Manager, Solution Architect and Engagement Lead."],
+["t46","2026-11-13","ws","Send the pre-read pack to design session attendees: vision, validated personas, key quotes, what we heard, plain-language customization primer."],
+["t47","2026-11-13","cust","Dry-run the customization exercise on a colleague. Time it and fix confusing wording."],
+["t48","2026-11-13","prep","Print and pack the workshop kit. Test any digital board template. Confirm photo and recording consent for the session."],
+["t49","2026-11-13","res","Log XD risks and decisions in RAIDD and update weekly status."],
+["t50","2026-11-16","ws","Set up the room 60 minutes before start: wall zones, persona cards, journey canvas, evidence wall, sketch stations."],
+["t51","2026-11-16","ws","Facilitate design session Day 1 (#12, full day, in person): welcome, what we heard, moments that matter, reference teardown, sketching, IA card sort, customization part 1."],
+["t52","2026-11-16","cust","Run customization part 1: place every card as Standard, Tailor, Custom or Not now. Record where stakeholders disagree and the reasons."],
+["t53","2026-11-16","ws","Photograph and transcribe all boards the same evening. Write a one-page Day 1 readout and the Day 2 plan."],
+["t54","2026-11-16","design","Start prototype v0 on Monday evening: home, navigation, department site, news, search and one frontline surface. Reuse Connect! templates."],
+["t55","2026-11-17","ws","Facilitate design session Day 2 (#13): playback, wireframe critique, backlog MoSCoW, customization part 2, branding direction, UX success measures."],
+["t56","2026-11-17","cust","Run customization part 2 with trade-off tokens against time and cost. Show what Connect!, Plus and Plus+ mean. Record the final stance per dimension."],
+["t57","2026-11-17","signoff","Get backlog sign-off from the Programme Owner in the room. Log decisions the same day."],
+["t58","2026-11-17","design","Continue the prototype build. Define test scope: 4 to 5 core tasks per persona group."],
+["t59","2026-11-18","ws","Contribute to Transformation narrative and engagement (#14, 90 min): personas, journeys and quotes the narrative can use."],
+["t60","2026-11-18","res","Give input to Content assessment and ownership (#16): content types, templates needed, IA implications. The schedule does not list you, so ask to be invited or brief the Solution Architect."],
+["t61","2026-11-18","res","Write the usability test plan, script, task cards, observer sheet, consent and severity scale. Confirm 4 participants (2 desk, 2 frontline)."],
+["t62","2026-11-18","design","Finish click-through prototype v1 for testing: desktop, mobile and a frontline mock (kiosk or shared device). Check links and content in the local language."],
+["t63","2026-11-18","res","Pilot the test with a colleague. Fix tasks and broken prototype paths."],
+["t64","2026-11-19","res","Run usability round 1 (#17, 4 × 60 min, desk and frontline). Debrief after each session and log issues with severity."],
+["t65","2026-11-19","cust","In each session test one standard against one tailored element (for example standard versus tailored menu). Record preference and reasoning."],
+["t66","2026-11-19","res","Synthesise the same evening: top issues, what to change before sign-off, whether round 2 is needed."],
+["t67","2026-11-20","design","Update the prototype for the highest-severity issues before the sign-off."],
+["t68","2026-11-20","signoff","Present the prototype and findings at Prototype sign-off (#18, 60 to 90 min). Capture change requests and get sign-off from the Programme Owner and design stakeholders."],
+["t69","2026-11-20","res","Decide with the Change Manager whether round 2 is needed on Mon 23 Nov. Confirm 2 participants."],
+["t70","2026-11-20","prep","Send the Week 3 focus plan and update RAIDD."],
+["t71","2026-11-23","res","Run usability round 2 (#20, 2 × 60 min) if needed, on changed flows only."],
+["t72","2026-11-23","design","Prepare the Design sign-off pack: personas, journeys, IA map, prototype link, branding direction, findings, UX success measures."],
+["t73","2026-11-23","cust","Draft the customization profile: stance per dimension, evidence from sponsor, workshop and tests, mapped to Connect!, Plus or Plus+."],
+["t74","2026-11-24","signoff","Run Design sign-off (#21, 60 min): present, record decisions, get Programme Owner and Product Owner sign-off."],
+["t75","2026-11-24","res","Give input to Integration discovery and AI readiness (#22): assistant conversation flows, expectations, guardrails, what users see when AI cannot answer. Ask to be invited."],
+["t76","2026-11-24","cust","Share the customization profile with the Solution Architect to align the OOTB-versus-custom recommendation."],
+["t77","2026-11-25","res","Join the Change and Adoption plus comms review (#23): link journeys to adoption touchpoints; check success measures are measurable."],
+["t78","2026-11-25","design","If asked, give UX input to the AI governance, ARB and security review (#24): user-facing AI behaviour, data shown, consent text."],
+["t79","2026-11-26","cust","Check the Architecture sign-off (#25) for UX-critical custom items. Flag any that conflict with the signed-off design."],
+["t80","2026-11-26","design","Start assembling the Design section of the Discovery outcome."],
+["t81","2026-11-27","design","Finish the draft design outcome: personas, journeys, IA, prototype, findings, branding, success measures, customization recommendation."],
+["t82","2026-11-27","prep","Share the draft with the Engagement Lead for review before Week 4."],
+["t83","2026-11-30","design","Consolidate XD outputs into the Discovery outcome. Check consistency with the architecture and change sign-offs."],
+["t84","2026-11-30","prep","Prepare XD input to the costed plan: design effort per delivery wave (templates, personas, languages, branding), by customization tier."],
+["t85","2026-12-01","cust","Ask to join Delivery planning and wave options (#27). Propose waves by persona and surface and show what each customization level costs."],
+["t86","2026-12-01","design","Prepare your playback segment: 10 to 15 minutes, prototype demo, three quotes per persona."],
+["t87","2026-12-02","signoff","Present at Playback (#28): design, findings and customization recommendation. Log any change requests through change control."],
+["t88","2026-12-03","prep","Hand off: organise the repository, prototype files, anonymised research data, open questions and research debt."],
+["t89","2026-12-03","prep","Confirm acceptance criteria for design deliverables with the Programme Owner before Friday."],
+["t90","2026-12-04","signoff","Final acceptance (#29): confirm design deliverables accepted."],
+["t91","2026-12-04","prep","Hold a short retro on the research approach. Record what to repeat in Delivery."]
+];
+
+/* ---------- workshops ---------- */
+var WS=[
+{title:"Persona and journey validation (#8)",meta:["Thu 12 Nov","90 min","Lead: you and the Change Manager","HT: Product Owner and SMEs"],
+ goal:"Validate up to six personas and their key journeys, and agree which are primary for Phase 1.",
+ rows:[["0–10","Welcome and frame","Aim, ground rules, how personas feed the design session","Shared purpose"],["10–25","Persona gallery walk","Silent read of six persona cards; stickies: true, not true, missing","Corrections per persona"],["25–40","Choose primaries","Merge or split; dot-vote primary and secondary personas","Primary personas for Phase 1"],["40–75","Journey validation","Pairs map three moments per top persona: steps, channel, device, pain, workaround","Journey drafts"],["75–85","Gaps and questions","Park what nobody can answer; owner and date","Gaps log"],["85–90","Close","Read back decisions; preview design session","Next steps"]],
+ tips:["Show evidence on every persona card and mark confidence; thin evidence (likely frontline) should be visible.","Ask “who is missing?” before voting.","Keep frontline voices present by sharing quotes from interviews."]},
+{title:"Design session, Day 1 (#12): concept and IA",meta:["Mon 16 Nov","Full day, in person","Slalom: XD, CM, SA, EL","HT: 4 to 6 stakeholders plus Product Owner"],
+ goal:"Agree concept direction, information architecture and a first view of customization appetite.",
+ rows:[["09:00–09:30","Welcome and ways of working","Aim, decisions needed by tomorrow evening, decide-in-the-room rule","Shared aim"],["09:30–10:15","What we heard","Validated personas, three quotes each, evidence wall, gaps","Common ground"],["10:15–10:30","Break","",""],["10:30–11:30","Moments that matter","“How might we” per persona; dot-vote top 8 to 10","Prioritised HMW list"],["11:30–12:30","Reference teardown","4 to 5 intranet references and Connect! tiles: like, dislike, not for us","Design principles"],["12:30–13:30","Lunch","",""],["13:30–15:00","Concept sketching","Crazy 8s, then solution sketch for desktop home, mobile and a frontline surface; dot-vote; storyboard","3 concept directions"],["15:00–15:15","Break","",""],["15:15–16:15","Information architecture","Hybrid card sort, about 25 cards: top navigation, department template, search facets","IA direction"],["16:15–16:50","Customization part 1","Card sort: Standard, Tailor, Custom, Not now; note disagreements","First stance"],["16:50–17:00","Close","Parking lot; preview Day 2","Day 2 plan"]],
+ tips:["Evening: Slalom only. Transcribe boards, start prototype v0 and prepare wireframes for the morning.","Keep the reference teardown to examples HT may see; check permissions first.","Use timers and a visible parking lot; the full-day format is demanding for decision-makers."]},
+{title:"Design session, Day 2 (#13): backlog and sign-off",meta:["Tue 17 Nov","Full day, in person","HT: 4 to 6 stakeholders, Programme Owner signs"],
+ goal:"Leave with a prioritised, signed-off backlog, a customization stance and an agreed branding direction.",
+ rows:[["09:00–09:30","Playback of Day 1","Concept, IA, decisions so far; wireframes v0 of key screens","Confirmed direction"],["09:30–11:00","Wireframe critique","Per persona walkthrough: I like, I wish, what if","Change list"],["11:00–11:15","Break","",""],["11:15–12:30","Backlog prioritisation","Consolidated backlog plus Day 1 findings; MoSCoW; draw the Phase 1 line","Prioritised backlog"],["12:30–13:30","Lunch","",""],["13:30–14:45","Customization part 2","Trade-off tokens against time, cost and governance; show Connect!, Plus, Plus+","Final stance per dimension"],["14:45–15:30","Branding and tone","HT guidelines; choose between 2 to 3 mood directions; density, imagery, tone","Branding direction"],["15:30–16:15","UX success measures","What, how, who, when, why worksheet; baseline and target","4 to 6 measures"],["16:15–16:50","Backlog sign-off","Read out backlog and decisions; Programme Owner signs in the room","Signed-off backlog"],["16:50–17:00","Close","Prototype Wed, tests Thu, sign-off Fri","Next steps"]],
+ tips:["Log every decision the same day and share it by evening.","If stakeholders disagree on customization, record both positions rather than forcing consensus.","Anything new after sign-off goes through change control."]},
+{title:"Usability testing, rounds 1 and 2 (#17, #20)",meta:["Thu 19 Nov: 4 × 60 min","Mon 23 Nov: 2 × 60 min if needed","Desk and frontline participants"],
+ goal:"Find the biggest usability problems before Design sign-off and compare standard against tailored elements.",
+ rows:[["0–5","Welcome and consent","Explain it tests the design, not them; recording and notes","Consent"],["5–15","Context","Typical day or shift, tools they use, last time they needed information","Context notes"],["15–45","Tasks","4 to 5 tasks, think aloud. Examples: find a policy, find a person or team, read the latest news, ask the assistant, start-of-shift view (frontline), find onboarding info","Task success, time, issues"],["45–55","Debrief","Ease rating 1 to 7 per task; what surprised you; standard versus tailored element","Preferences"],["55–60","Wrap-up","Anything missed; thanks","Close"]],
+ tips:["Record per task: pass, pass with help, fail. Rate issues 0 to 4 for severity. With 4 to 6 people the results are directional, not statistical.","Frontline: test on a phone and a screen mock, in the local language; keep paper print as a fallback.","One facilitator, one silent note-taker, observers muted."]}
+];
+
+/* ---------- customization ---------- */
+var DIMS=[
+ ["Content curation or migration","Microsoft-based source in good state, simple mapping rules","Limited Microsoft data sources, moderate quality","Multiple data sources of varying quality"],
+ ["Integrations","No integrations","Limited integrations with internal and external providers","Multiple, complex integrations"],
+ ["Processes and customizations","Simple out-of-the-box workflows, standard Copilot or SharePoint agents","Workflows with limited customization, enhanced AI chat","Complex, highly integrated workflows; extended agents or search"],
+ ["Communications complexity","Hub communication site","Distributed, multi-channel","Significant customization or integration with external social platforms"],
+ ["Branded experience","Lightweight branded theme","Custom branded design with themed elements","Fully customized branded experience"],
+ ["Change management and governance","Basic training, initial governance discussions","Communication, change and learning needs; build a governance committee, define policies","Major change elements to drive adoption; operationalise governance"],
+ ["Security and compliance","Already defined and aligned to Microsoft best practices","Some help with definition needed","Complex needs not well defined for content and collaboration technology"]
+];
+var LV=["Connect!","Connect! Plus","Connect! Plus+"];
+var CARDS=[
+ ["Home and departmental sites","c"],["Reusable site templates","c"],["News highlights and features","c"],["Rich, easy-to-use content management","c"],["AI, Copilot and SharePoint agents","c"],["Social features: like and feedback loop","c"],["Quick and reliable search","c"],["Popular content and calls to action","c"],["My feed","c"],
+ ["Graph-driven dynamic mega menu","p"],["Faceted search with modern UI","p"],["AI-based comment moderation","p"],
+ ["AI shift briefings (personalised 60-second brief per shift)","s"],["Factory voice channel (QR voice notes, translated and routed)","s"],["Milestone moments (tenure celebrations)","s"],["Sentiment heatmap (Viva Insights by site and shift)","s"],["Language-first design (auto-translate to reader’s language)","s"],["Peer recognition walls","s"],["Communication Corners (floor screens, kiosks, QR walls)","s"],["Offline-first Teams mobile for shift workers","s"],["AI leadership briefings","s"]
+];
+var BUCKETS=["Not yet decided","Standard","Tailor","Custom","Not now"];
+
+/* ---------- materials ---------- */
+var M=[
+ ["Sent ahead",[["m01","Invite and one-page brief: aims, decisions needed, what to bring, who decides"],["m02","Pre-read pack, 6 pages max: vision, validated personas, quotes, what we heard, plain-language customization primer"],["m03","Prep note for stakeholders: bring brand guidelines, top 3 priorities, one story about information that was hard to find"]]],
+ ["Evidence and personas",[["m04","Discovery inventory sheet and gaps log"],["m05","Six persona cards (A3 and A5): facts with evidence line and confidence marker"],["m06","Journey canvas (A0): moments in columns; rows for steps, channel, device, pain, workaround, opportunity"],["m07","Evidence wall: printed quotes, 2024 survey results, pain-point clusters"],["m08","“How might we” cards"],["m09","Interview guide, capture sheets and concept cards for interviews"]]],
+ ["Concept and information architecture",[["m10","Reference gallery: 4 to 5 intranet examples, cleared or anonymised, plus Connect! home and department patterns"],["m11","Sketch kit: Crazy 8s sheets, device frames (desktop, mobile, kiosk), thick pens, dots"],["m12","IA card-sort deck of about 25 cards plus blanks and header cards"],["m13","Wireframe kit in Figma using SharePoint web part patterns and Connect! templates"],["m14","Prototype v0 for Day 2 morning; v1 test-ready by Wed 18 Nov (desktop, mobile, frontline mock)"],["m15","Branding mood boards, 2 to 3 directions built from HT guidelines"]]],
+ ["Customization",[["m16","Seven dimension cards showing Connect!, Plus and Plus+ in plain language"],["m17","Feature card deck (12 Connect! tiles plus pitch ideas), one-line benefit each"],["m18","Trade-off tokens (same number per stakeholder) and a simple board"],["m19","Result capture sheet and a one-page customization profile (bar per dimension)"],["m20","Check before showing: no pricing, no REMOVE notes, references cleared"]]],
+ ["Decisions and measures",[["m21","Backlog board with MoSCoW lanes and a Phase 1 line"],["m22","Decision log and RAIDD entry template, updated the same day"],["m23","UX success measures worksheet: what, how, who, when, why"],["m24","Sign-off one-pager: what is signed, by whom, what needs change control"]]],
+ ["Facilitation kit",[["m25","Timers, three colours of dot stickers, sticky notes, markers, tape, A0 paper, camera for boards"],["m26","Consent forms and photo or recording policy, in local languages"],["m27","Remote or backup board template (Miro, Mural or Figma)"],["m28","Room checklist: wall space, power, printing, lunch, accessibility"],["m29","Name cards and role cards: facilitator, scribe, timekeeper, decision owner"]]],
+ ["Usability test kit",[["m30","Test plan, script and consent"],["m31","Task cards in local language, plus paper or phone fallback"],["m32","Observer sheet, issue log, severity scale 0 to 4, ease rating 1 to 7"],["m33","Devices: laptop, phone, tablet or screen as kiosk mock; chargers"],["m34","Participant time and shift cover arranged with HT"]]],
+ ["Playback and hand-off",[["m35","XD playback section: up to 6 slides plus prototype demo"],["m36","Design pack index: personas, journeys, IA, prototype, findings, branding, measures, customization profile"],["m37","Anonymised research data and repository hand-off"]]]
+];
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id)}
+function dayLabel(d){var p=d.split("-");return {n:p[2],m:MON[+p[1]]}}
+function dayIdx(d){for(var i=0;i<WEEKS.length;i++){var j=WEEKS[i].days.indexOf(d);if(j>-1)return [i,j]}return [0,0]}
+function weekOf(d){return WEEKS[dayIdx(d)[0]]}
+var selDay=null, filt="all";
+function countDay(d){var t=0,n=0;T.forEach(function(x){if(x[1]===d){t++;if(S.done[x[0]])n++}});return [n,t]}
+var TOTAL=T.length; M.forEach(function(g){TOTAL+=g[1].length});
+function totalDone(){var n=0;Object.keys(S.done).forEach(function(k){if(S.done[k])n++});return n}
+
+function updateOverall(){
+  var n=totalDone(); $("ovtxt").textContent=n+" of "+TOTAL;
+  var pct=Math.round(100*n/TOTAL); $("ovfill").style.width=pct+"%"; $("ovbar").setAttribute("aria-valuenow",pct);
+}
+
+/* ---------- strip ---------- */
+function renderStrip(){
+  var today=new Date().toISOString().slice(0,10), h='<div class="srow"><div></div>'+DOW.map(function(d){return '<div class="shead">'+d+'</div>'}).join("")+'</div>';
+  WEEKS.forEach(function(w){
+    var wt=0,wd=0; w.days.forEach(function(d){var c=countDay(d);wd+=c[0];wt+=c[1]});
+    h+='<div class="srow"><div class="wl">'+w.label+'<span>'+wd+'/'+wt+' · '+w.sub+'</span></div>';
+    w.days.forEach(function(d){
+      var c=countDay(d), s=SESS[d]||["",0], l=dayLabel(d), pct=c[1]?Math.round(100*c[0]/c[1]):0;
+      h+='<button type="button" class="day'+(s[1]?' xd':'')+(d===today?' today':'')+'" data-day="'+d+'" aria-pressed="'+(selDay===d)+'" aria-label="'+l.n+' '+l.m+', '+c[0]+' of '+c[1]+' tasks done"><span class="dn">'+l.n+'<small>'+l.m+'</small></span><span class="ss">'+s[0]+'</span><span class="mb"><i style="width:'+pct+'%"></i></span></button>';
+    });
+    h+='</div>';
+  });
+  $("strip").innerHTML=h;
+}
+
+/* ---------- tasks ---------- */
+function renderFilters(){
+  var f=[["all","All"],["open","Open"],["done","Done"],["ws","Workshop"],["res","Research"],["cust","Customization"],["design","Design"],["signoff","Sign-off"],["prep","Prep"]];
+  var h=f.map(function(x){return '<button type="button" class="chip" data-f="'+x[0]+'" aria-pressed="'+(filt===x[0])+'">'+x[1]+'</button>'}).join("");
+  if(selDay){var l=dayLabel(selDay);h+='<button type="button" class="linkbtn" id="clrday">Showing '+l.n+' '+l.m+'. Show all days</button>'}
+  $("filters").innerHTML=h;
+}
+function taskHTML(x){
+  var d=!!S.done[x[0]];
+  return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+x[3]+'</span><span class="tag '+x[2]+'">'+TAGS[x[2]]+'</span></label></div>';
+}
+function renderNext(){
+  if(!$("next"))return;
+  var open=T.filter(function(x){return !S.done[x[0]]}).slice(0,5);
+  var h='<h3>Next up</h3>';
+  if(!open.length){h+='<div class="empty">Everything is ticked. Nice work.</div>'}
+  else h+=open.map(taskHTML).join("")+'<p class="empty" style="padding:6px 0 0;font-size:.86rem">Ticked tasks stay in the full list below. Use the Done filter to see only those.</p>';
+  $("next").innerHTML=h;
+}
+function renderTasks(){
+  var list=T.filter(function(x){
+    if(selDay&&x[1]!==selDay)return false;
+    if(filt==="open")return !S.done[x[0]];
+    if(filt==="done")return !!S.done[x[0]];
+    if(filt!=="all"&&x[2]!==filt)return false;
+    return true;
+  });
+  if(!list.length){$("tasklist").innerHTML='<div class="empty">No tasks match this filter.</div>';return}
+  var h="",lastW="",lastD="";
+  list.forEach(function(x){
+    var w=weekOf(x[1]);
+    if(w.k!==lastW){
+      var wt=0,wd=0;T.forEach(function(y){if(weekOf(y[1]).k===w.k){wt++;if(S.done[y[0]])wd++}});
+      h+='<div class="wk"><h3>'+w.label+': '+w.sub+'<span>'+wd+' of '+wt+' done</span></h3></div>';lastW=w.k;lastD="";
+    }
+    if(x[1]!==lastD){
+      var di=dayIdx(x[1]),l=dayLabel(x[1]),s=SESS[x[1]];
+      h+='<div class="dayh">'+DOW[di[1]]+' '+l.n+' '+l.m+(s&&s[0]?' <em>'+s[0]+'</em>':'')+'</div>';lastD=x[1];
+    }
+    h+=taskHTML(x);
+  });
+  $("tasklist").innerHTML=h;
+}
+function refreshTasks(){renderStrip();renderNext();renderTasks();updateOverall()}
+
+/* ---------- workshops ---------- */
+function renderWS(){
+  $("wsbody").innerHTML=WS.map(function(w,i){
+    return '<details class="pb"'+(i===0?' open':'')+'><summary>'+w.title+'</summary><div class="in"><div class="meta">'+w.meta.map(function(m){return '<span>'+m+'</span>'}).join("")+'</div><p><b>Goal:</b> '+w.goal+'</p><div class="tbl"><table><thead><tr><th>Time</th><th>Block</th><th>How</th><th>Output</th></tr></thead><tbody>'+w.rows.map(function(r){return '<tr><td class="t">'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>'}).join("")+'</tbody></table></div><ul class="plain">'+w.tips.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul></div></details>';
+  }).join("");
+}
+
+/* ---------- customization ---------- */
+function renderDims(){
+  $("dims").innerHTML=DIMS.map(function(d,i){
+    return '<div class="dim"><h4>'+d[0]+'</h4><div class="opts" role="radiogroup" aria-label="'+d[0]+'">'+[1,2,3].map(function(k){
+      return '<label class="opt"><input type="radio" name="dim'+i+'" value="'+k+'" data-dim="'+i+'"'+(S.dim[i]==k?' checked':'')+'><span><b>'+LV[k-1]+'</b>'+d[k]+'</span></label>';
+    }).join("")+'</div></div>';
+  }).join("");
+  renderResult();
+}
+function renderResult(){
+  var vals=[],sum=0,n=0;
+  DIMS.forEach(function(d,i){var v=+S.dim[i]||0;vals.push(v);if(v){sum+=v;n++}});
+  var h='<h3>Indicative profile</h3>';
+  if(!n){h+='<p style="margin:0">Choose a description for each dimension to see where the evidence points.</p>'}
+  else{
+    var avg=sum/n, tier=avg<1.5?0:(avg<2.5?1:2);
+    h+='<p style="margin:0 0 10px"><b>'+LV[tier]+'</b> (average '+avg.toFixed(1)+' across '+n+' of 7 dimensions). '+["Mostly configuration, about 6 to 8 weeks.","Some customization, about 3 months.","Complex customization and integration, 4+ months."][tier]+' Treat this as a conversation starter, not an estimate.</p>';
+    DIMS.forEach(function(d,i){var v=vals[i];h+='<div class="meter"><span>'+d[0]+'</span><span class="mt"><i style="width:'+(v?Math.round(v/3*100):0)+'%"></i></span><span>'+(v?LV[v-1]:"no data")+'</span></div>'});
+    var spread=Math.max.apply(null,vals.filter(Boolean))-Math.min.apply(null,vals.filter(Boolean));
+    if(spread>=2)h+='<p style="margin:10px 0 0">Wide spread: some dimensions are simple and others are complex. Look at those first when you talk to the Solution Architect.</p>';
+  }
+  $("result").innerHTML=h;
+}
+function renderCards(){
+  $("cards").innerHTML=CARDS.map(function(c,i){
+    var tier=c[1]==="c"?'<span class="tiers">Connect!</span>':(c[1]==="p"?'<span class="tiers plus">Plus</span>':'<span class="tiers pitch">Pitch idea</span>');
+    return '<div class="cardrow"><span>'+c[0]+tier+'</span><select data-card="'+i+'" aria-label="Workshop outcome for '+c[0]+'">'+BUCKETS.map(function(b,k){return '<option value="'+k+'"'+((+S.card[i]||0)===k?' selected':'')+'>'+b+'</option>'}).join("")+'</select></div>';
+  }).join("");
+  renderCardSum();
+}
+function renderCardSum(){
+  var cnt=[0,0,0,0,0];CARDS.forEach(function(c,i){cnt[+S.card[i]||0]++});
+  var h='<h3>Card sort result</h3><p style="margin:0">'+BUCKETS.map(function(b,k){return b+': <b>'+cnt[k]+'</b>'}).join(" · ")+'</p>';
+  var pitchCustom=0;CARDS.forEach(function(c,i){if(c[1]==="s"&&(+S.card[i]===2||+S.card[i]===3))pitchCustom++});
+  if(cnt[0]<CARDS.length)h+='<p style="margin:8px 0 0">'+pitchCustom+' of the 9 pitch ideas were placed as Tailor or Custom. Each one pushes you toward Plus or Plus+.</p>';
+  $("cardsum").innerHTML=h;
+}
+
+/* ---------- materials ---------- */
+function renderMats(){
+  $("mats").innerHTML=M.map(function(g){
+    return '<div class="mgroup"><h3>'+g[0]+'</h3>'+g[1].map(function(x){
+      var d=!!S.done[x[0]];
+      return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+x[1]+'</span></label></div>';
+    }).join("")+'</div>';
+  }).join("");
+}
+
+/* ---------- events ---------- */
+document.addEventListener("change",function(e){
+  var t=e.target;
+  if(t.matches&&t.matches('input[data-id]')){
+    S.done[t.dataset.id]=t.checked; persist();
+    var row=t.closest(".task"); if(row)row.classList.toggle("done",t.checked);
+    // sync duplicates (same id in Next up and list)
+    var all=document.querySelectorAll('input[data-id="'+t.dataset.id+'"]');
+    for(var i=0;i<all.length;i++){all[i].checked=t.checked;var r=all[i].closest(".task");if(r)r.classList.toggle("done",t.checked)}
+    if(t.dataset.id.charAt(0)==="t"){renderStrip();renderTasks()}
+    updateOverall();
+  }else if(t.matches&&t.matches('input[data-dim]')){
+    S.dim[t.dataset.dim]=t.value;persist();renderResult();
+  }else if(t.matches&&t.matches('select[data-card]')){
+    S.card[t.dataset.card]=t.value;persist();renderCardSum();
+  }
+});
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest("button");
+  if(!b)return;
+  if(b.dataset.day){selDay=(selDay===b.dataset.day)?null:b.dataset.day;renderFilters();refreshTasks()}
+  else if(b.dataset.f){filt=b.dataset.f;renderFilters();renderTasks()}
+  else if(b.id==="clrday"){selDay=null;renderFilters();refreshTasks()}
+  else if(b.id==="resetbtn"){
+    if(window.confirm("Clear all ticks and answers on this page?")){S={done:{},dim:{},card:{}};persist();selDay=null;filt="all";init()}
+  }
+});
+
+/* ---------- tabs via hash ---------- */
+var NAMES=["tasks","workshops","customization","materials","research"];
+function route(){
+  var h=(location.hash||"").replace("#","");
+  if(NAMES.indexOf(h)<0)h="tasks";
+  NAMES.forEach(function(n){$("p-"+n).classList.toggle("on",n===h)});
+  var links=$("tabs").querySelectorAll("a");
+  for(var i=0;i<links.length;i++){if(links[i].getAttribute("href")==="#"+h)links[i].setAttribute("aria-current","page");else links[i].removeAttribute("aria-current")}
+}
+window.addEventListener("hashchange",route);
+
+function init(){
+  renderFilters();refreshTasks();renderWS();renderDims();renderCards();renderMats();updateOverall();route();
+}
+init();
+})();
+</script>
+</body>
+</html>
