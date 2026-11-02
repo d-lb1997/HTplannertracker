@@ -147,7 +147,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
   <div class="overall"><div class="bar" role="progressbar" aria-label="Overall progress" aria-valuemin="0" aria-valuemax="100" id="ovbar"><i id="ovfill"></i></div><span><b id="ovtxt">0 of 0</b> tasks and materials done</span></div>
 </header>
 <nav class="tabs" id="tabs" aria-label="Sections">
-  <a href="#tasks">Tasks</a><a href="#workshops">Workshops</a><a href="#customization">Customization</a><a href="#materials">Materials</a><a href="#research">Research plan</a>
+  <a href="#tasks">Tasks</a><a href="#sessions">Sessions</a><a href="#workshops">Workshops</a><a href="#customization">Customization</a><a href="#materials">Materials</a><a href="#research">Research plan</a>
 </nav>
 
 <section class="pane" id="p-tasks">
@@ -157,6 +157,15 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
   <div class="legend"><span><i class="sw"></i>You are in the session (XD)</span><span>Bar under each day shows tasks done</span></div>
   <div class="filters" id="filters"></div>
   <div id="tasklist"></div>
+</section>
+
+<section class="pane" id="p-sessions">
+  <h2>Your sessions</h2>
+  <p class="lede">From the schedule, with your role in each. Where the HT attendees are not listed in the source documents it says "Check schedule". Item numbers match the tasks.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Date</th><th>Session</th><th>Your role</th><th>HT attendees</th><th>Outcome</th></tr></thead>
+    <tbody><tr><td>1</td><td>Mon 09 Nov</td><td>Programme kickoff (90 min)</td><td>Attend</td><td>Exec Sponsor, Programme Owner, PM, Product Owner, IT Lead, Change Lead</td><td>Objectives, scope, plan, governance and ways of working agreed</td></tr><tr><td>3</td><td>Tue 10 Nov</td><td>Vision, objectives and value framework (90 min)</td><td>Join; add UX success measures</td><td>Exec Sponsor, Programme Owner</td><td>Vision, objectives and success measures</td></tr><tr><td>7</td><td>Wed 11 Nov</td><td>HT Discovery deep dive (2 × 90 min)</td><td>Run</td><td>Check schedule</td><td>Outputs validated, consolidated backlog draft and gaps log</td></tr><tr><td>8</td><td>Thu 12 Nov</td><td>Persona and journey validation (90 min)</td><td>Lead, with the Change Manager</td><td>Product Owner, SMEs</td><td>Up to six personas and journeys validated; primaries chosen</td></tr><tr><td>9</td><td>Thu 12 Nov</td><td>Frontline access model and Phase 1 languages (60 min)</td><td>Run (bring options and design impact)</td><td>Check schedule</td><td>Access model and languages decided</td></tr><tr><td>10</td><td>Thu 12 Nov</td><td>Works council and HR alignment (45 min)</td><td>Get the outcome (Change Manager and EL attend)</td><td>Programme Owner, HR</td><td>Route and lead time for employee research confirmed</td></tr><tr><td>12</td><td>Mon 16 Nov</td><td>Design session Day 1: concept and IA (full day, in person)</td><td>Facilitate</td><td>4–6 stakeholders, Product Owner</td><td>Concept direction, IA and first customization view</td></tr><tr><td>13</td><td>Tue 17 Nov</td><td>Design session Day 2: backlog and sign-off (full day, in person)</td><td>Facilitate</td><td>4–6 stakeholders, Programme Owner</td><td>Backlog signed off, customization stance, branding direction</td></tr><tr><td>14</td><td>Wed 18 Nov</td><td>Transformation narrative and engagement (90 min)</td><td>Contribute personas, journeys and quotes</td><td>Change Lead, Programme Owner</td><td>Narrative and engagement approach</td></tr><tr><td>16</td><td>Wed 18 Nov</td><td>Content assessment and ownership (90 min)</td><td>Input (ask to be invited or brief the SA)</td><td>Content owners, Change Lead</td><td>Migration recommendations, content ownership model</td></tr><tr><td>17</td><td>Thu 19 Nov</td><td>Usability testing round 1 (4 × 60 min)</td><td>Run</td><td>Desk and frontline participants</td><td>Usability findings</td></tr><tr><td>18</td><td>Fri 20 Nov</td><td>Prototype sign-off (60–90 min)</td><td>Present</td><td>Programme Owner, design-session stakeholders</td><td>Prototype signed off</td></tr><tr><td>20</td><td>Mon 23 Nov</td><td>Usability testing round 2 (2 × 60 min, if needed)</td><td>Run</td><td>Desk and frontline participants</td><td>Findings on changed flows</td></tr><tr><td>21</td><td>Tue 24 Nov</td><td>Design sign-off (60 min)</td><td>Run</td><td>Programme Owner, Product Owner</td><td>Directional design signed off</td></tr><tr><td>22</td><td>Tue 24 Nov</td><td>Integration discovery and AI readiness</td><td>Input (ask to be invited)</td><td>Check schedule</td><td>AI assistant flows and guardrails reflected</td></tr><tr><td>23</td><td>Wed 25 Nov</td><td>Change and Adoption plus comms approach review (90 min)</td><td>Join</td><td>Change Lead, Programme Owner</td><td>Approach ready for sign-off; measures confirmed</td></tr><tr><td>24</td><td>Wed 25 Nov</td><td>AI governance board and ARB review</td><td>Input if asked</td><td>Check schedule</td><td>User-facing AI behaviour and consent text covered</td></tr><tr><td>25</td><td>Thu 26 Nov</td><td>Architecture sign-off</td><td>Check for UX-critical custom items</td><td>Check schedule</td><td>Architecture agreed; conflicts with design flagged</td></tr><tr><td>27</td><td>Tue 01 Dec</td><td>Delivery planning and wave options (2 hrs)</td><td>Ask to join</td><td>Programme Owner, Exec Sponsor</td><td>Roadmap, waves and costed estimate</td></tr><tr><td>28</td><td>Wed 02 Dec</td><td>Playback of everything agreed (90 min)</td><td>Present your section</td><td>Exec Sponsor, Programme Owner</td><td>Consolidated outcome walked through</td></tr><tr><td>29</td><td>Fri 04 Dec</td><td>Final acceptance</td><td>Confirm design deliverables</td><td>Check schedule</td><td>Deliverables accepted</td></tr></tbody>
+  </table></div>
 </section>
 
 <section class="pane" id="p-workshops">
@@ -614,7 +623,7 @@ document.addEventListener("click",function(e){
 });
 
 /* ---------- tabs via hash ---------- */
-var NAMES=["tasks","workshops","customization","materials","research"];
+var NAMES=["tasks","sessions","workshops","customization","materials","research"];
 function route(){
   var h=(location.hash||"").replace("#","");
   if(NAMES.indexOf(h)<0)h="tasks";
@@ -624,6 +633,7 @@ function route(){
 }
 window.addEventListener("hashchange",route);
 
+window.HTRoute=route;
 window.HTRefresh=function(){refreshTasks()};
 window.HTFocus=function(id){
   selDay=null;filt="all";

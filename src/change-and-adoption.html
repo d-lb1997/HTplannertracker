@@ -318,6 +318,7 @@ document.addEventListener("click",function(e){
   else if(b.id==="resetbtn"){if(window.confirm("Clear all ticks, answers and log entries on this page?")){S={done:{},sc:{},logs:{}};persist();selDay=null;filt="all";build()}}
 });
 
+window.HTRoute=route;
 window.HTRefresh=function(){if($("tasklist"))refreshTasks()};
 window.HTFocus=function(id){
   selDay=null;filt="all";

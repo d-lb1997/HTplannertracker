@@ -50,6 +50,14 @@ document.addEventListener("click",function(e){
   if(window.parent&&window.parent!==window)window.parent.postMessage({type:"ht-goto",ws:ws,id:id},"*");
   else location.href=FILE[ws]+"#focus="+id;
 });
+/* in-page tab links: fragment navigation does not work inside blob: iframes, so route by hand */
+document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest("nav.tabs a[href^='#']");
+  if(!a||!window.HTRoute)return;
+  e.preventDefault();
+  try{history.replaceState(null,"",a.getAttribute("href"))}catch(x){}
+  window.HTRoute();window.scrollTo(0,0);
+});
 window.addEventListener("message",function(e){
   if(e.source!==window.parent||!e.data)return;
   if(e.data.type==="ht-focus"&&window.HTFocus)window.HTFocus(e.data.id);
