@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HT Discovery Plan and Tracker</title>
+<style>
+:root{--bg:#fff;--surface:#fff;--ink:#18202f;--muted:#525d78;--line:#d8deeb;--accent:#2e4e95;--accent-ink:#fff;--red:#b22420}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1626;--surface:#172036;--ink:#e8ecf6;--muted:#9aa6c4;--line:#2a3552;--accent:#8ea8e8;--accent-ink:#0f1626;--red:#ff8782}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{flex:none;background:var(--surface);border-bottom:1px solid var(--line);border-top:5px solid var(--accent);padding:0 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header strong{font-size:1rem;padding:10px 0;white-space:nowrap}
+[role=tablist]{display:flex;gap:4px;overflow-x:auto;padding:8px 0}
+[role=tab]{font:inherit;font-weight:600;border:0;background:none;color:var(--muted);padding:9px 18px;border-radius:99px;cursor:pointer;white-space:nowrap}
+[role=tab]:hover{color:var(--ink)}
+[role=tab][aria-selected=true]{background:var(--accent);color:var(--accent-ink)}
+[role=tab]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+main{flex:1;min-height:0;position:relative}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+iframe[hidden]{display:none}
+#lock{position:fixed;inset:0;z-index:10;background:var(--bg);display:grid;place-items:center;padding:16px}
+#lock form{width:100%;max-width:360px;border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:12px;padding:24px;background:var(--surface)}
+#lock h1{font-size:1.25rem;margin:0 0 4px}#lock p{margin:0 0 16px;color:var(--muted);font-size:.95rem}
+#lock input{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+#lock input:focus-visible,#lock button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#lock button{margin-top:12px;width:100%;font:inherit;font-weight:600;padding:10px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+#lock .err{color:var(--red);font-size:.9rem;min-height:1.3em;margin:8px 0 0}
+#app[hidden],#lock[hidden]{display:none}
+#app{display:contents}
+</style>
+</head>
+<body>
+<div id="lock"><form id="lf" autocomplete="off">
+  <h1>HT Discovery</h1><p>Enter the password to view the plan and tracker.</p>
+  <label for="pw" style="position:absolute;left:-9999px">Password</label>
+  <input id="pw" type="password" autocomplete="current-password" autofocus required placeholder="Password">
+  <button type="submit">Unlock</button><div class="err" id="err" role="alert"></div>
+</form></div>
+<div id="app" hidden>
+<header>
+  <strong>HT Discovery</strong>
+  <div role="tablist" aria-label="Workstreams">
+    <button role="tab" id="t-xd" aria-controls="f-xd" aria-selected="true">Experience Design</button>
+    <button role="tab" id="t-ca" aria-controls="f-ca" aria-selected="false" tabindex="-1">Change and Adoption</button>
+  </div>
+</header>
+<main>
+  <iframe id="f-xd" title="Experience Design plan and tracker"></iframe>
+  <iframe id="f-ca" title="Change and Adoption plan and tracker" hidden></iframe>
+</main>
+</div>
+<script>
+window.HTBoot=function(URLS){
+(function(){
+  var tabs=[["xd"],["ca"]];
+  function show(id,push){
+    tabs.forEach(function(t){
+      var on=t[0]===id, b=document.getElementById("t-"+t[0]), f=document.getElementById("f-"+t[0]);
+      b.setAttribute("aria-selected",on); b.tabIndex=on?0:-1; f.hidden=!on;
+      if(on&&!f.getAttribute("src")) f.setAttribute("src",URLS[t[0]]);
+    });
+    if(push) try{history.replaceState(null,"","#"+id)}catch(e){}
+  }
+  tabs.forEach(function(t,i){
+    var b=document.getElementById("t-"+t[0]);
+    b.onclick=function(){show(t[0],true)};
+    b.onkeydown=function(e){
+      if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;
+      var n=tabs[(i+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length][0];
+      show(n,true); document.getElementById("t-"+n).focus();
+    };
+  });
+  var loaded={xd:false,ca:false},pending={};
+  window.addEventListener("message",function(e){
+    var m=e.data;if(!m)return;
+    if(m.type==="ht-goto"){
+      show(m.ws,true);
+      if(loaded[m.ws])document.getElementById("f-"+m.ws).contentWindow.postMessage({type:"ht-focus",id:m.id},"*");
+      else pending[m.ws]=m.id;
+    }else if(m.type==="ht-ready"){
+      tabs.forEach(function(t){
+        var f=document.getElementById("f-"+t[0]);
+        if(f.contentWindow===e.source){loaded[t[0]]=true;
+          if(pending[t[0]]){f.contentWindow.postMessage({type:"ht-focus",id:pending[t[0]]},"*");delete pending[t[0]]}}
+      });
+    }
+  });
+  var h=location.hash.slice(1);
+  show(h==="ca"?"ca":"xd",false);
+})();
+};
+</script>
+<script>
+(function(){
+  var P=/*PAYLOAD*/{};
+  function b64(x){var s=atob(x),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a}
+  function open(pw){
+    if(!window.crypto||!crypto.subtle)return Promise.reject(new Error("nosubtle"));
+    var enc=new TextEncoder();
+    return crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){
+      return crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(P.salt),iterations:P.iter,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["decrypt"]);
+    }).then(function(key){
+      return crypto.subtle.decrypt({name:"AES-GCM",iv:b64(P.iv)},key,b64(P.data));
+    }).then(function(buf){
+      var d=JSON.parse(new TextDecoder().decode(buf)),urls={};
+      Object.keys(d).forEach(function(k){urls[k]=URL.createObjectURL(new Blob([d[k]],{type:"text/html"}))});
+      return urls;
+    });
+  }
+  function go(pw,quiet){
+    return open(pw).then(function(urls){
+      try{sessionStorage.setItem("ht-pw",pw)}catch(e){}
+      document.getElementById("lock").hidden=true;document.getElementById("app").hidden=false;
+      window.HTBoot(urls);
+    }).catch(function(e){
+      try{sessionStorage.removeItem("ht-pw")}catch(x){}
+      if(!quiet)document.getElementById("err").textContent=e&&e.message==="nosubtle"?"This browser needs a secure (https) connection to unlock the page.":"Wrong password. Try again.";
+    });
+  }
+  document.getElementById("lf").addEventListener("submit",function(e){e.preventDefault();go(document.getElementById("pw").value,false)});
+  var saved=null;try{saved=sessionStorage.getItem("ht-pw")}catch(e){}
+  if(saved)go(saved,true);
+})();
+</script>
+</body>
+</html>

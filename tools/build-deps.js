@@ -3,8 +3,9 @@
 // Run: node tools/build-deps.js   (edit PAIRS below to change links)
 const fs = require("fs");
 const root = __dirname + "/../";
-const xdSrc = fs.readFileSync(root + "experience-design.html", "utf8");
-const caSrc = fs.readFileSync(root + "change-and-adoption.html", "utf8");
+const S = root + "src/";
+const xdSrc = fs.readFileSync(S + "experience-design.html", "utf8");
+const caSrc = fs.readFileSync(S + "change-and-adoption.html", "utf8");
 
 // day + short text per task id
 const days = {}, texts = {};
@@ -80,5 +81,5 @@ for (const [x, c, kind, note] of PAIRS) {
   (data.ca[c] = data.ca[c] || []).push({ ws: "xd", id: x, kind, note, day: days[x], text: short(texts[x]) });
 }
 const tpl = fs.readFileSync(root + "tools/deps.template.js", "utf8");
-fs.writeFileSync(root + "deps.js", tpl.replace("/*DATA*/{}", JSON.stringify(data)));
+fs.writeFileSync(S + "deps.js", tpl.replace("/*DATA*/{}", JSON.stringify(data)));
 console.log("links:", PAIRS.length, "xd tasks:", Object.keys(data.xd).length, "ca tasks:", Object.keys(data.ca).length);
