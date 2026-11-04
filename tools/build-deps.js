@@ -28,6 +28,7 @@ const PAIRS = [
  ["t22","c31","sync","Workshop pack should capture change impact and adoption barriers"],
  ["t26","c20","joint","Programme kickoff (#1)"],
  ["t27","c21","sync","Ways of Working canvas: agreed review and turnaround rules"],
+ ["t115","c21","sync","Cadence and review rules agreed before the Ways of Working canvas"],
  ["t30","c19","ca2xd","Interview and test participants and slots"],
  ["t30","c12","ca2xd","Invitations have to reach frontline staff"],
  ["t31","c06","sync","XD questions, including how much tailoring HT expects, go into the sponsor interview guide"],

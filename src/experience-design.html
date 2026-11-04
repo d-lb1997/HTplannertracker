@@ -83,6 +83,7 @@ h3{font-size:1.05rem;margin:22px 0 8px}
 .task label{flex:1;cursor:pointer}
 .task .tag{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:6px;vertical-align:1px;background:var(--surface2);color:var(--muted)}
 .task .tag.cust{background:var(--red-soft);color:var(--red)}
+.task .tag.onb{background:var(--accent-soft);color:var(--ink)}
 .task .tag.ws{background:var(--accent-soft);color:var(--ink)}
 .task .tag.signoff{background:var(--accent);color:var(--accent-ink)}
 .dsum{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:8px 0 14px}
@@ -174,6 +175,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
 <section class="pane" id="p-tasks">
   <h2>Tasks by day</h2>
   <p class="lede">Pick a day to focus on it, or scroll the full list. Blue days are sessions where the schedule lists you (XD) as a Slalom attendee. Today is outlined.</p>
+  <div class="note" id="w0note"><b>Week −1 is onboarding and set-up.</b> The discovery files are not accessible yet, so personas, journeys and the backlog stay hypotheses until the files arrive in Week 1. Week −1 covers onboarding to the project and SharePoint, cadence and ways of working, and desk work from the documents we already have. Plan B (Week 1) covers the case where files are still missing. The staffing plan funds Weeks 1 to 4 (40 hours a week) and the Mobilisation Plan treats the time before Day 1 as HT preparation, so keep Week −1 light and confirm the effort with the Engagement Lead.</div>
   <div class="strip" id="strip"></div>
   <div class="legend"><span><i class="sw"></i>You are in the session (XD)</span><span>Bar under each day shows tasks done</span></div>
   <div class="filters" id="filters"></div>
@@ -195,7 +197,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
   <h2>Deliverables tracker</h2>
   <p class="lede">The 12 Experience Design deliverables from the master plan (160 hours), with dates, owner, sign-off and acceptance criteria. Update status and % complete as you go; health is calculated from the due date.</p>
   <div class="dsum" id="dsum"></div>
-  <div class="note"><b>Plan check.</b> The master tracker dates the prototype Fri 20 Nov, but usability round 1 is Thu 19 Nov, so a testable version is needed by Wed 18 Nov. The Frontline and Language Decision is tracked under Design sign-off but must be made in Week 1 (#9). The Client Asks and the SOW disagree on the acceptance window (see Research plan flags).</div>
+  <div class="note"><b>Plan check.</b> Discovery files are not accessible yet, so Personas and the Backlog start from hypotheses and become evidence-based only after the Week 1 deep dive (plan B on the Dependencies tab). The master tracker dates the prototype Fri 20 Nov, but usability round 1 is Thu 19 Nov, so a testable version is needed by Wed 18 Nov. The Frontline and Language Decision is tracked under Design sign-off but must be made in Week 1 (#9). The Client Asks and the SOW disagree on the acceptance window (see Research plan flags).</div>
   <div id="dlbody"></div>
   <h3>Sign-off and acceptance packs</h3>
   <p class="lede">Sign off as we go in the room. HT then has 5 business days to accept or reject; otherwise the pack is deemed accepted (SOW v2). Enter the date you share each pack and the due date is calculated.</p>
@@ -281,7 +283,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
   <div class="tbl"><table>
     <thead><tr><th>Method</th><th>Answers</th><th>When</th><th>Sample</th></tr></thead>
     <tbody>
-      <tr><td>Desk review of HT discovery (workshops, 2024 survey, MoSCoW, requirements)</td><td>RQ1, RQ2</td><td>Week −1 to Wed 11 Nov</td><td>All outputs</td></tr>
+      <tr><td>Desk review: business case, pitch and Connect! in Week −1; HT discovery outputs (workshops, 2024 survey, MoSCoW, requirements) once received</td><td>RQ1, RQ2</td><td>Week −1; outputs from Week 1 to Wed 11 Nov</td><td>All outputs received</td></tr>
       <tr><td>Sponsor and priority-lead interviews (#4)</td><td>RQ5, RQ6</td><td>Tue 10 Nov</td><td>4</td></tr>
       <tr><td>Validation interviews (see interview guide)</td><td>RQ1 to RQ4</td><td>Wed 11 Nov to Wed 18 Nov</td><td>10 to 14 across six groups</td></tr>
       <tr><td>Persona and journey validation workshop (#8)</td><td>RQ1, RQ2</td><td>Thu 12 Nov</td><td>Product Owner and SMEs</td></tr>
@@ -318,6 +320,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
       <tr><td>Slalom ideas treated as requirements</td><td>Kiosks, voice channel and AI shift briefings are not in the business case’s recommended Option B.</td><td>Test as needs; keep them in a separate lane in the backlog.</td></tr>
       <tr><td>Facts to verify</td><td>The pitch says both “2,000+ frontline” and “12,000+ employees”, and 36 sites in 145 countries. The 12,000 figure also appears as Slalom’s headcount.</td><td>Confirm real HT headcount, sites and countries before using them in workshops.</td></tr>
       <tr><td>Client references and pricing</td><td>The Connect deck has “REMOVE” notes, a pricing example ($200K) and a client marked available only if Slalom advances.</td><td>Ask Engagement Lead what may be shown; leave pricing out of workshops.</td></tr>
+      <tr><td>Discovery files not yet accessible</td><td>Personas, journeys and the backlog cannot be evidence-based until the files arrive; deliverables start Wed 11 Nov.</td><td>Plan B (task t116): use the business case and pitch as the baseline, widen validation interviews, run the deep dive as a walkthrough, log R2.</td></tr>
       <tr><td>Generative AI approval</td><td>SOW v2 allows only tools HT approves in writing (decision DE5).</td><td>Do not use AI tools on HT material until the Engagement Lead confirms approval.</td></tr>
       <tr><td>Prototype date versus test date</td><td>The master tracker shows the prototype due Fri 20 Nov (sign-off), but usability round 1 is Thu 19 Nov.</td><td>Treat Wed 18 Nov as the real date for a testable version; Fri 20 Nov is the sign-off date.</td></tr>
       <tr><td>Acceptance window differs across the plan</td><td>SOW v2 and the Sign-off log say 5 business days; the Client Asks and Questions say 2 working days; the Week-by-Week tab says 5 calendar days.</td><td>Ask the Engagement Lead which applies before the first pack is sent.</td></tr>
@@ -341,7 +344,7 @@ var S=load(); S.done=S.done||{}; S.dim=S.dim||{}; S.dl=S.dl||{}; S.pack=S.pack||
 
 /* ---------- calendar ---------- */
 var WEEKS=[
- {k:"w0",label:"Week −1",sub:"Prepare",days:["2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"]},
+ {k:"w0",label:"Week −1",sub:"Onboard and set up",days:["2026-11-02","2026-11-03","2026-11-04","2026-11-05","2026-11-06"]},
  {k:"w1",label:"Week 1",sub:"Mobilise and learn",days:["2026-11-09","2026-11-10","2026-11-11","2026-11-12","2026-11-13"]},
  {k:"w2",label:"Week 2",sub:"Design and sign off",days:["2026-11-16","2026-11-17","2026-11-18","2026-11-19","2026-11-20"]},
  {k:"w3",label:"Week 3",sub:"Architecture and sign off",days:["2026-11-23","2026-11-24","2026-11-25","2026-11-26","2026-11-27"]},
@@ -349,42 +352,47 @@ var WEEKS=[
 ];
 var DOW=["Mon","Tue","Wed","Thu","Fri"], MON=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var SESS={
- "2026-11-02":["Get ready: read, plan",0],"2026-11-03":["Workplan, research plan",0],"2026-11-04":["Personas, recruiting",0],"2026-11-05":["Rooms, stakeholders",0],"2026-11-06":["Workshop packs",0],
+ "2026-11-02":["Onboard: project, SharePoint",0],"2026-11-03":["Cadence, ways of working",0],"2026-11-04":["Plan from existing files",0],"2026-11-05":["Gaps, access, logistics",0],"2026-11-06":["Packs, Day 1 readiness",0],
  "2026-11-09":["Kickoff #1",1],"2026-11-10":["Vision #3, sponsor interviews #4",0],"2026-11-11":["Discovery deep dive #7",1],"2026-11-12":["Persona workshop #8, access #9, works council #10",1],"2026-11-13":["Risk Gate 1 #11",0],
  "2026-11-16":["Design session day 1 #12",1],"2026-11-17":["Design session day 2 #13",1],"2026-11-18":["Narrative #14, content #16",1],"2026-11-19":["Usability round 1 #17",1],"2026-11-20":["Prototype sign-off #18",1],
  "2026-11-23":["Usability round 2 #20",1],"2026-11-24":["Design sign-off #21",1],"2026-11-25":["Change review #23",1],"2026-11-26":["Architecture sign-off #25",0],"2026-11-27":["Change sign-off #26",0],
  "2026-11-30":["Consolidate outputs",0],"2026-12-01":["Delivery planning #27",0],"2026-12-02":["Playback #28",1],"2026-12-03":["Hand-off prep",0],"2026-12-04":["Final acceptance #29",0]
 };
-var TAGS={prep:"Prep",ws:"Workshop",res:"Research",cust:"Standard vs tailored",design:"Design",signoff:"Sign-off"};
+var TAGS={onb:"Onboarding",prep:"Prep",ws:"Workshop",res:"Research",cust:"Standard vs tailored",design:"Design",signoff:"Sign-off"};
 
 /* ---------- tasks: [id, day, tag, text] ---------- */
 var T=[
-["t01","2026-11-02","prep","Read the Pre-Discovery Kickoff and Plan end to end. Mark every place you are owner or input: the design workstream and sessions #7, #8, #12, #13, #17, #18, #20, #21."],
-["t02","2026-11-02","prep","Open a project workspace: shared folder, Figma and Miro board, file naming, participant code scheme (for example P-A01), privacy notes."],
-["t03","2026-11-02","res","Ask the HT Programme Owner for all discovery outputs in full (workshops, 2024 survey, questionnaires, MoSCoW, requirements) and what has not been shared yet. The plan needs them by Day 1."],
+["t01","2026-11-02","onb","Read the Pre-Discovery Kickoff and Plan end to end. Mark every place you are owner or input: the design workstream and sessions #7, #8, #12, #13, #17, #18, #20, #21."],
+["t02","2026-11-02","onb","Open a project workspace: shared folder, Figma and Miro board, file naming, participant code scheme (for example P-A01), privacy notes."],
+["t03","2026-11-02","res","Ask the HT Programme Owner for all discovery outputs in full (workshops, 2024 survey, questionnaires, MoSCoW, requirements) and where they are stored. Confirm what has not been shared yet and when we get access; we need them in Week 1."],
 ["t04","2026-11-02","res","Read the business case (27 Nov 2025): the five user groups consulted, Options A to D, the access-management pain and the roughly 2,000 frontline non-email users."],
 ["t05","2026-11-02","cust","Read the Connected Workforce pitch and list every promise. Mark each as HT-asked or Slalom-proposed: kiosks and Communication Corners, AI shift briefings, voice channel, sentiment heatmap, recognition walls, language-first. Test them as needs later; do not plan around them yet."],
 ["t06","2026-11-02","cust","Read Slalom Connect! 2026 and list features by tier: 9 Connect! tiles, 3 Connect! Plus tiles and the 7 dimensions on the “meets you where you are” slide."],
-["t92","2026-11-02","prep","Open the master plan workbook (Deliverables Tracker, RACI, Sign-off log). Confirm your 12 deliverables, the 160 hours and the due dates match the Deliverables tab here; raise differences with the Engagement Lead."],
+["t92","2026-11-02","onb","Open the master plan workbook (Deliverables Tracker, RACI, Sign-off log). Confirm your 12 deliverables, the 160 hours and the due dates match the Deliverables tab here; raise differences with the Engagement Lead."],
+["t114","2026-11-02","onb","SharePoint primer: site types (hub, communication, team), page templates, web parts, navigation and mega menu, audience targeting, search, Viva Connections for frontline. List what is out of the box so wireframes use real patterns."],
 ["t07","2026-11-03","prep","Draft a one-page XD workplan: outputs, session ownership, dependencies. Review with the Engagement Lead and Change Manager."],
 ["t08","2026-11-03","prep","Agree co-facilitation and note-taking roles for #8, #12, #13 and #17 (Change Manager co-facilitates; Solution Architect joins the design session)."],
-["t09","2026-11-03","res","Finalise the research plan one-pager (objectives, questions, methods, participants, risks) from the Research plan tab and share it for comment."],
-["t10","2026-11-03","res","Build the discovery-input inventory: source, date, audience, method, key findings, gaps, confidence. It is the working file for the deep dive on Wed 11 Nov."],
-["t11","2026-11-03","prep","Check design-tool access for the external team: Figma or Miro allowed? VDI limits? Screenshots allowed? Test before Day 1 (risk 1 is High)."],
-["t93","2026-11-03","prep","Check the Generative AI rule (SOW v2): only tools HT approves in writing, no HT confidential data in AI tools, human review of output. Do not use AI tools on HT material until the Engagement Lead confirms approval (decision DE5)."],
-["t12","2026-11-04","res","Draft six persona hypotheses with evidence: frontline operator, team leader or plant manager, desk employee, remote or hybrid, new starter, content owner or department rep."],
+["t09","2026-11-03","res","Finalise the research plan one-pager (objectives, questions, methods, participants, risks) from the Research plan tab. Base it on the documents you have and mark what depends on discovery outputs not yet received."],
+["t10","2026-11-03","res","Set up the discovery-input inventory template and the request list: expected outputs (workshops, 2024 survey, questionnaires, MoSCoW, requirements), who holds them, status. Fill it as files arrive in Week 1."],
+["t11","2026-11-03","onb","Check design-tool access for the external team: Figma or Miro allowed? VDI limits? Screenshots allowed? Test before Day 1 (risk 1 is High)."],
+["t93","2026-11-03","onb","Check the Generative AI rule (SOW v2): only tools HT approves in writing, no HT confidential data in AI tools, human review of output. Do not use AI tools on HT material until the Engagement Lead confirms approval (decision DE5)."],
+["t115","2026-11-03","onb","Agree cadence and ways of working with the team: stand-up time, weekly status slot, focus-plan template, review turnaround, file locations and naming, decision log and RAIDD entries. Note your UX agreements for the Ways of Working canvas on Mon 9 Nov."],
+["t12","2026-11-04","res","Draft six persona hypotheses from the business case (five user groups consulted), the pitch and any survey data you hold: frontline operator, team leader or plant manager, desk employee, remote or hybrid, new starter, content owner. Label each fact as evidence or assumption; they are starting points for #8, not results."],
 ["t13","2026-11-04","res","Draft the “moments that matter” for journeys: start of shift or day, find a policy, get HR help, hear company news, raise a concern, feel recognised, onboard."],
 ["t14","2026-11-04","res","Build the recruitment screener and plan for groups A to G in the interview guide (counts, slots, languages). Send to the HT Change Lead."],
 ["t15","2026-11-04","prep","Ask the Change Manager to raise works council and HR needs now: interviews, recording, photos on the shop floor, anonymity, lead time. Item #10 is only on Thu 12 Nov."],
 ["t16","2026-11-04","res","Prepare the consent form and privacy note; decide languages and interpreter support for frontline sessions."],
+["t113","2026-11-04","onb","Onboard to HT’s SharePoint intranet once access is granted: tour the home page, hubs, department sites, news, search and navigation; capture screenshots and notes on what works and what breaks. Without access, use screenshots from HT and the Connect! demo."],
+["t116","2026-11-04","res","Write plan B for missing discovery files and agree it with the Engagement Lead: use the business case and pitch as the baseline, widen validation interviews, move requirements work into the Week 1 deep dive, log R2 and raise change control if gaps remain."],
 ["t17","2026-11-05","ws","Confirm design-session logistics with the HT Project Manager: in-person room for 10 to 12 people, wall space, printing, wifi, lunch, location (Slalom office or HT site TBC)."],
 ["t18","2026-11-05","ws","Confirm the 4 to 6 named stakeholders with decision authority for Mon 16 and Tue 17 Nov. Hold diaries now (risk 3 is High)."],
-["t19","2026-11-05","prep","Collect current-state evidence: intranet screenshots, navigation structure, top search queries, usage analytics, brand guidelines, logo and fonts."],
-["t21","2026-11-06","ws","Draft the design session agenda for Day 1 and Day 2 and a one-page invite with the decisions needed. Send to the Engagement Lead."],
-["t22","2026-11-06","ws","Draft the pack for the persona and journey validation workshop (#8): persona cards, journey canvas, voting dots, gaps log template."],
+["t19","2026-11-05","prep","Collect the current-state evidence you can get without the discovery files: intranet screenshots and navigation, brand guidelines, logo and fonts. Ask the IT Lead for usage analytics and top search queries for Week 1."],
+["t21","2026-11-06","ws","Draft the design session agenda for Day 1 and Day 2 and a one-page invite with the decisions needed. Mark the parts that depend on discovery files not yet received. Send to the Engagement Lead."],
+["t22","2026-11-06","ws","Draft the pack for the persona and journey validation workshop (#8): persona hypothesis cards, journey canvas, voting dots, gaps log template. Cards stay hypotheses until validated."],
 ["t23","2026-11-06","prep","Check which Connect! assets can seed prototype v0: home and department site patterns, templates, wireframe kit."],
 ["t24","2026-11-06","prep","Send the Week 1 focus plan. Check the Before Day 1 checklist: access, discovery outputs, participants, rooms."],
 ["t25","2026-11-06","prep","Ask the Engagement Lead which client references from the Connect deck you may show. Remove slides marked REMOVE and anything with pricing before any client use."],
+["t117","2026-11-06","prep","Walk through the Before Day 1 readiness list with the Engagement Lead (Dependencies tab): access, discovery outputs received (all, part, none), participants, rooms. Decide whether plan B starts on Monday."],
 ["t26","2026-11-09","ws","Attend the Slalom internal kickoff and the programme kickoff (#1, 90 min). Ask: who are the 4 to 6 design stakeholders, who owns brand, what are the frontline access limits, what are the tool limits?"],
 ["t27","2026-11-09","prep","Contribute to the Ways of Working canvas: propose UX agreements (drafts 48 hours ahead, feedback within 24 hours, decide in the room)."],
 ["t28","2026-11-09","res","Re-validate assumptions with the Programme Owner: are discovery outputs complete? Log missing inputs in the gaps log."],
@@ -392,11 +400,12 @@ var T=[
 ["t30","2026-11-09","res","Send recruitment requests with the screener. Confirm the first interview slots with the Change Lead."],
 ["t95","2026-11-09","prep","Set your routine: daily 15-minute stand-up, weekly status input to the Engagement Lead, a focus plan at the start of each week, meeting notes within 24 hours, peer review before anything is issued."],
 ["t96","2026-11-09","res","Ask the Programme Owner the open questions you own (Dependencies tab): must-haves versus later waves, Phase 1 languages, what is validated versus draft, SME availability."],
+["t118","2026-11-09","res","Check the inventory against what has arrived since Friday. Decide plan A (files received) or plan B and tell the Engagement Lead and Programme Owner today."],
 ["t31","2026-11-10","res","Give the Change Manager your questions for the sponsor and priority-lead interviews (#4): vision for the experience, frontline priorities, appetite for tailoring, brand. Use the interview guide."],
 ["t32","2026-11-10","res","Join the vision, objectives and value framework session (#3). Add UX success measures: findability, task success, adoption by persona."],
 ["t33","2026-11-10","cust","After the interviews, note how much tailoring the sponsor expects, using the short seven-question scorecard on the Standard vs tailored tab. Keep it to ten minutes."],
-["t34","2026-11-10","res","Start reading discovery outputs and fill the inventory sheet."],
-["t35","2026-11-11","res","Run the HT Discovery deep dive, session 1 of 2 (#7, 90 min): walk each output, mark what is validated, stale or missing."],
+["t34","2026-11-10","res","Read the discovery outputs that have arrived and fill the inventory sheet. For anything still missing, add it to the gaps log and follow plan B."],
+["t35","2026-11-11","res","Run the HT Discovery deep dive, session 1 of 2 (#7, 90 min): walk each output, mark what is validated, stale or missing. If files are still missing, run it as a walkthrough where the Programme Owner and SMEs present what exists."],
 ["t36","2026-11-11","res","Run deep dive session 2 of 2 (#7, 90 min): turn findings into the draft consolidated backlog (ID, source, persona, MoSCoW, confidence) and the gaps log."],
 ["t37","2026-11-11","res","Run first interviews with group B (team leader or site manager) and group F (content owner) if participants are confirmed."],
 ["t38","2026-11-11","res","Update persona hypotheses with deep-dive findings. Mark which personas have strong and which have thin evidence."],
@@ -542,7 +551,7 @@ function renderStrip(){
 
 /* ---------- tasks ---------- */
 function renderFilters(){
-  var f=[["all","All"],["open","Open"],["done","Done"],["ws","Workshop"],["res","Research"],["design","Design"],["signoff","Sign-off"],["prep","Prep"],["cust","Standard vs tailored"]];
+  var f=[["all","All"],["open","Open"],["done","Done"],["onb","Onboarding"],["ws","Workshop"],["res","Research"],["design","Design"],["signoff","Sign-off"],["prep","Prep"],["cust","Standard vs tailored"]];
   var h=f.map(function(x){return '<button type="button" class="chip" data-f="'+x[0]+'" aria-pressed="'+(filt===x[0])+'">'+x[1]+'</button>'}).join("");
   if(selDay){var l=dayLabel(selDay);h+='<button type="button" class="linkbtn" id="clrday">Showing '+l.n+' '+l.m+'. Show all days</button>'}
   $("filters").innerHTML=h;
@@ -694,7 +703,7 @@ var QS=[
  ["Content and IA","What are the brand guidelines, theme direction and any design system?","W1–W2","Programme Owner"]
 ];
 var RAIDD=[
- ["R2","Risk","Incomplete existing discovery outputs","M","Shared in full by Day 1; Week 1 deep dive; gaps via change control"],
+ ["R2","Risk","Incomplete existing discovery outputs","M","Shared in full by Day 1; Week 1 deep dive; gaps via change control. Plan B if files are late (see task t116)"],
  ["R3","Risk","Design-session decision-makers unavailable","H","Diaries held on signature; named attendees confirmed in Week 1"],
  ["R4","Risk","Decision and review latency","M","Empowered Programme Owner; decide in session; sign off as we go"],
  ["R6","Risk","Week 3 sign-off load (three sign-offs)","M","Packs shared ahead; diaries held; consolidated sessions"],
@@ -702,6 +711,16 @@ var RAIDD=[
  ["D2","Dependency","4 to 6 design-session stakeholders with authority","H","HT Programme Owner"],
  ["DE1","Decision","Frontline access model and Phase-1 languages (pending)","","To decide in Week 1; you own it"],
  ["A3","Assumption","Up to 6 personas; up to two rounds of usability testing","","Confirm at kickoff"]
+];
+var BEFORE=[
+ ["Week 1 start date and kickoff slot confirmed","HT Programme Owner"],
+ ["Named HT core team and decision-maker","HT Programme Owner"],
+ ["External-team access requests submitted (guest accounts, VDI, tenant)","HT IT Lead"],
+ ["Diaries held: kickoff, Mon to Tue design session, gates, weekly status","HT Project Manager"],
+ ["Discovery outputs shared in full","HT Programme Owner"],
+ ["Rooms booked for kickoff and design session","HT Project Manager"],
+ ["Works council route, frontline site and travel approach confirmed","HT Programme Owner / Change Lead"],
+ ["Purchase Order raised","HT Procurement"]
 ];
 var GUARD=[
  "Directional level: build, migration and launch follow in Delivery. Up to 6 personas, up to two rounds of usability testing, low-fidelity wireframes and one navigable concept prototype.",
@@ -775,7 +794,9 @@ function renderContrib(){
 var ASKST=["Open","Requested","Received","At risk"];
 function renderDeps(){
   var el=$("depbody");if(!el)return;
-  var h='<h3>What you need from HT</h3><p class="lede">From the Client Asks and Team Dependencies tabs. Set the status as you chase each one.</p><div class="tbl"><table><thead><tr><th>Status</th><th>Need</th><th>Needed by</th><th>HT owner</th><th>If late</th><th>Severity</th></tr></thead><tbody>'+
+  var h='<h3>Before Day 1 readiness</h3><p class="lede">From the Mobilisation Plan. HT owns these; you check them with the Engagement Lead on Fri 6 Nov. Set each to Received or At risk.</p><div class="tbl"><table><thead><tr><th>Status</th><th>Item</th><th>HT owner</th></tr></thead><tbody>'+
+   BEFORE.map(function(r,i){var v=S.ask["b"+i]||"Open";return '<tr><td><select data-ask="b'+i+'" aria-label="Status: '+esc2(r[0])+'">'+ASKST.map(function(x){return '<option'+(v===x?' selected':'')+'>'+x+'</option>'}).join("")+'</select></td><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>'}).join("")+'</tbody></table></div>';
+  h+='<h3>What you need from HT</h3><p class="lede">From the Client Asks and Team Dependencies tabs. Set the status as you chase each one.</p><div class="tbl"><table><thead><tr><th>Status</th><th>Need</th><th>Needed by</th><th>HT owner</th><th>If late</th><th>Severity</th></tr></thead><tbody>'+
    NEEDS.map(function(r,i){var v=S.ask[i]||"Open";return '<tr><td><select data-ask="'+i+'" aria-label="Status: '+esc2(r[0])+'">'+ASKST.map(function(x){return '<option'+(v===x?' selected':'')+'>'+x+'</option>'}).join("")+'</select></td><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td></tr>'}).join("")+'</tbody></table></div>';
   h+='<h3>Questions to ask HT</h3><p class="lede">The discovery questions the Experience Designer owns in the Client Questions tab. Tick when answered.</p>';
   var last="";QS.forEach(function(q,i){if(q[0]!==last){h+=(last?'</div>':'')+'<div class="mgroup"><h3>'+q[0]+'</h3>';last=q[0]}
