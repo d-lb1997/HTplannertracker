@@ -175,6 +175,11 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
 /* weekly planner */
+.wlbtn{background:none;border:0;text-align:left;font:inherit;font-weight:700;font-size:.82rem;cursor:pointer;color:var(--ink);border-radius:8px;padding:2px 6px}
+.wlbtn:hover,.wlbtn.on{background:var(--accent-soft)}
+.srow .wl .nowtag{font-style:normal}
+.selnote{margin:6px 0;font-size:.9rem;color:var(--muted)}
+.strip{margin-bottom:10px}
 .wpills{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;margin-bottom:6px}
 .wpill{flex:1 0 132px;text-align:left;font:inherit;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:9px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
 .wpill small{color:var(--muted)}
@@ -868,7 +873,7 @@ var NEEDWK=[0,0,0,1,0,1,1,1,1,2,1,1,0];
 var MATWK={"Usability test kit":2,"Playback and hand-off":4};
 var PACKWK={backlog:2,prototype:2,design:3,final:4};
 function qWeek(q){var b=q[2];if(/^Pre/.test(b))return 0;if(/W2/.test(b)&&!/W1/.test(b))return 2;return 1}
-var curWk=0,hideDone=false;
+var curWk=0,hideDone=false,selDay=null;
 function currentWeek(){var t=iso(new Date());for(var i=0;i<WEEKS.length;i++){if(t<=WEEKS[i].days[4])return i}return WEEKS.length-1}
 function dlWeek(d){return dayIdx(d.e)[0]}
 function planned(d){return d.pack!=="ongoing"}
@@ -882,12 +887,25 @@ function taskHTML(x){
   var d=!!S.done[x[0]];
   return '<div class="task'+(d?' done':'')+'"><input type="checkbox" id="'+x[0]+'" data-id="'+x[0]+'"'+(d?' checked':'')+'><label for="'+x[0]+'"><span class="tx">'+x[3]+'</span><span class="tag '+x[2]+'">'+TAGS[x[2]]+'</span></label>'+(window.HTDeps?HTDeps.html("xd",x[0]):"")+'</div>';
 }
+function dayCounts(d){
+  var t=0,n=0;
+  T.forEach(function(x){if(x[1]===d){t++;if(S.done[x[0]])n++}});
+  DL.forEach(function(x){if(planned(x)&&x.e===d){t++;if(dstate(x.id).st==="Complete")n++}});
+  return [n,t];
+}
 function renderWeekNav(){
-  var today=currentWeek();
-  $("weeknav").innerHTML='<div class="wpills" role="tablist" aria-label="Weeks">'+WEEKS.map(function(w,i){
-    var st=weekStats(i),pct=st[1]?Math.round(100*st[0]/st[1]):0;
-    return '<button type="button" class="wpill'+(i===curWk?' on':'')+'" role="tab" aria-selected="'+(i===curWk)+'" data-wk="'+i+'"><b>'+w.label+(i===today?' <span class="nowtag">now</span>':'')+'</b><small>'+WKDATES[i]+'</small><span class="mb"><i data-wkbar="'+i+'" style="width:'+pct+'%"></i></span><em data-wktxt="'+i+'">'+st[0]+'/'+st[1]+'</em></button>';
-  }).join("")+'</div>';
+  var today=iso(new Date()),h='<div class="strip"><div class="srow"><div></div>'+DOW.map(function(d){return '<div class="shead">'+d+'</div>'}).join("")+'</div>';
+  WEEKS.forEach(function(w,i){
+    var st=weekStats(i);
+    h+='<div class="srow"><button type="button" class="wl wlbtn'+(i===curWk?' on':'')+'" data-wk="'+i+'" aria-pressed="'+(i===curWk)+'">'+w.label+(i===currentWeek()?' <em class="nowtag">now</em>':'')+'<span>'+st[0]+'/'+st[1]+' · '+w.sub+'</span></button>';
+    w.days.forEach(function(d){
+      var c=dayCounts(d),s2=SESS[d]||["",0],l=dayLabel(d),pct=c[1]?Math.round(100*c[0]/c[1]):0;
+      h+='<button type="button" class="day'+(s2[1]?' xd':'')+(d===today?' today':'')+'" data-day="'+d+'" aria-pressed="'+(selDay===d)+'" aria-label="'+l.n+' '+l.m+', '+c[0]+' of '+c[1]+' done"><span class="dn">'+l.n+'<small>'+l.m+'</small></span><span class="ss">'+s2[0]+'</span><span class="mb"><i style="width:'+pct+'%"></i></span></button>';
+    });
+    h+='</div>';
+  });
+  h+='</div><div class="legend"><span><i class="sw"></i>You are in the session (XD)</span><span>Pick a day to focus on it, or a week to see all of it</span></div>';
+  $("weeknav").innerHTML=h;
 }
 var WKDATES=["2–6 Nov","9–13 Nov","16–20 Nov","23–27 Nov","30 Nov–4 Dec"];
 function sessHTML(s){
@@ -927,7 +945,8 @@ function renderWeek(){
   h+='<div class="wtools"><label class="tgl"><input type="checkbox" id="hidedone"'+(hideDone?' checked':'')+'> Show open items only</label><span class="refchips">Reference: <button type="button" class="chip" data-open="ref" data-ref="ref-personas">Personas log</button><button type="button" class="chip" data-open="ref" data-ref="ref-playbooks">Workshop agendas</button><button type="button" class="chip" data-open="ref" data-ref="ref-research">Research plan</button></span></div>';
   var carried=DL.filter(function(d){return planned(d)&&dlWeek(d)<i&&dstate(d.id).st!=="Complete"});
   if(carried.length)h+='<div class="carry"><h3>Still open from earlier weeks</h3>'+carried.map(cardHTML).join("")+'</div>';
-  h+=w.days.map(function(d){return dayHTML(d,today)}).join("");
+  if(selDay)h+='<p class="selnote">Showing '+fmtD(selDay)+' only. <button type="button" class="linkbtn" id="clrday">Show the whole week</button></p>';
+  h+=(selDay?[selDay]:w.days).map(function(d){return dayHTML(d,today)}).join("");
   /* week checklists */
   ACC={needs:[],q:[],mat:[],pre:[],before:[]};
   var ex='<h3 class="wkh">Also this week</h3>';
@@ -967,6 +986,7 @@ function updateProgress(){
     if((e=document.querySelector('[data-wkbar2="'+i+'"]')))e.style.width=pct+"%";
     if((e=document.querySelector('[data-wkhdr="'+i+'"]')))e.textContent=st[0]+" of "+st[1];
   }
+  renderWeekNav();
   $("ovtxt").textContent=dn+" of "+tot;
   var pc=tot?Math.round(100*dn/tot):0;$("ovfill").style.width=pc+"%";$("ovbar").setAttribute("aria-valuenow",pc);
   document.querySelectorAll("[data-dayc]").forEach(function(el){
@@ -977,7 +997,8 @@ function updateProgress(){
   });
   document.querySelectorAll("[data-acc]").forEach(function(el){el.textContent=accText(el.dataset.acc)});
 }
-function setWeek(i){curWk=i;renderWeekNav();renderWeek()}
+function setWeek(i){curWk=i;selDay=null;renderWeekNav();renderWeek()}
+function setDay(d){curWk=dayIdx(d)[0];selDay=(selDay===d)?null:d;renderWeekNav();renderWeek()}
 /* ---------- deliverables overview ---------- */
 function renderOverview(){
   var el=$("dltable");if(!el)return;
@@ -1039,6 +1060,8 @@ document.addEventListener("click",function(e){
   var b=e.target.closest&&e.target.closest("button");
   if(!b)return;
   if(b.dataset.wk!==undefined){setWeek(+b.dataset.wk)}
+  else if(b.dataset.day){setDay(b.dataset.day)}
+  else if(b.id==="clrday"){selDay=null;renderWeekNav();renderWeek()}
   else if(b.dataset.gowk!==undefined){try{history.replaceState(null,"","#plan")}catch(x){}route();setWeek(+b.dataset.gowk);window.scrollTo(0,0)}
   else if(b.dataset.open==="ws"){openRef("ref-playbooks",+b.dataset.ws)}
   else if(b.dataset.open==="ref"){openRef(b.dataset.ref)}
