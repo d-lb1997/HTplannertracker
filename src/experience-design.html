@@ -200,7 +200,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
   <h2>Personas and journey assumptions</h2>
   <p class="lede">No existing personas are expected from discovery, so you create them from scratch in Week 1 and validate them with HT. Everything below starts as an assumption. Update the status as evidence arrives, and use it as the assumptions log.</p>
   <div class="tbl"><table><thead><tr><th>Step</th><th>When</th><th>What happens</th></tr></thead><tbody>
-    <tr><td><b>1 Seed</b></td><td>Week −1</td><td>Six strawmen from the business case and the pitch; seven journey assumptions (tasks t12, t13, t121).</td></tr>
+    <tr><td><b>1 Seed</b></td><td>Week −1</td><td>Six strawmen from the business case and the pitch; seven journey assumptions (task t12).</td></tr>
     <tr><td><b>2 Elicit</b></td><td>Mon 9 to Wed 11 Nov</td><td>Ask whether anything exists (kickoff), sponsor and priority-lead interviews (#4), deep dive evidence (#7), first interviews with team leaders and content owners.</td></tr>
     <tr><td><b>3 Co-create</b></td><td>Thu 12 Nov</td><td>Persona creation and journey workshop (#8) with the Product Owner and SMEs; persona v1 and journey assumptions.</td></tr>
     <tr><td><b>4 Validate</b></td><td>Thu 12 to Mon 16 Nov</td><td>Interviews with desk, remote and new starter groups; written comments from HT by Mon 09:00; pre-read.</td></tr>
@@ -354,7 +354,7 @@ select{font:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1p
       <tr><td>Facts to verify</td><td>The pitch says both “2,000+ frontline” and “12,000+ employees”, and 36 sites in 145 countries. The 12,000 figure also appears as Slalom’s headcount.</td><td>Confirm real HT headcount, sites and countries before using them in workshops.</td></tr>
       <tr><td>Client references and pricing</td><td>The Connect deck has “REMOVE” notes, a pricing example ($200K) and a client marked available only if Slalom advances.</td><td>Ask Engagement Lead what may be shown; leave pricing out of workshops.</td></tr>
       <tr><td>No existing personas</td><td>There is no persona set to validate, so personas are built from assumptions in a short window: strawmen, one workshop and 10 to 14 interviews before the design session.</td><td>Keep everything marked as assumption until HT confirms; seed from the business case; run elicitation interviews from Wed 11 Nov; send persona v1 for comment on Fri 13 Nov; confirm in Day 1 block 2.</td></tr>
-      <tr><td>Discovery files not yet accessible</td><td>Journeys and the backlog cannot be evidence-based until the files arrive; deliverables start Wed 11 Nov.</td><td>Plan B (task t116): use the business case and pitch as the baseline, widen validation interviews, run the deep dive as a walkthrough, log R2.</td></tr>
+      <tr><td>Discovery files not yet accessible</td><td>Journeys and the backlog cannot be evidence-based until the files arrive; deliverables start Wed 11 Nov.</td><td>Plan B (task t03): use the business case and pitch as the baseline, widen validation interviews, run the deep dive as a walkthrough, log R2.</td></tr>
       <tr><td>Generative AI approval</td><td>SOW v2 allows only tools HT approves in writing (decision DE5).</td><td>Do not use AI tools on HT material until the Engagement Lead confirms approval.</td></tr>
       <tr><td>Prototype date versus test date</td><td>The master tracker shows the prototype due Fri 20 Nov (sign-off), but usability round 1 is Thu 19 Nov.</td><td>Treat Wed 18 Nov as the real date for a testable version; Fri 20 Nov is the sign-off date.</td></tr>
       <tr><td>Acceptance window differs across the plan</td><td>SOW v2 and the Sign-off log say 5 business days; the Client Asks and Questions say 2 working days; the Week-by-Week tab says 5 calendar days.</td><td>Ask the Engagement Lead which applies before the first pack is sent.</td></tr>
@@ -386,7 +386,7 @@ var WEEKS=[
 ];
 var DOW=["Mon","Tue","Wed","Thu","Fri"], MON=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var SESS={
- "2026-11-02":["Onboard: project, SharePoint",0],"2026-11-03":["Cadence, ways of working",0],"2026-11-04":["Plan from existing files",0],"2026-11-05":["Gaps, access, logistics",0],"2026-11-06":["Packs, Day 1 readiness",0],
+ "2026-11-02":["Onboard: project, documents",0],"2026-11-03":["SharePoint, cadence",0],"2026-11-04":["Files, persona strawmen",0],"2026-11-05":["Research plan, logistics",0],"2026-11-06":["Packs, Day 1 readiness",0],
  "2026-11-09":["Kickoff #1",1],"2026-11-10":["Vision #3, sponsor interviews #4",0],"2026-11-11":["Discovery deep dive #7",1],"2026-11-12":["Persona creation #8, access #9, works council #10",1],"2026-11-13":["Risk Gate 1 #11",0],
  "2026-11-16":["Design session day 1 #12",1],"2026-11-17":["Design session day 2 #13",1],"2026-11-18":["Narrative #14, content #16",1],"2026-11-19":["Usability round 1 #17",1],"2026-11-20":["Prototype sign-off #18",1],
  "2026-11-23":["Usability round 2 #20",1],"2026-11-24":["Design sign-off #21",1],"2026-11-25":["Change review #23",1],"2026-11-26":["Architecture sign-off #25",0],"2026-11-27":["Change sign-off #26",0],
@@ -396,38 +396,16 @@ var TAGS={onb:"Onboarding",prep:"Prep",ws:"Workshop",res:"Research",cust:"Standa
 
 /* ---------- tasks: [id, day, tag, text] ---------- */
 var T=[
-["t01","2026-11-02","onb","Read the Pre-Discovery Kickoff and Plan end to end. Mark every place you are owner or input: the design workstream and sessions #7, #8, #12, #13, #17, #18, #20, #21."],
-["t02","2026-11-02","onb","Open a project workspace: shared folder, Figma and Miro board, file naming, participant code scheme (for example P-A01), privacy notes."],
-["t03","2026-11-02","res","Ask the HT Programme Owner for all discovery outputs in full (workshops, 2024 survey, questionnaires, MoSCoW, requirements) and where they are stored. Confirm what has not been shared yet and when we get access; we need them in Week 1."],
-["t04","2026-11-02","res","Read the business case (27 Nov 2025): the five user groups consulted, Options A to D, the access-management pain and the roughly 2,000 frontline non-email users."],
-["t05","2026-11-02","cust","Read the Connected Workforce pitch and list every promise. Mark each as HT-asked or Slalom-proposed: kiosks and Communication Corners, AI shift briefings, voice channel, sentiment heatmap, recognition walls, language-first. Test them as needs later; do not plan around them yet."],
-["t06","2026-11-02","cust","Read Slalom Connect! 2026 and list features by tier: 9 Connect! tiles, 3 Connect! Plus tiles and the 7 dimensions on the “meets you where you are” slide."],
-["t92","2026-11-02","onb","Open the master plan workbook (Deliverables Tracker, RACI, Sign-off log). Confirm your 12 deliverables, the 160 hours and the due dates match the Deliverables tab here; raise differences with the Engagement Lead."],
-["t114","2026-11-02","onb","SharePoint primer: site types (hub, communication, team), page templates, web parts, navigation and mega menu, audience targeting, search, Viva Connections for frontline. List what is out of the box so wireframes use real patterns."],
-["t07","2026-11-03","prep","Draft a one-page XD workplan: outputs, session ownership, dependencies. Review with the Engagement Lead and Change Manager."],
-["t08","2026-11-03","prep","Agree co-facilitation and note-taking roles for #8, #12, #13 and #17 (Change Manager co-facilitates; Solution Architect joins the design session)."],
-["t09","2026-11-03","res","Finalise the research plan one-pager (objectives, questions, methods, participants, risks) from the Research plan tab. Base it on the documents you have and mark what depends on discovery outputs not yet received."],
-["t10","2026-11-03","res","Set up the discovery-input inventory template and the request list: expected outputs (workshops, 2024 survey, questionnaires, MoSCoW, requirements), who holds them, status. Fill it as files arrive in Week 1."],
-["t11","2026-11-03","onb","Check design-tool access for the external team: Figma or Miro allowed? VDI limits? Screenshots allowed? Test before Day 1 (risk 1 is High)."],
-["t93","2026-11-03","onb","Check the Generative AI rule (SOW v2): only tools HT approves in writing, no HT confidential data in AI tools, human review of output. Do not use AI tools on HT material until the Engagement Lead confirms approval (decision DE5)."],
-["t115","2026-11-03","onb","Agree cadence and ways of working with the team: stand-up time, weekly status slot, focus-plan template, review turnaround, file locations and naming, decision log and RAIDD entries. Note your UX agreements for the Ways of Working canvas on Mon 9 Nov."],
-["t12","2026-11-04","res","Build persona strawmen from scratch; no existing personas are expected. Seed six from the business case (five user groups consulted) and the pitch: frontline operator, team leader or plant manager, desk employee, remote or hybrid, new starter, content owner or department rep. Record each in the Personas tab; nothing counts as evidence yet."],
-["t13","2026-11-04","res","Draft the journey assumptions for the “moments that matter”: start of shift or day, find a policy, get HR help, hear company news, raise a concern, feel recognised, onboard. Log each in the Personas tab with the persona it applies to and how you will test it."],
-["t14","2026-11-04","res","Build the recruitment screener and plan for groups A to G in the interview guide (counts, slots, languages). The interviews elicit and validate the personas. Send to the HT Change Lead."],
-["t15","2026-11-04","prep","Ask the Change Manager to raise works council and HR needs now: interviews, recording, photos on the shop floor, anonymity, lead time. Item #10 is only on Thu 12 Nov."],
-["t16","2026-11-04","res","Prepare the consent form and privacy note; decide languages and interpreter support for frontline sessions."],
-["t113","2026-11-04","onb","Onboard to HT’s SharePoint intranet once access is granted: tour the home page, hubs, department sites, news, search and navigation; capture screenshots and notes on what works and what breaks. Without access, use screenshots from HT and the Connect! demo."],
-["t116","2026-11-04","res","Write plan B for missing discovery files and agree it with the Engagement Lead: use the business case and pitch as the baseline, widen validation interviews, move requirements work into the Week 1 deep dive, log R2 and raise change control if gaps remain. Run persona creation in #8 and the interviews as the main source."],
-["t17","2026-11-05","ws","Confirm design-session logistics with the HT Project Manager: in-person room for 10 to 12 people, wall space, printing, wifi, lunch, location (Slalom office or HT site TBC)."],
-["t18","2026-11-05","ws","Confirm the 4 to 6 named stakeholders with decision authority for Mon 16 and Tue 17 Nov. Hold diaries now (risk 3 is High)."],
-["t19","2026-11-05","prep","Collect the current-state evidence you can get without the discovery files: intranet screenshots and navigation, brand guidelines, logo and fonts. Ask the IT Lead for usage analytics and top search queries for Week 1."],
-["t121","2026-11-05","res","Set up the assumptions log in the Personas tab: one row per persona and journey assumption with source, confidence and how and when you will test it. Review it with the Change Manager."],
-["t21","2026-11-06","ws","Draft the design session agenda for Day 1 and Day 2 and a one-page invite with the decisions needed. Mark the parts that depend on discovery files not yet received. Send to the Engagement Lead."],
-["t22","2026-11-06","ws","Draft the pack for the persona creation and journey workshop (#8): blank persona template, persona strawmen, journey assumption canvas, voting dots, assumptions log. Strawmen are conversation starters, not results."],
-["t23","2026-11-06","prep","Check which Connect! assets can seed prototype v0: home and department site patterns, templates, wireframe kit."],
-["t24","2026-11-06","prep","Send the Week 1 focus plan. Check the Before Day 1 checklist: access, discovery outputs, participants, rooms."],
-["t25","2026-11-06","prep","Ask the Engagement Lead which client references from the Connect deck you may show. Remove slides marked REMOVE and anything with pricing before any client use."],
-["t117","2026-11-06","prep","Walk through the Before Day 1 readiness list with the Engagement Lead (Dependencies tab): access, discovery outputs received (all, part, none), participants, rooms. Decide whether plan B starts on Monday."],
+["t01","2026-11-02","onb","Onboard to the project: read the Pre-Discovery Kickoff and Plan and the master plan workbook (your 12 deliverables, 160 hours and sessions), and open the project workspace (shared folder, Figma or Miro, file naming, participant codes)."],
+["t04","2026-11-02","res","Read the documents we already have: business case, Connected Workforce pitch and Slalom Connect! 2026. Note what HT asked for and what Slalom proposed."],
+["t114","2026-11-03","onb","Onboard to SharePoint: learn the building blocks (site types, templates, web parts, navigation, audiences, search, Viva Connections). Once access is granted, tour HT’s intranet and capture screenshots, navigation and brand guidelines. Check design-tool, VDI and access limits; log gaps in RAIDD."],
+["t115","2026-11-03","onb","Agree cadence and ways of working with the team (stand-up, weekly status, focus plans, file locations, review and decision log). Draft the one-page XD workplan with co-facilitation roles. Note the generative AI rule: approved tools only."],
+["t03","2026-11-04","res","Chase the discovery files: ask the Programme Owner for all outputs and any existing personas, set up the inventory and request list, and agree plan B with the Engagement Lead if files are not shared by Day 1."],
+["t12","2026-11-04","res","Draft persona strawmen and journey assumptions from the documents we have (no existing personas are expected) and set up the assumptions log in the Personas tab. Nothing counts as evidence yet."],
+["t14","2026-11-05","res","Plan the research with the Change Manager: research plan one-pager, interview screener and consent note, and the works council and HR questions (route and lead time)."],
+["t17","2026-11-05","ws","Confirm with HT: the in-person design session room and the 4 to 6 stakeholders with decision authority. Hold the diaries."],
+["t22","2026-11-06","ws","Draft the workshop packs from the assumptions: persona workshop (#8), and the design session agenda and invite. Mark what depends on files not yet received. Check which Connect! assets can seed prototype v0."],
+["t24","2026-11-06","prep","Send the Week 1 focus plan. Walk through the Before Day 1 readiness list with the Engagement Lead (access, discovery files, participants, rooms) and decide whether plan B starts on Monday."],
 ["t26","2026-11-09","ws","Attend the Slalom internal kickoff and the programme kickoff (#1, 90 min). Ask: who are the 4 to 6 design stakeholders, who owns brand, what are the frontline access limits, what are the tool limits? Also ask whether any personas, segments or employee research exist anywhere (HR, comms, IT, earlier intranet work)."],
 ["t27","2026-11-09","prep","Contribute to the Ways of Working canvas: propose UX agreements (drafts 48 hours ahead, feedback within 24 hours, decide in the room)."],
 ["t28","2026-11-09","res","Re-validate assumptions with the Programme Owner: are discovery outputs complete? Log missing inputs in the gaps log."],
@@ -599,7 +577,8 @@ function weekOf(d){return WEEKS[dayIdx(d)[0]]}
 var selDay=null, filt="all";
 function countDay(d){var t=0,n=0;T.forEach(function(x){if(x[1]===d){t++;if(S.done[x[0]])n++}});return [n,t]}
 var TOTAL=T.length; M.forEach(function(g){TOTAL+=g[1].length});
-function totalDone(){var n=0;Object.keys(S.done).forEach(function(k){if(S.done[k])n++});return n}
+var VALID={};T.forEach(function(x){VALID[x[0]]=1});M.forEach(function(g){g[1].forEach(function(x){VALID[x[0]]=1})});
+function totalDone(){var n=0;Object.keys(S.done).forEach(function(k){if(S.done[k]&&VALID[k])n++});return n}
 
 function updateOverall(){
   var n=totalDone(); $("ovtxt").textContent=n+" of "+TOTAL;
@@ -728,16 +707,16 @@ var STATUSES=["Not Started","In Progress","In Review","Blocked","Complete","On H
 var DL=[
  {id:"d01",n:"Frontline Access-Model & Phase-1 Language Decision",ph:"D1",src:"SOW",wk:"W1",h:4,s:"2026-11-12",e:"2026-11-12",pri:"High",cx:"Medium",dep:"HT decision",pack:"design",tasks:["t40"],ac:"Decided in Week 1, needed before the design session. Solution Architect consulted. Logged as decision DE1."},
  {id:"d02",n:"Consolidated Requirements List & Prioritised Backlog",ph:"D2",src:"SOW",wk:"W1–W2",h:24,s:"2026-11-11",e:"2026-11-17",pri:"High",cx:"High",dep:"Discovery outputs + SMEs",pack:"backlog",tasks:["t34","t35","t36","t57","t97"],ac:"Drafted in Week 1; prioritised (MoSCoW) and signed off at the design session in Week 2."},
- {id:"d03",n:"Validated Personas & Journeys",ph:"D2",src:"SOW",wk:"W1",h:20,s:"2026-11-11",e:"2026-11-12",pri:"Medium",cx:"Medium",dep:"Business case, interviews, #8 workshop (no existing personas)",pack:"design",tasks:["t12","t13","t38","t39","t42","t121","t123","t124"],ac:"Created from scratch: no existing persona set is expected. Strawmen in Week −1, built with HT in #8 (Thu 12 Nov), sharpened by interviews and confirmed by decision-makers in Day 1 block 2 (Mon 16 Nov). Journeys start as assumptions and are validated the same way. Change Manager is R."},
- {id:"d04",n:"Prepare Design-Session Assets",ph:"D2",src:"Value-add",wk:"W1",h:4,s:"2026-11-13",e:"2026-11-13",pri:"High",cx:"Medium",dep:"Draft backlog; persona v1",pack:"backlog",tasks:["t21","t45","t46","t48"],ac:"Session materials, prototype inputs and agenda ready the day before."},
+ {id:"d03",n:"Validated Personas & Journeys",ph:"D2",src:"SOW",wk:"W1",h:20,s:"2026-11-11",e:"2026-11-12",pri:"Medium",cx:"Medium",dep:"Business case, interviews, #8 workshop (no existing personas)",pack:"design",tasks:["t12","t38","t39","t42","t123","t124"],ac:"Created from scratch: no existing persona set is expected. Strawmen in Week −1, built with HT in #8 (Thu 12 Nov), sharpened by interviews and confirmed by decision-makers in Day 1 block 2 (Mon 16 Nov). Journeys start as assumptions and are validated the same way. Change Manager is R."},
+ {id:"d04",n:"Prepare Design-Session Assets",ph:"D2",src:"Value-add",wk:"W1",h:4,s:"2026-11-13",e:"2026-11-13",pri:"High",cx:"Medium",dep:"Draft backlog; persona v1",pack:"backlog",tasks:["t22","t45","t46","t48"],ac:"Session materials, prototype inputs and agenda ready the day before."},
  {id:"d05",n:"Experience Design Session (input / review / sign-off)",ph:"D2",src:"SOW",wk:"W2",h:10,s:"2026-11-16",e:"2026-11-17",pri:"Critical",cx:"High",dep:"4 to 6 stakeholders with authority",pack:"backlog",tasks:["t50","t51","t53","t55","t56"],ac:"Two-day session co-led with the Change Manager; backlog signed off in the room."},
  {id:"d06",n:"Low-Fidelity Wireframes",ph:"D2",src:"SOW",wk:"W2",h:14,s:"2026-11-18",e:"2026-11-19",pri:"Medium",cx:"Medium",dep:"Information architecture",pack:"design",tasks:["t103","t104"],ac:"Wireframes for the agreed page types (desktop, mobile, frontline surface)."},
  {id:"d07",n:"Directional Information Architecture & Site Map",ph:"D2",src:"SOW",wk:"W2",h:20,s:"2026-11-17",e:"2026-11-19",pri:"High",cx:"Medium",dep:"Requirements and persona v1",pack:"design",tasks:["t102","t104"],ac:"Directional IA and site map; signed off at Design sign-off."},
  {id:"d08",n:"One Navigable Concept Prototype",ph:"D2",src:"SOW",wk:"W2",h:20,s:"2026-11-18",e:"2026-11-20",pri:"High",cx:"High",dep:"Wireframes and IA",pack:"prototype",tasks:["t54","t58","t62","t63","t67","t68"],ac:"Built after the design session; light-touch usability testing; signed off end of Week 2. A testable version must exist by Wed 18 Nov for Thursday's tests."},
  {id:"d09",n:"Usability Findings",ph:"D2",src:"SOW",wk:"W2",h:18,s:"2026-11-19",e:"2026-11-20",pri:"Medium",cx:"Medium",dep:"Prototype",pack:"design",tasks:["t61","t64","t66","t69","t71"],ac:"Light-touch testing with desk and frontline participants (up to two rounds); findings shape the design sign-off."},
  {id:"d10",n:"Analyse Findings & Refine Design",ph:"D2",src:"Value-add",wk:"W3",h:6,s:"2026-11-23",e:"2026-11-24",pri:"High",cx:"Medium",dep:"Usability findings",pack:"design",tasks:["t106","t72"],ac:"Findings analysed; IA, wireframes and prototype refined ahead of Design sign-off."},
- {id:"d11",n:"Branding & Theme Direction",ph:"D2",src:"SOW",wk:"W2–W3",h:12,s:"2026-11-19",e:"2026-11-24",pri:"Medium",cx:"Medium",dep:"HT brand standards",pack:"design",tasks:["t19","t105"],ac:"Directional branding and theme agreed at Design sign-off."},
- {id:"d12",n:"Workstream Management: Experience & Design",ph:"D1",src:"Value-add",wk:"W1–W4",h:8,s:"2026-11-09",e:"2026-12-04",pri:"High",cx:"Low",dep:"None",pack:"ongoing",tasks:["t92","t95","t98","t99","t110","t111","t112"],ac:"Own plan, backlog, weekly status input, RAIDD entries and HT stakeholder engagement for the workstream."}
+ {id:"d11",n:"Branding & Theme Direction",ph:"D2",src:"SOW",wk:"W2–W3",h:12,s:"2026-11-19",e:"2026-11-24",pri:"Medium",cx:"Medium",dep:"HT brand standards",pack:"design",tasks:["t114","t105"],ac:"Directional branding and theme agreed at Design sign-off."},
+ {id:"d12",n:"Workstream Management: Experience & Design",ph:"D1",src:"Value-add",wk:"W1–W4",h:8,s:"2026-11-09",e:"2026-12-04",pri:"High",cx:"Low",dep:"None",pack:"ongoing",tasks:["t01","t95","t98","t99","t110","t111","t112"],ac:"Own plan, backlog, weekly status input, RAIDD entries and HT stakeholder engagement for the workstream."}
 ];
 var PACKS=[
  {k:"backlog",n:"Backlog (Week 2)",ses:"Tue 17 Nov, design session Day 2 (#13)",by:"Experience Designer + Change Manager",to:"Programme Owner",inc:"Consolidated requirements and prioritised backlog"},
@@ -794,7 +773,7 @@ var QS=[
  ["Content and IA","What are the brand guidelines, theme direction and any design system?","W1–W2","Programme Owner"]
 ];
 var RAIDD=[
- ["R2","Risk","Incomplete existing discovery outputs","M","Shared in full by Day 1; Week 1 deep dive; gaps via change control. Plan B if files are late (see task t116)"],
+ ["R2","Risk","Incomplete existing discovery outputs","M","Shared in full by Day 1; Week 1 deep dive; gaps via change control. Plan B if files are late (see task t03)"],
  ["XD1","Risk (proposed)","No existing personas; personas and journeys are created from scratch in Week 1","M","Strawmen in Week −1, #8 workshop, 10 to 14 interviews, written comment on Fri 13 Nov, confirmation in Day 1 block 2. Add to RAIDD"],
  ["R3","Risk","Design-session decision-makers unavailable","H","Diaries held on signature; named attendees confirmed in Week 1"],
  ["R4","Risk","Decision and review latency","M","Empowered Programme Owner; decide in session; sign off as we go"],
@@ -806,7 +785,7 @@ var RAIDD=[
 ];
 var PRE=[
  ["Confirm venue and logistics","In person at an HT site (to be confirmed). Room with wall space for journey maps and sticky notes, seating for 10 to 12.","HT Programme Owner + Engagement Lead","t17"],
- ["Confirm attendees","4 to 6 HT stakeholders and the Product Owner, present both days. Slalom team of four: Experience Designer, Change Manager, Solution Architect, Engagement Lead.","HT Programme Owner","t18, t29"],
+ ["Confirm attendees","4 to 6 HT stakeholders and the Product Owner, present both days. Slalom team of four: Experience Designer, Change Manager, Solution Architect, Engagement Lead.","HT Programme Owner","t17, t29"],
  ["Share the discovery pre-read","Vision draft, persona v1 and journey assumptions (built in Week 1; no earlier persona set exists), circulated ahead so Day 1 starts with reactions, not reading.","Experience Designer","t46"],
  ["Prepare facilitation materials","Journey wall, requirement cards, voting dots, story templates, reference gallery, IA card-sort deck and a parking lot. The team rehearses the flow before Day 1.","Change Manager + Solution Architect (with XD)","t45, t48, t119"]
 ];

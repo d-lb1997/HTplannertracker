@@ -16,15 +16,13 @@ CFG.tasks.forEach(t => { days[t[0]] = t[1]; texts[t[0]] = t[3]; });
 // [xdId, caId, kind, note]
 // kinds: joint = same session, xd2ca = XD output feeds Change, ca2xd = Change output feeds XD, sync = align / shared artefact
 const PAIRS = [
- ["t07","c05","sync","Workplans reviewed together; shared sessions #8, #12, #14, #17, #23"],
- ["t08","c05","sync","Co-facilitation and note-taking roles for #8, #12, #13, #17"],
- ["t10","c03","ca2xd","Change history feeds the discovery input inventory"],
+ ["t115","c05","sync","Workplans and co-facilitation roles agreed together; shared sessions #8, #12, #14, #17, #23"],
+ ["t03","c03","ca2xd","Change history feeds the discovery input inventory"],
  ["t12","c10","xd2ca","Proto-personas (built from scratch, no existing set) are the basis of the change impact view"],
  ["t14","c19","ca2xd","Frontline site, participants, shift cover and languages come via the Change Lead"],
- ["t15","c11","ca2xd","Works council and HR needs are raised by the Change Manager"],
- ["t16","c11","ca2xd","Consent, recording and anonymity rules depend on works council answers"],
- ["t18","c09","sync","Design stakeholders and the stakeholder map should match"],
- ["t19","c16","sync","Both collect usage, search and survey baselines; ask the Programme Owner once"],
+ ["t14","c11","ca2xd","Works council and HR needs are raised by the Change Manager; consent and anonymity rules depend on the answers"],
+ ["t17","c09","sync","Design stakeholders and the stakeholder map should match"],
+ ["t114","c16","sync","Both collect usage, search and survey baselines; ask the Programme Owner once"],
  ["t22","c31","sync","Workshop pack should capture change impact and adoption barriers"],
  ["t26","c20","joint","Programme kickoff (#1)"],
  ["t27","c21","sync","Ways of Working canvas: agreed review and turnaround rules"],
