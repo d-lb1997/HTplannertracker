@@ -107,6 +107,20 @@ h3{font-size:1.05rem;margin:22px 0 8px}
 .dctl label.grow{flex:1;min-width:200px}
 .dctl select,.dctl input,td select{font:inherit;font-size:.9rem;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
 td input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+.phlegend{display:flex;gap:8px;margin:4px 0 8px}
+.phchip{font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:3px 12px;border-radius:99px;color:#fff}
+.ph1{--pc:#e3202c}.ph2{--pc:#0a58a8}.ph3{--pc:#0b0b0b}
+.phchip.ph1{background:#e3202c}.phchip.ph2{background:#0a58a8}.phchip.ph3{background:#0b0b0b;border:1px solid #555}
+table.phtable td.phase{width:84px;color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;vertical-align:middle;text-align:center;border-bottom:1px solid #fff;padding:6px}
+table.phtable td.phase.ph1{background:#e3202c}table.phtable td.phase.ph2{background:#0a58a8}table.phtable td.phase.ph3{background:#0b0b0b}
+table.phtable tr.blk td{border-left:0}
+table.phtable tr.blk td.t{box-shadow:inset 4px 0 0 var(--pc);padding-left:14px}
+table.phtable td.bn{font-weight:700}
+table.phtable tr.blk.ph1 td.bn{color:#e3202c}table.phtable tr.blk.ph2 td.bn{color:#0a58a8}table.phtable tr.blk.ph3 td.bn{color:var(--ink)}
+:root[data-theme="dark"] table.phtable tr.blk.ph1 td.bn{color:#ff8782}:root[data-theme="dark"] table.phtable tr.blk.ph2 td.bn{color:#8ea8e8}
+table.phtable td.lb{color:var(--muted);font-size:.86rem}
+table.phtable tr.brk td{background:var(--surface2);color:var(--muted);font-size:.86rem;padding-top:5px;padding-bottom:5px}
+table.phtable tr.brk td.t{font-weight:700}
 .task.done{background:var(--surface2)}
 .task.done label span.tx{color:var(--muted)}
 .task.done label span.tx{text-decoration:line-through}
@@ -505,44 +519,44 @@ var WS=[
  goal:"No persona set exists, so build up to six personas with HT from strawmen, draft journey assumptions for the top personas, and agree which personas are primary for Phase 1. Anything not yet evidenced stays marked as an assumption.",
  rows:[["0–10","Welcome and frame","Aim, ground rules. Explain that nothing exists yet: we build the personas together, and everything is a draft until tested","Shared purpose"],["10–30","Who are our people?","Silent brainwrite of employee groups and what makes them different (shift, site, language, device, role). Cluster into segments; use the business case user groups as a seed only","Segment clusters"],["30–50","React to the strawmen and fill the gaps","Small groups take one persona strawman each: true, not true, missing, who is not represented. Merge, split or add personas; use the blank template for new ones","Persona v1 cards with evidence markers"],["50–60","Choose primaries","Dot-vote primary and secondary personas for Phase 1","Primary personas"],["60–80","Journey assumptions","Pairs map three moments per top persona: steps, channel, device, pain, workaround. Mark each step as known, assumed or unknown","Journey assumption maps"],["80–85","Assumptions and who validates","Log every open assumption with how and when we test it (interviews, Day 1 block 2, usability) and who at HT can confirm it","Assumptions log"],["85–90","Close","Read back decisions; preview async comment and Day 1","Next steps"]],
  tips:["Bring strawmen, not finished personas. They exist to get reactions; label every fact as assumption or evidence.","Ask “who is missing?” before voting, especially frontline groups and the roughly 2,000 employees without a PC.","Keep frontline voices present with quotes from interviews, and record how each persona was built (workshop, interview, document).","Send persona v1 and the journey assumptions to attendees right after for written comment; the decision-makers confirm them in Day 1 block 2."]},
-{title:"Design session, Day 1 (#12): fast forward from discovery to concept",by:true,meta:["Mon 16 Nov","09:00–17:00 GMT, in person, 10 to 12 people","Slalom: XD, CM, SA, EL","HT: 4 to 6 stakeholders plus Product Owner"],
+{title:"Design session, Day 1 (#12): fast forward from discovery to concept",by:true,phases:{1:["Explore",1],2:["Explore",1],3:["Define",2],4:["Design",3]},meta:["Mon 16 Nov","09:00–17:00 GMT, in person, 10 to 12 people","Slalom: XD, CM, SA, EL","HT: 4 to 6 stakeholders plus Product Owner"],
  goal:"Align on vision and success, confirm personas and journeys with HT, map requirements to them, and leave with one agreed concept and a draft information architecture and site map. Phases: Explore, Define, Design.",
  rows:[
-  ["09:00–09:15","1.1 Welcome and ground rules (Explore)","HT Programme Owner and Slalom open the day. Confirm agenda, roles and ground rules; start the parking lot for anything out of scope","Ground rules, parking lot","CX + Change"],
+  ["09:00–09:15","1.1 Welcome and ground rules","HT Programme Owner and Slalom open the day. Confirm agenda, roles and ground rules; start the parking lot for anything out of scope","Ground rules, parking lot","CX + Change"],
   ["09:15–09:45","1.2 Test the vision","Draft vision: one intelligent, personalised digital home. Silent dot-vote on each word (agree, refine, challenge), then plenary to sharpen the statement","Confirmed vision statement","CX + Change"],
   ["09:45–10:15","1.3 Define success","Pairs brainwrite: “It is one year after launch. What is true for employees?” Cluster on the wall into 3 to 5 success measures, including adoption and findability","3 to 5 draft success measures","CX + Change"],
   ["10:15–10:30","Break","","",""],
-  ["10:30–11:00","2.1 Meet the personas (Explore)","Small groups each take one draft persona (built with HT in #8 and sharpened by interviews; there is no earlier persona set) and react: what rings true, what is missing, who is not represented. HT confirms, changes or rejects each one","Confirmed personas","CX + Change"],
+  ["10:30–11:00","2.1 Meet the personas","Small groups each take one draft persona (built with HT in #8 and sharpened by interviews; there is no earlier persona set) and react: what rings true, what is missing, who is not represented. HT confirms, changes or rejects each one","Confirmed personas","CX + Change"],
   ["11:00–11:45","2.2 Map the journeys","Journey mapping on the wall, starting from the journey assumptions drafted in #8. Groups map one priority journey end to end: steps, tools used, feelings, and where people leave to find help elsewhere. Mark each step as confirmed or still an assumption","Priority journeys, end to end","CX + Change"],
   ["11:45–12:15","2.3 Mark the moments that matter","Dot-vote on pain points and opportunities, then plenary to agree the top moments. HT stakeholders challenge and add what only they know","Pain-point and opportunity map","CX + Change"],
   ["12:15–13:00","Lunch","","",""],
-  ["13:00–13:30","3.1 Anchor requirements to journeys (Define)","Requirement cards placed against the journey map from Block 2. Show where each need lands and which moments have no requirement yet","Requirements mapped to journeys","CX + Architecture"],
+  ["13:00–13:30","3.1 Anchor requirements to journeys","Requirement cards placed against the journey map from Block 2. Show where each need lands and which moments have no requirement yet","Requirements mapped to journeys","CX + Architecture"],
   ["13:30–14:00","3.2 Surface gaps and dependencies","Group review with the Solution Architect. Log gaps, integration dependencies and open questions; flag feasibility concerns early","Gaps and dependencies log","CX + Architecture"],
   ["14:00–14:30","3.3 Prioritise with HT","Must, Should, Could sorting, then a plenary check against the success measures from Block 1. Agree what shapes the first release","Draft priority order","CX + Architecture"],
   ["14:30–14:45","Break","","",""],
-  ["14:45–15:05","4.1 References and design preferences (Design)","Gallery of 4 to 5 cleared intranet references plus Connect! home and department patterns, 3 screens each. Silent dot-vote: green = I like this, red = not for us, plus one word for the feel. Short plenary on why","Design preference map and 4 to 5 principles (look, tone, density, imagery)","CX + Change"],
+  ["14:45–15:05","4.1 References and design preferences","Gallery of 4 to 5 cleared intranet references plus Connect! home and department patterns, 3 screens each. Silent dot-vote: green = I like this, red = not for us, plus one word for the feel. Short plenary on why","Design preference map and 4 to 5 principles (look, tone, density, imagery)","CX + Change"],
   ["15:05–15:35","4.2 Sketch in pairs","Design studio. Mixed HT and Slalom pairs sketch how the intelligent home could look and behave, using the top moments, the Must requirements and the design principles as the brief","Concept sketches","CX + Change"],
   ["15:35–16:00","4.3 Share and critique","Gallery walk with sticky-note feedback (like, wish, what if), then a short plenary to pull out the strongest ideas and open questions","Strongest ideas, open questions","CX + Change"],
   ["16:00–16:30","4.4 Information architecture card sort","Hybrid card sort with about 25 cards (content types and functions from the Must requirements and the sketches) and 5 to 6 candidate headers. Three mixed groups sort, rename headers and add missing cards (10 min), compare results (10 min), agree the top navigation, department template and search facets (10 min)","Draft IA: top navigation, department template, facets","CX + Change"],
   ["16:30–17:00","4.5 Converge and play back","Facilitated plenary to agree one concept, the draft IA and site map, and a playback of what Day 1 decided","One concept, draft IA and site map, Day 1 playback, open questions for Day 2","CX + Change"]
  ],
  tips:["Agenda follows the Working Sessions deck (Blocks 1 to 4). Blocks 2 and 3 build on persona v1 from the persona workshop (#8), the interviews and the pre-read comments. No earlier personas exist, so show how each persona was built and mark thin evidence on the cards.","The reference vote (4.1) and the card sort (4.4) sit inside the Design block: the vote sets the look and feel before sketching, the card sort turns the sketches into a navigation structure. Both feed the IA and Branding deliverables.","Card sort with 10 to 12 people is directional. Photograph each group’s result and test the IA again in usability round 1.","Keep references to examples HT may see; check permissions and remove pricing before printing.","Evening (Slalom only): transcribe boards, write the Day 1 playback, start prototype v0 and prepare Day 2."]},
-{title:"Design session, Day 2 (#13): commit to a prioritised backlog",by:true,meta:["Tue 17 Nov","09:00–17:00 GMT, in person","HT: 4 to 6 stakeholders, Product Owner, Programme Owner signs"],
+{title:"Design session, Day 2 (#13): commit to a prioritised backlog",by:true,phases:{5:["Refine",1],6:["Refine",1],7:["Prioritise",2],8:["Commit",3]},meta:["Tue 17 Nov","09:00–17:00 GMT, in person","HT: 4 to 6 stakeholders, Product Owner, Programme Owner signs"],
  goal:"Refine the concept and scope, shape epics and user stories, rank and sequence the backlog, and leave with a signed-off backlog, a first change and adoption plan and next steps. Phases: Refine, Prioritise, Commit.",
  rows:[
-  ["09:00–09:20","5.1 Day 1 playback and reactions (Refine)","Slalom replays the concept and decisions from Day 1. Each HT participant adds one reaction on a sticky note: keep, change or worry","Reactions on the wall","Change + CX"],
+  ["09:00–09:20","5.1 Day 1 playback and reactions","Slalom replays the concept and decisions from Day 1. Each HT participant adds one reaction on a sticky note: keep, change or worry","Reactions on the wall","Change + CX"],
   ["09:20–09:50","5.2 Resolve open questions","Group the notes and the Day 1 parking lot into themes. Small groups take one theme each and report back with a proposed answer","Open questions resolved or owned","Change + CX"],
   ["09:50–10:15","5.3 Confirm the scope boundary","Plenary with a simple in, out, later board. Agree what the concept covers for the first release and what waits. Tag each item standard or tailored as it is placed (replaces a separate customization exercise)","Updated concept, scope boundary, light standard-or-tailored view","Change + CX"],
   ["10:15–10:30","Break","","",""],
-  ["10:30–11:05","6.1 Group requirements into epics (Refine)","Affinity grouping. Teams cluster the Must and Should requirements from Day 1 into epics, each tied to a journey moment","Epics linked to journeys","CX + Architecture"],
+  ["10:30–11:05","6.1 Group requirements into epics","Affinity grouping. Teams cluster the Must and Should requirements from Day 1 into epics, each tied to a journey moment","Epics linked to journeys","CX + Architecture"],
   ["11:05–11:50","6.2 Draft the user stories","Story workshop in mixed groups using “As a [employee], I want… so that…”. The Solution Architect checks feasibility as stories take shape","Draft user stories with acceptance notes","CX + Architecture"],
   ["11:50–12:15","6.3 Check against success","Walk the backlog against the success measures and personas. Spot gaps, duplicates and stories no one can explain","Gaps and duplicates list","CX + Architecture"],
   ["12:15–13:00","Lunch","","",""],
-  ["13:00–13:30","7.1 Value and effort sort (Prioritise)","2x2 wall exercise. HT stakeholders place each epic by employee value; the Solution Architect adds a first view of effort and complexity","Ranked backlog","Architecture + Programme"],
+  ["13:00–13:30","7.1 Value and effort sort","2x2 wall exercise. HT stakeholders place each epic by employee value; the Solution Architect adds a first view of effort and complexity","Ranked backlog","Architecture + Programme"],
   ["13:30–14:05","7.2 Draft the release sequence","Story-map slicing. Groups cut the map into a first release and later releases, keeping each slice useful to employees on its own","First-release scope, draft sequence","Architecture + Programme"],
   ["14:05–14:30","7.3 Test against risks and capacity","Pre-mortem: “It is launch day and it went badly. Why?” Capture risks and dependencies that could change the sequence","Risks and dependencies for RAIDD","Architecture + Programme"],
   ["14:30–14:45","Break","","",""],
-  ["14:45–15:30","8.1 Change and adoption readiness (Commit)","Stakeholder and impact mapping. Who is affected, what changes for them, and what support the first release needs (communications, training, Champions)","Change and adoption plan, first draft","Change + Programme"],
+  ["14:45–15:30","8.1 Change and adoption readiness","Stakeholder and impact mapping. Who is affected, what changes for them, and what support the first release needs (communications, training, Champions)","Change and adoption plan, first draft","Change + Programme"],
   ["15:30–16:30","8.2 Backlog sign-off","Structured walk-through of the ranked backlog with fist-of-five consent. Concerns are captured and resolved in the room or given an owner. Programme Owner signs","Signed-off backlog","Change + Programme"],
   ["16:30–17:00","8.3 Commitments and close","Round-robin check-out. Agree next steps, owners and dates (including prototype scope and the usability test tasks for Thu 19 Nov), review the parking lot, capture what worked and what to change","Next steps with owners and dates","Change + Programme"]
  ],
@@ -653,9 +667,26 @@ function renderTasks(){
 function refreshTasks(){renderStrip();renderNext();renderTasks();updateOverall()}
 
 /* ---------- workshops ---------- */
+function wsTable(w){
+  if(!w.phases){
+    return '<div class="tbl"><table><thead><tr><th>Time</th><th>Block</th><th>How</th><th>Output</th></tr></thead><tbody>'+w.rows.map(function(r){return '<tr><td class="t">'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>'}).join("")+'</tbody></table></div>';
+  }
+  var cur=null,rows=[];
+  w.rows.forEach(function(r){var m=/^(\d)\./.exec(r[1]);if(m)cur=w.phases[+m[1]];rows.push({r:r,p:cur,brk:!m})});
+  var h='<div class="phlegend">',seen={};
+  rows.forEach(function(x){if(x.p&&!seen[x.p[0]]){seen[x.p[0]]=1;h+='<span class="phchip ph'+x.p[1]+'">'+x.p[0]+'</span>'}});
+  h+='</div><div class="tbl"><table class="phtable"><thead><tr><th>Phase</th><th>Time</th><th>Block</th><th>How</th><th>Output</th><th>Led by</th></tr></thead><tbody>';
+  for(var i=0;i<rows.length;i++){
+    var x=rows[i],r=x.r,first=!rows[i-1]||rows[i-1].p[0]!==x.p[0],span=0;
+    if(first){for(var j=i;j<rows.length&&rows[j].p[0]===x.p[0];j++)span++}
+    h+='<tr class="'+(x.brk?'brk':'blk ph'+x.p[1])+'">'+(first?'<td class="phase ph'+x.p[1]+'" rowspan="'+span+'"><span>'+x.p[0]+'</span></td>':'')+'<td class="t">'+r[0]+'</td>'+
+      (x.brk?'<td colspan="4"><i>'+r[1]+'</i></td>':'<td class="bn">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td class="lb">'+(r[4]||'')+'</td>')+'</tr>';
+  }
+  return h+'</tbody></table></div>';
+}
 function renderWS(){
   $("wsbody").innerHTML=WS.map(function(w,i){
-    return '<details class="pb"'+(i===0?' open':'')+'><summary>'+w.title+'</summary><div class="in"><div class="meta">'+w.meta.map(function(m){return '<span>'+m+'</span>'}).join("")+'</div><p><b>Goal:</b> '+w.goal+'</p><div class="tbl"><table><thead><tr><th>Time</th><th>Block</th><th>How</th><th>Output</th>'+(w.by?'<th>Led by</th>':'')+'</tr></thead><tbody>'+w.rows.map(function(r){return '<tr><td class="t">'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td>'+(w.by?'<td>'+(r[4]||'')+'</td>':'')+'</tr>'}).join("")+'</tbody></table></div><ul class="plain">'+w.tips.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul></div></details>';
+    return '<details class="pb"'+(i===0?' open':'')+'><summary>'+w.title+'</summary><div class="in"><div class="meta">'+w.meta.map(function(m){return '<span>'+m+'</span>'}).join("")+'</div><p><b>Goal:</b> '+w.goal+'</p>'+wsTable(w)+'<ul class="plain">'+w.tips.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul></div></details>';
   }).join("");
 }
 
