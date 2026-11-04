@@ -77,7 +77,7 @@ const PAIRS = [
 const short = s => { s = s.replace(/\\"/g, '"'); return s.length > 90 ? s.slice(0, s.lastIndexOf(" ", 88)) + "…" : s; };
 const data = { xd: {}, ca: {} };
 for (const [x, c, kind, note] of PAIRS) {
-  if (!days[x] || !days[c]) throw new Error("Unknown id in pair " + x + " " + c);
+  if (!days[x] || !days[c]) { console.warn("skipping link, unknown id:", x, c); continue; }
   (data.xd[x] = data.xd[x] || []).push({ ws: "ca", id: c, kind, note, day: days[c], text: short(texts[c]) });
   (data.ca[c] = data.ca[c] || []).push({ ws: "xd", id: x, kind, note, day: days[x], text: short(texts[x]) });
 }
