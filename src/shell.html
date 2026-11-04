@@ -5,19 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>HT Discovery Plan and Tracker</title>
 <style>
-:root{--bg:#fff;--surface:#fff;--ink:#18202f;--muted:#525d78;--line:#d8deeb;--accent:#2e4e95;--accent-ink:#fff;--red:#b22420}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1626;--surface:#172036;--ink:#e8ecf6;--muted:#9aa6c4;--line:#2a3552;--accent:#8ea8e8;--accent-ink:#0f1626;--red:#ff8782}}
+:root{--bg:#fff;--surface:#fff;--ink:#18202f;--muted:#525d78;--line:#d8deeb;--accent:#2e4e95;--accent-ink:#fff;--accent-soft:#e3e9f6;--red:#b22420}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1626;--surface:#172036;--ink:#e8ecf6;--muted:#9aa6c4;--line:#2a3552;--accent:#8ea8e8;--accent-ink:#0f1626;--accent-soft:#1f2d58;--red:#ff8782}}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-header{flex:none;background:var(--surface);border-bottom:1px solid var(--line);border-top:5px solid var(--accent);padding:0 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-header strong{font-size:1rem;padding:10px 0;white-space:nowrap}
-[role=tablist]{display:flex;gap:4px;overflow-x:auto;padding:8px 0}
-[role=tab]{font:inherit;font-weight:600;border:0;background:none;color:var(--muted);padding:9px 18px;border-radius:99px;cursor:pointer;white-space:nowrap}
-[role=tab]:hover{color:var(--ink)}
-[role=tab][aria-selected=true]{background:var(--accent);color:var(--accent-ink)}
-[role=tab]:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-main{flex:1;min-height:0;position:relative}
+body{display:flex;flex-direction:row;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+aside.side{flex:none;width:232px;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:18px;padding:16px 10px 12px;transition:width .15s}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px;font-weight:800;font-size:.98rem;white-space:nowrap}
+.logo{flex:none;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent) 0 64%,var(--red) 64% 100%);color:#fff;display:grid;place-items:center;font-size:.8rem;font-weight:800}
+.navlabel{padding:0 8px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+[role=tablist]{display:flex;flex-direction:column;gap:4px}
+[role=tab]{font:inherit;font-weight:600;border:0;background:none;color:var(--muted);padding:8px 8px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left;width:100%;line-height:1.2}
+[role=tab] .ti{flex:none;width:30px;height:30px;border-radius:8px;background:var(--line);color:var(--ink);display:grid;place-items:center;font-size:.74rem;font-weight:800}
+[role=tab]:hover{background:var(--accent-soft);color:var(--ink)}
+[role=tab][aria-selected=true]{background:var(--accent-soft);color:var(--ink)}
+[role=tab][aria-selected=true] .ti{background:var(--accent);color:var(--accent-ink)}
+[role=tab]:focus-visible,.collapse:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.collapse{margin-top:auto;align-self:flex-start;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:8px;width:30px;height:30px;font:inherit;cursor:pointer}
+body.collapsed aside.side{width:62px;align-items:center;padding-left:6px;padding-right:6px}
+body.collapsed .tl,body.collapsed .brand span.bt,body.collapsed .navlabel{display:none}
+body.collapsed [role=tab]{width:auto;padding:6px}
+body.collapsed .brand{padding:0}
+body.collapsed .collapse{align-self:center}
+@media (max-width:720px){
+  body{flex-direction:column}
+  aside.side,body.collapsed aside.side{width:auto;flex-direction:row;align-items:center;gap:8px;padding:6px 10px;border-right:0;border-bottom:1px solid var(--line)}
+  .navlabel,.collapse{display:none}
+  [role=tablist]{flex-direction:row;overflow-x:auto}
+  [role=tab]{width:auto}
+  body.collapsed .tl{display:inline}
+  .brand span.bt{display:none}
+}
+main{flex:1;min-width:0;min-height:0;position:relative}
 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
 iframe[hidden]{display:none}
 #lock{position:fixed;inset:0;z-index:10;background:var(--bg);display:grid;place-items:center;padding:16px}
@@ -39,13 +58,17 @@ iframe[hidden]{display:none}
   <button type="submit">Unlock</button><div class="err" id="err" role="alert"></div>
 </form></div>
 <div id="app" hidden>
-<header>
-  <strong>HT Discovery</strong>
-  <div role="tablist" aria-label="Workstreams">
-    <button role="tab" id="t-xd" aria-controls="f-xd" aria-selected="true">Experience Design</button>
-    <button role="tab" id="t-ca" aria-controls="f-ca" aria-selected="false" tabindex="-1">Change and Adoption</button>
+<aside class="side">
+  <div class="brand"><span class="logo" aria-hidden="true">HT</span><span class="bt">Discovery</span></div>
+  <div>
+    <div class="navlabel" id="navlabel">Workstreams</div>
+    <div role="tablist" aria-label="Workstreams" aria-orientation="vertical">
+      <button role="tab" id="t-xd" aria-controls="f-xd" aria-selected="true" title="Experience Design"><span class="ti">XD</span><span class="tl">Experience Design</span></button>
+      <button role="tab" id="t-ca" aria-controls="f-ca" aria-selected="false" tabindex="-1" title="Change and Adoption"><span class="ti">CA</span><span class="tl">Change and Adoption</span></button>
+    </div>
   </div>
-</header>
+  <button class="collapse" id="collapse" type="button" aria-label="Collapse navigation" title="Collapse navigation">&#8249;</button>
+</aside>
 <main>
   <iframe id="f-xd" title="Experience Design plan and tracker"></iframe>
   <iframe id="f-ca" title="Change and Adoption plan and tracker" hidden></iframe>
@@ -67,11 +90,17 @@ window.HTBoot=function(URLS){
     var b=document.getElementById("t-"+t[0]);
     b.onclick=function(){show(t[0],true)};
     b.onkeydown=function(e){
-      if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;
-      var n=tabs[(i+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length][0];
+      if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].indexOf(e.key)<0)return;
+      e.preventDefault();
+      var fwd=e.key==="ArrowRight"||e.key==="ArrowDown";
+      var n=tabs[(i+(fwd?1:tabs.length-1))%tabs.length][0];
       show(n,true); document.getElementById("t-"+n).focus();
     };
   });
+  var cb=document.getElementById("collapse");
+  function setCollapsed(c){document.body.classList.toggle("collapsed",c);cb.innerHTML=c?"&#8250;":"&#8249;";cb.setAttribute("aria-label",c?"Expand navigation":"Collapse navigation");try{localStorage.setItem("ht-nav-collapsed",c?"1":"0")}catch(e){}}
+  cb.onclick=function(){setCollapsed(!document.body.classList.contains("collapsed"))};
+  try{if(localStorage.getItem("ht-nav-collapsed")==="1")setCollapsed(true)}catch(e){}
   var loaded={xd:false,ca:false},pending={};
   window.addEventListener("message",function(e){
     var m=e.data;if(!m)return;
