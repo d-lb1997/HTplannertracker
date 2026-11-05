@@ -571,6 +571,7 @@ function renderTasks(){
   var h="",lastW="",lastD="";
   list.forEach(function(x){
     var w=weekOf(x[1]);
+    if(w.k!==lastW&&selDay){lastW=w.k}
     if(w.k!==lastW){
       var wt=0,wd=0;T.forEach(function(y){if(weekOf(y[1]).k===w.k){wt++;if(S.done[y[0]])wd++}});
       h+='<div class="wk"><h3>'+w.label+': '+w.sub+'<span>'+wd+' of '+wt+' done</span></h3></div>';lastW=w.k;lastD="";
@@ -818,7 +819,7 @@ document.addEventListener("change",function(e){
 document.addEventListener("click",function(e){
   var b=e.target.closest&&e.target.closest("button");
   if(!b)return;
-  if(b.dataset.day){selDay=(selDay===b.dataset.day)?null:b.dataset.day;renderFilters();refreshTasks()}
+  if(b.dataset.day){selDay=(selDay===b.dataset.day)?null:b.dataset.day;renderFilters();refreshTasks();if(selDay){var fl=$("filters");if(fl)fl.scrollIntoView({block:"start",behavior:"smooth"})}}
   else if(b.dataset.f){filt=b.dataset.f;renderFilters();renderTasks()}
   else if(b.id==="clrday"){selDay=null;renderFilters();refreshTasks()}
   else if(b.id==="resetbtn"){
